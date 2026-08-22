@@ -843,22 +843,6 @@
         <div class="glass-grid" id="glass-grid">
           <!-- rendered by JS -->
         </div>
-        <div class="glass-color-section">
-          <div class="glass-color-label">Colore del vetro:</div>
-          <div class="glass-colors" id="glass-colors">
-            <!-- rendered by JS -->
-          </div>
-        </div>
-        <div class="opening-card" id="warmEdgeBlock" style="margin-top:20px;justify-content:space-between;border-color:var(--accent);background:#F0FDF4;">
-          <div>
-            <div class="opening-card-name" style="color:var(--accent);">Canalina calda (warm edge spacer)</div>
-            <div class="opening-card-desc">Distanziatore termicamente migliorato, riduce la condensa sui bordi, migliora il valore Uw della finestra fino a 0.1 W/m²K.</div>
-          </div>
-          <label class="toggle-label">
-            <input type="checkbox" id="warmEdge-glass" onchange="st.warmEdge=this.checked; document.getElementById('warmEdge-main').checked=this.checked; updatePreviewPanel();">
-            <span class="toggle-track"><span class="toggle-thumb"></span></span>
-          </label>
-        </div>
         <div class="val-error" id="err-6">Seleziona il tipo di vetro per continuare.</div>
       </div>
 
@@ -1638,19 +1622,6 @@ function renderGlassGrid() {
     }).join('');
   }
 
-  const warmEdgeBlock = document.getElementById('warmEdgeBlock');
-  if(warmEdgeBlock) warmEdgeBlock.style.display = isEntryDoor ? 'none' : 'flex';
-
-  const glassColorSection = document.querySelector('.glass-color-section');
-  if(glassColorSection) glassColorSection.style.display = isEntryDoor ? 'none' : 'block';
-
-  const gc = document.getElementById('glass-colors');
-  gc.innerHTML = GLASS_COLOR_OPTS.map(g => `
-    <div class="glass-color-chip${st.glassColor===g.id?' selected':''}"
-         onclick="selectGlassColor('${g.id}')" role="button" tabindex="0">
-      <div class="dot" style="background:${g.dot};" aria-hidden="true"></div>
-      ${g.name}
-    </div>`).join('');
 }
 
 function glassLayerIcon(id) {
@@ -1733,7 +1704,6 @@ function getConfigSpecs() {
     ['Apertura',        opInfo?.name||'N/D'],
     ['Colore profilo',  `${cInfo?.name||'N/D'} (${cInfo?.code||''})`],
     [isEntryDoor ? 'Pannello' : 'Vetro', gInfo?.name||'N/D'],
-    ['Colore vetro',    isEntryDoor ? 'N/A' : ((GLASS_COLOR_OPTS.find(x=>x.id===st.glassColor))?.name||'N/D')],
     ['Accessori',       accNames.length ? accNames.join(', ') : 'Nessuno'],
   ];
   if(st.extraSizes.length) {
@@ -2324,7 +2294,7 @@ function submitContact() {
     config_divisioni: specVal('Divisioni'),
     config_canalina:  specVal('Canalina calda'),
     config_colore:    specVal('Colore profilo'),
-    config_vetro:     (specVal('Vetro')!=='N/D' ? specVal('Vetro') : specVal('Pannello')) + ' - ' + specVal('Colore vetro'),
+    config_vetro:     (specVal('Vetro')!=='N/D' ? specVal('Vetro') : specVal('Pannello')),
     config_accessori: specVal('Accessori'),
     pdf_attachment:   pdfBase64,
   };

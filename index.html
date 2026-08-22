@@ -137,7 +137,7 @@
     .feature-card p { font-size:0.9rem; color:var(--text-mid); line-height:1.65; }
 
     /* PRODUCTS */
-    .products-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:800px; margin:0 auto; }
+    .products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
     .product-card { background:var(--bg-white); border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden; transition:box-shadow 250ms ease,transform 250ms ease; cursor:pointer; }
     .product-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-5px); }
     .product-img { width:100%; height:220px; background:var(--bg); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
@@ -296,7 +296,7 @@
 
     /* RESPONSIVE */
     @media (max-width: 1024px) {
-      .features-grid, .materials-grid, .ripristino-grid { grid-template-columns:repeat(2,1fr); }
+      .features-grid, .products-grid, .materials-grid, .ripristino-grid { grid-template-columns:repeat(2,1fr); }
       .steps-grid { grid-template-columns:repeat(2,1fr); }
       .steps-grid::before { display:none; }
       .footer-grid { grid-template-columns:1fr 1fr; gap:32px; }
@@ -593,19 +593,95 @@
     <div class="products-grid">
       <div class="product-card reveal">
         <div class="product-img">
+          <svg width="140" height="160" viewBox="0 0 140 160" class="product-window-svg">
+            <rect x="10" y="10" width="120" height="140" rx="3" fill="#BFDBFE" stroke="#1E40AF" stroke-width="6"/>
+            <rect x="22" y="22" width="96" height="116" rx="2" fill="#EFF6FF" stroke="#3B82F6" stroke-width="3"/>
+            <rect x="30" y="30" width="80" height="100" fill="rgba(147,197,253,0.3)" stroke="#93C5FD" stroke-width="1.5"/>
+            <polygon points="102,80 38,32 38,128" fill="rgba(30,64,175,0.1)" stroke="#1E40AF" stroke-width="1.2" stroke-linejoin="round" opacity=".8"/>
+          </svg>
+          <span class="product-badge">PVC · Legno · Alluminio</span>
+        </div>
+        <div class="product-body">
+          <h3>Finestra</h3>
+          <p>Anta con apertura laterale, singola o doppia. Disponibile in PVC, legno e alluminio, dimensioni su misura.</p>
+          <button class="btn-sm" onclick="location.href='configuratore.html?tipo=finestra'">
+            <svg viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
+            Configura ora
+          </button>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-img">
+          <svg width="120" height="160" viewBox="0 0 120 200" class="product-window-svg">
+            <rect x="8" y="8" width="104" height="184" rx="3" fill="#BFDBFE" stroke="#1E40AF" stroke-width="6"/>
+            <rect x="20" y="20" width="80" height="160" rx="2" fill="#93C5FD" stroke="#1E40AF" stroke-width="3"/>
+            <rect x="82" y="90" width="6" height="40" rx="3" fill="#1E40AF"/>
+          </svg>
+          <span class="product-badge">Sicurezza</span>
+        </div>
+        <div class="product-body">
+          <h3>Porta di Ingresso</h3>
+          <p>Porta blindata/di sicurezza su misura per l'ingresso di casa. Disponibile in PVC, legno e alluminio.</p>
+          <button class="btn-sm" onclick="location.href='configuratore.html?tipo=porta-ingresso'">
+            <svg viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
+            Configura ora
+          </button>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-img">
+          <svg width="160" height="140" viewBox="0 0 200 160" class="product-window-svg">
+            <rect x="10" y="10" width="180" height="140" rx="3" fill="#BFDBFE" stroke="#1E40AF" stroke-width="6"/>
+            <rect x="22" y="22" width="156" height="116" rx="2" fill="#EFF6FF" stroke="#3B82F6" stroke-width="3"/>
+            <rect x="30" y="80" width="140" height="14" rx="2" fill="#1E40AF"/>
+            <rect x="40" y="94" width="8" height="46" fill="#1E40AF"/>
+            <rect x="96" y="94" width="8" height="46" fill="#1E40AF"/>
+            <rect x="152" y="94" width="8" height="46" fill="#1E40AF"/>
+            <rect x="26" y="140" width="148" height="8" rx="2" fill="#1E40AF"/>
+          </svg>
+          <span class="product-badge">Vetro di sicurezza</span>
+        </div>
+        <div class="product-body">
+          <h3>Parapetto</h3>
+          <p>Ringhiera in vetro per balconi, scale e piscine. Configurazione rapida: solo misure e spessore del vetro.</p>
+          <button class="btn-sm" onclick="location.href='configuratore.html?tipo=parapetto'">
+            <svg viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
+            Configura ora
+          </button>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-img">
           <svg width="120" height="160" viewBox="0 0 120 200" class="product-window-svg">
             <rect x="8" y="8" width="104" height="184" rx="3" fill="#BFDBFE" stroke="#1E40AF" stroke-width="6"/>
             <rect x="20" y="20" width="80" height="160" rx="2" fill="#EFF6FF" stroke="#3B82F6" stroke-width="3"/>
             <rect x="28" y="28" width="64" height="144" fill="rgba(147,197,253,0.3)" stroke="#93C5FD" stroke-width="1.5"/>
-            <!-- ">" triangle: apex left-center, base at right -->
-            <polygon points="30,100 90,30 90,170" fill="rgba(30,64,175,0.1)" stroke="#1E40AF" stroke-width="1.2" stroke-linejoin="round" opacity=".8"/>
+            <polygon points="90,100 30,30 30,170" fill="rgba(30,64,175,0.1)" stroke="#1E40AF" stroke-width="1.2" stroke-linejoin="round" opacity=".8"/>
           </svg>
           <span class="product-badge">Su misura</span>
         </div>
         <div class="product-body">
-          <h3>Porte Finestra</h3>
-          <p>1 o 2 ante, altezze fino a 2.8 m. Perfette per terrazze e balconi. Con o senza soglia rialzata.</p>
-          <button class="btn-sm" onclick="location.href='configuratore.html'">
+          <h3>Porta Finestra</h3>
+          <p>1 o 2 ante, altezze fino a 2.4 m. Perfette per terrazze e balconi. Con o senza soglia rialzata.</p>
+          <button class="btn-sm" onclick="location.href='configuratore.html?tipo=porta-finestra'">
+            <svg viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
+            Configura ora
+          </button>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-img">
+          <svg width="140" height="160" viewBox="0 0 140 160" class="product-window-svg">
+            <rect x="10" y="10" width="120" height="140" rx="3" fill="#BFDBFE" stroke="#1E40AF" stroke-width="6"/>
+            <rect x="22" y="22" width="96" height="116" rx="2" fill="#EFF6FF" stroke="#3B82F6" stroke-width="3"/>
+            <rect x="30" y="30" width="80" height="100" fill="rgba(147,197,253,0.3)" stroke="#93C5FD" stroke-width="1.5"/>
+          </svg>
+          <span class="product-badge">Massima luce</span>
+        </div>
+        <div class="product-body">
+          <h3>Vetro Fisso</h3>
+          <p>Pannello fisso non apribile, per la massima luminosità. Disponibile in PVC, legno e alluminio.</p>
+          <button class="btn-sm" onclick="location.href='configuratore.html?tipo=vetro-fisso'">
             <svg viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
             Configura ora
           </button>
@@ -628,8 +704,8 @@
         </div>
         <div class="product-body">
           <h3>Finestre Scorrevoli</h3>
-          <p>Sistemi scorrevoli e fissi. Massima luminosità e praticità.</p>
-          <button class="btn-sm" onclick="location.href='configuratore.html'">
+          <p>Sistemi scorrevoli a 2 o 3 ante. Massima luminosità e praticità.</p>
+          <button class="btn-sm" onclick="location.href='configuratore.html?tipo=scorrevole'">
             <svg viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
             Configura ora
           </button>

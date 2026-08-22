@@ -137,7 +137,7 @@
     .feature-card p { font-size:0.9rem; color:var(--text-mid); line-height:1.65; }
 
     /* PRODUCTS */
-    .products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    .products-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:800px; margin:0 auto; }
     .product-card { background:var(--bg-white); border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden; transition:box-shadow 250ms ease,transform 250ms ease; cursor:pointer; }
     .product-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-5px); }
     .product-img { width:100%; height:220px; background:var(--bg); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
@@ -250,23 +250,6 @@
     .ripristino-card h3 { font-size:1rem; font-weight:600; color:var(--primary-dark); margin-bottom:8px; }
     .ripristino-card p { font-size:0.875rem; color:var(--text-mid); line-height:1.6; }
 
-    /* REVIEWS */
-    .reviews-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-    .review-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius-md); padding:28px; transition:box-shadow 200ms ease,transform 200ms ease; }
-    .review-card:hover { box-shadow:var(--shadow-md); transform:translateY(-3px); }
-    .review-stars { display:flex; gap:3px; margin-bottom:14px; }
-    .review-stars svg { width:18px; height:18px; fill:#FBBF24; }
-    .review-text { font-size:0.9rem; color:var(--text-mid); line-height:1.7; margin-bottom:18px; font-style:italic; }
-    .review-author { display:flex; align-items:center; gap:12px; }
-    .review-avatar { width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Poppins',sans-serif; font-size:1rem; font-weight:700; color:#fff; flex-shrink:0; }
-    .review-avatar.a { background:#1E40AF; }
-    .review-avatar.b { background:#16A34A; }
-    .review-avatar.c { background:#7C3AED; }
-    .review-author-info strong { display:block; font-size:0.9rem; font-weight:600; color:var(--text-dark); }
-    .review-author-info span { font-size:0.78rem; color:var(--text-light); }
-    .review-google-badge { display:inline-flex; align-items:center; gap:6px; background:var(--bg); border:1px solid var(--border); border-radius:100px; padding:4px 12px; font-size:0.72rem; font-weight:600; color:var(--text-mid); margin-bottom:32px; }
-    .review-google-badge svg { width:14px; height:14px; }
-
     /* FAQ */
     .faq-list { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
     details.faq-item { background:#fff; border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden; }
@@ -286,6 +269,8 @@
     /* CONTACT */
     .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
     .contact-info { display:flex; flex-direction:column; gap:24px; }
+    .contact-map { border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden; }
+    .contact-map iframe { display:block; }
     .contact-info-item { display:flex; gap:16px; align-items:flex-start; }
     .contact-info-icon { width:44px; height:44px; background:var(--bg); border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .contact-info-icon svg { width:22px; height:22px; fill:var(--primary); }
@@ -311,7 +296,7 @@
 
     /* RESPONSIVE */
     @media (max-width: 1024px) {
-      .features-grid, .products-grid, .materials-grid, .ripristino-grid, .reviews-grid { grid-template-columns:repeat(2,1fr); }
+      .features-grid, .materials-grid, .ripristino-grid { grid-template-columns:repeat(2,1fr); }
       .steps-grid { grid-template-columns:repeat(2,1fr); }
       .steps-grid::before { display:none; }
       .footer-grid { grid-template-columns:1fr 1fr; gap:32px; }
@@ -324,7 +309,7 @@
       .hero-visual { display:none; }
       .hero-stats { gap:20px; }
       .section { padding:64px 0; }
-      .features-grid, .products-grid, .materials-grid, .ripristino-grid, .reviews-grid, .projects-grid { grid-template-columns:1fr; }
+      .features-grid, .products-grid, .materials-grid, .ripristino-grid, .projects-grid { grid-template-columns:1fr; }
       .steps-grid { grid-template-columns:1fr; gap:24px; }
       .why-grid, .rilievi-grid, .contact-grid { grid-template-columns:1fr; gap:40px; }
       .form-row { grid-template-columns:1fr; }
@@ -593,13 +578,6 @@
         <h3>Rilievi in Situ</h3>
         <p>Tecnico specializzato disponibile per misurazioni professionali a domicilio. Risultato preciso garantito.</p>
       </div>
-      <div class="feature-card reveal">
-        <div class="feature-icon red">
-          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        </div>
-        <h3>Microventilazione di Serie</h3>
-        <p>Ribalta e microventilazione incluse di serie. Gestione ottimale dell'aria senza rinunciare alla sicurezza.</p>
-      </div>
     </div>
   </div>
 </section>
@@ -613,29 +591,6 @@
       <p class="section-sub">Ogni prodotto è configurabile nelle dimensioni, colore, vetro e accessori. Realizzato su misura per la tua abitazione.</p>
     </div>
     <div class="products-grid">
-      <div class="product-card reveal">
-        <div class="product-img">
-          <svg width="140" height="160" viewBox="0 0 140 160" class="product-window-svg">
-            <rect x="10" y="10" width="120" height="140" rx="3" fill="#BFDBFE" stroke="#1E40AF" stroke-width="6"/>
-            <rect x="22" y="22" width="96" height="116" rx="2" fill="#EFF6FF" stroke="#3B82F6" stroke-width="3"/>
-            <rect x="30" y="30" width="80" height="100" fill="rgba(147,197,253,0.3)" stroke="#93C5FD" stroke-width="1.5"/>
-            <line x1="70" y1="22" x2="70" y2="138" stroke="#1E40AF" stroke-width="3"/>
-            <!-- left panel ">" triangle: apex left-center, base at center bar -->
-            <polygon points="32,80 68,32 68,128" fill="rgba(30,64,175,0.1)" stroke="#1E40AF" stroke-width="1.2" stroke-linejoin="round" opacity=".8"/>
-            <!-- right panel "<" triangle: apex right-center, base at center bar -->
-            <polygon points="108,80 72,32 72,128" fill="rgba(30,64,175,0.1)" stroke="#1E40AF" stroke-width="1.2" stroke-linejoin="round" opacity=".8"/>
-          </svg>
-          <span class="product-badge">PVC · Legno · Alluminio</span>
-        </div>
-        <div class="product-body">
-          <h3>Finestre Standard</h3>
-          <p>1 o 2 ante, ribalta, ribalta-basculante. Disponibili in PVC, legno e alluminio. Dimensioni su misura.</p>
-          <button class="btn-sm" onclick="location.href='configuratore.html'">
-            <svg viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
-            Configura ora
-          </button>
-        </div>
-      </div>
       <div class="product-card reveal">
         <div class="product-img">
           <svg width="120" height="160" viewBox="0 0 120 200" class="product-window-svg">
@@ -672,8 +627,8 @@
           <span class="product-badge">Triplo vetro</span>
         </div>
         <div class="product-body">
-          <h3>Finestre Scorrevoli & Speciali</h3>
-          <p>Sistemi scorrevoli, alzanti-scorrevoli, fissi e geometrie speciali. Massima luminosità e praticità.</p>
+          <h3>Finestre Scorrevoli</h3>
+          <p>Sistemi scorrevoli e fissi. Massima luminosità e praticità.</p>
           <button class="btn-sm" onclick="location.href='configuratore.html'">
             <svg viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
             Configura ora
@@ -1031,81 +986,6 @@
   </div>
 </section>
 
-<!-- REVIEWS -->
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-header center">
-      <div class="section-label">Recensioni verificate</div>
-      <h2 class="section-title">Cosa dicono del nostro produttore</h2>
-      <p class="section-sub">Le nostre finestre sono prodotte dal nostro produttore europeo certificato, con eccellenti valutazioni su Google Maps.</p>
-    </div>
-    <div style="text-align:center; margin-bottom:32px;">
-      <div class="review-google-badge">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
-          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-        </svg>
-        ★ 4.9 su Google Maps · Il nostro Produttore
-      </div>
-    </div>
-    <div class="reviews-grid">
-      <div class="review-card reveal">
-        <div class="review-stars">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <p class="review-text">"Qualità dei serramenti eccellente. Il profilo PVC è solido e ben rifinito, le guarnizioni perfette. Siamo rimasti sorpresi dal livello di precisione nella produzione. Consegna puntuale e imballaggio ottimale."</p>
-        <div class="review-author">
-          <div class="review-avatar a">M</div>
-          <div class="review-author-info">
-            <strong>Marco T.</strong>
-            <span>Verificato · Google Maps</span>
-          </div>
-        </div>
-      </div>
-      <div class="review-card reveal">
-        <div class="review-stars">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <p class="review-text">"Ho ordinato 14 finestre in PVC con triplo vetro. La qualità è notevole: ottima tenuta termica, nessun ponte termico. Il servizio clienti è stato disponibile e preciso nelle risposte. Consigliatissimo."</p>
-        <div class="review-author">
-          <div class="review-avatar b">A</div>
-          <div class="review-author-info">
-            <strong>Ana S.</strong>
-            <span>Verificato · Google Maps</span>
-          </div>
-        </div>
-      </div>
-      <div class="review-card reveal">
-        <div class="review-stars">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <p class="review-text">"Produttore molto affidabile. Le finestre corrispondono esattamente alle specifiche ordinate. La canalina calda fa davvero la differenza in inverno: zero condensa sui vetri. Tempi rispettati, qualità top."</p>
-        <div class="review-author">
-          <div class="review-avatar c">R</div>
-          <div class="review-author-info">
-            <strong>Ricardo F.</strong>
-            <span>Verificato · Google Maps</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FAQ -->
 <section class="section" id="faq">
   <div class="container">
@@ -1116,8 +996,8 @@
     </div>
     <div class="faq-list">
       <details class="faq-item">
-        <summary class="faq-q">Che marca di profilo PVC usate?</summary>
-        <div class="faq-a">Utilizziamo il profilo <strong>DECCO 71</strong>, un profilo PVC di alta qualità con camera a 6 camere, guarnizioni EPDM e ferramenta di qualità europea. Garantisce ottime performance termiche e acustiche.</div>
+        <summary class="faq-q">Che tipo di profilo PVC utilizzate?</summary>
+        <div class="faq-a">Utilizziamo profili PVC di alta qualità selezionati tra i migliori produttori europei, con camera a 6 camere, guarnizioni EPDM e ferramenta di qualità europea. Garantiscono ottime performance termiche e acustiche.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q">Quali sono i tempi di produzione e consegna?</summary>
@@ -1140,10 +1020,6 @@
         <div class="faq-a">Sì, tutti i nostri serramenti hanno la <strong>marcatura CE</strong>, obbligatoria per la commercializzazione in Europa. Garantisce il rispetto delle normative europee in termini di resistenza, isolamento termico e acustico, e tenuta all'aria e all'acqua.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-q">Cosa è incluso di serie in ogni finestra?</summary>
-        <div class="faq-a">Ogni finestra include di serie: <strong>microventilazione</strong> (posizione di aerazione sicura) e apertura a <strong>ribalta</strong>. Queste funzionalità sono standard su tutti i nostri serramenti senza costi aggiuntivi.</div>
-      </details>
-      <details class="faq-item">
         <summary class="faq-q">Come avviene il trasporto?</summary>
         <div class="faq-a">Le finestre vengono trasportate su <strong>camion dedicato</strong> direttamente dalla fabbrica. Il camion arriva <strong>2-5 giorni</strong> dopo il completamento della produzione. Tutto viene imballato in modo sicuro per garantire l'integrità durante il trasporto.</div>
       </details>
@@ -1157,7 +1033,7 @@
       </details>
       <details class="faq-item">
         <summary class="faq-q">Offrite il servizio di montaggio?</summary>
-        <div class="faq-a">Le finestre vengono consegnate <strong>direttamente dalla Polonia</strong> senza servizio di montaggio incluso. L'installazione è a cura del cliente o di un installatore locale. Siamo disponibili per indicarti le migliori pratiche di installazione.</div>
+        <div class="faq-a">Il montaggio fa parte del pacchetto se richiesto, sempre previo preventivo e check in situ. Se preferisci, l'installazione può comunque essere a cura tua o di un installatore locale: siamo disponibili per indicarti le migliori pratiche di installazione.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q">Offrite il servizio di rilevazione misure a domicilio?</summary>
@@ -1235,6 +1111,9 @@
             <strong>P.IVA</strong>
             <span>05516400263</span>
           </div>
+        </div>
+        <div class="contact-map">
+          <iframe src="https://www.google.com/maps?q=Via+Levada+34,+31050+Povegliano,+Italia&output=embed" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mappa: Via Levada 34, Povegliano"></iframe>
         </div>
       </div>
       <div>
@@ -1319,7 +1198,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2024 Vetro Connections · P.IVA 05516400263</span>
+      <span>© 2026 Vetro Connections · P.IVA 05516400263</span>
       <span>Via Levada 34, 31050 Povegliano (TV), Italia</span>
       <span>Tutti i diritti riservati</span>
     </div>

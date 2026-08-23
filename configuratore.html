@@ -761,54 +761,9 @@
         <div class="val-error" id="err-2">Inserisci dimensioni valide.</div>
       </div>
 
-      <!-- ── STEP 3: DIVISIONI ─────────────────────────── -->
+      <!-- ── STEP 3: CANALINA CALDA ─────────────────────── -->
       <div class="step-content" id="sc-3">
-        <p style="font-size:.875rem;color:var(--text-mid);margin-bottom:20px;">Aggiungi traverse orizzontali per dividere il vetro in più sezioni. Opzionale, puoi procedere senza.</p>
         <div style="display:flex;flex-direction:column;gap:14px;">
-          <div class="opening-card" id="div-row" style="justify-content:space-between;">
-            <div>
-              <div class="opening-card-name">Traversa orizzontale</div>
-              <div class="opening-card-desc">Divide il vetro in due o più sezioni distinte</div>
-            </div>
-            <label class="toggle-label">
-              <input type="checkbox" id="div-toggle" onchange="onDivToggle(this.checked)">
-              <span class="toggle-track"><span class="toggle-thumb"></span></span>
-            </label>
-          </div>
-          <div id="div-fields" style="display:none;flex-direction:column;gap:12px;">
-            <div class="form-group">
-              <label for="div-pos1">Posizione traversa 1 (mm dal basso)</label>
-              <input type="number" id="div-pos1" min="100" max="2000" value="600" step="10" />
-              <span class="hint">Distanza dal pavimento interno</span>
-            </div>
-            <div class="opening-card" style="justify-content:space-between;">
-              <div>
-                <div class="opening-card-name">Traversa simmetrica</div>
-                <div class="opening-card-desc">La traversa viene posizionata al centro esatto</div>
-              </div>
-              <label class="toggle-label">
-                <input type="checkbox" id="div-sym" onchange="onDivSym(this.checked)">
-                <span class="toggle-track"><span class="toggle-thumb"></span></span>
-              </label>
-            </div>
-            <div class="opening-card" style="justify-content:space-between;">
-              <div>
-                <div class="opening-card-name">Seconda traversa</div>
-                <div class="opening-card-desc">Aggiunge un secondo elemento divisore orizzontale</div>
-              </div>
-              <label class="toggle-label">
-                <input type="checkbox" id="div-two" onchange="onDivTwo(this.checked)">
-                <span class="toggle-track"><span class="toggle-thumb"></span></span>
-              </label>
-            </div>
-            <div id="div-fields2" style="display:none;">
-              <div class="form-group">
-                <label for="div-pos2">Posizione traversa 2 (mm dal basso)</label>
-                <input type="number" id="div-pos2" min="100" max="2000" value="1100" step="10" />
-                <span class="hint">Deve essere superiore alla traversa 1</span>
-              </div>
-            </div>
-          </div>
           <div class="opening-card" style="justify-content:space-between;border-color:var(--accent);background:#F0FDF4;">
             <div>
               <div class="opening-card-name" style="color:var(--accent);">Canalina calda (warm edge spacer)</div>
@@ -990,7 +945,7 @@
 const STEPS_FULL = [
   { id:1, contentId:1, lbl:'Tipo',       title:'Tipo di Prodotto',           desc:'Seleziona il prodotto che desideri configurare' },
   { id:2, contentId:2, lbl:'Dimensioni', title:'Dimensioni',                 desc:'Inserisci larghezza e altezza in millimetri' },
-  { id:3, contentId:3, lbl:'Divisioni',  title:'Divisioni e Canalina Calda', desc:'Aggiungi traverse orizzontali e canalina calda (opzionale)' },
+  { id:3, contentId:3, lbl:'Canalina',   title:'Canalina Calda',             desc:'Aggiungi la canalina calda (opzionale)' },
   { id:4, contentId:4, lbl:'Apertura',   title:'Tipo di Apertura',           desc:'Come si apre il tuo prodotto?' },
   { id:5, contentId:5, lbl:'Colore',     title:'Colore del Profilo',         desc:'Scegli il colore del tuo profilo' },
   { id:6, contentId:6, lbl:'Vetro',      title:'Tipo di Vetro',              desc:'Seleziona la vetrocamera per le tue esigenze di isolamento' },
@@ -1692,14 +1647,10 @@ function getConfigSpecs() {
   const matLabel = { pvc:'PVC', legno:'Legno', alluminio:'Alluminio' }[st.material] || 'PVC';
   const accOpts = isEntryDoor ? ENTRY_ACCESSORY_OPTS : ACCESSORY_OPTS;
   const accNames = [...st.accessories].map(id=>accOpts.find(x=>x.id===id)?.name).filter(Boolean);
-  const divText = st.divEnabled
-    ? `Sì, traversa a ${st.divSymmetric?'centro':st.divPos1+' mm'}${st.divPos2?' + '+st.divPos2+' mm':''}`
-    : 'No';
   const specs = [
     ['Materiale',       matLabel],
     ['Tipo',            tInfo?.name||'N/D'],
     ['Dimensioni',      `${st.width} × ${st.height} mm`],
-    ['Divisioni',       divText],
     ['Canalina calda',  st.warmEdge ? 'Sì (warm edge spacer)' : 'No'],
     ['Apertura',        opInfo?.name||'N/D'],
     ['Colore profilo',  `${cInfo?.name||'N/D'} (${cInfo?.code||''})`],
@@ -2291,7 +2242,7 @@ function submitContact() {
     config_tipo:      specVal('Tipo'),
     config_dimensioni:specVal('Dimensioni') + (st.extraSizes.length ? ` | Altri pezzi: ${specVal('Altri pezzi richiesti')}` : ''),
     config_apertura:  specVal('Apertura'),
-    config_divisioni: specVal('Divisioni'),
+    config_divisioni: 'N/A',
     config_canalina:  specVal('Canalina calda'),
     config_colore:    specVal('Colore profilo'),
     config_vetro:     (specVal('Vetro')!=='N/D' ? specVal('Vetro') : specVal('Pannello')),
@@ -2316,44 +2267,6 @@ function submitContact() {
       errEl.classList.add('show');
     });
 }
-
-// Divisioni handlers
-function onDivToggle(checked) {
-  st.divEnabled = checked;
-  const fields = document.getElementById('div-fields');
-  fields.style.display = checked ? 'flex' : 'none';
-  if (!checked) {
-    st.divPos2 = null;
-    st.divSymmetric = false;
-    document.getElementById('div-two').checked = false;
-    document.getElementById('div-sym').checked = false;
-    document.getElementById('div-fields2').style.display = 'none';
-  }
-  updatePreviewPanel();
-}
-function onDivSym(checked) {
-  st.divSymmetric = checked;
-  if (checked) {
-    st.divPos1 = Math.round(st.height / 2);
-    document.getElementById('div-pos1').value = st.divPos1;
-  }
-  updatePreviewPanel();
-}
-function onDivTwo(checked) {
-  const f2 = document.getElementById('div-fields2');
-  f2.style.display = checked ? 'block' : 'none';
-  if (!checked) st.divPos2 = null;
-  else st.divPos2 = parseInt(document.getElementById('div-pos2').value) || 1100;
-  updatePreviewPanel();
-}
-document.getElementById('div-pos1').addEventListener('input', e => {
-  st.divPos1 = parseInt(e.target.value)||600;
-  updatePreviewPanel();
-});
-document.getElementById('div-pos2').addEventListener('input', e => {
-  st.divPos2 = parseInt(e.target.value)||1100;
-  updatePreviewPanel();
-});
 
 // Keyboard support for cards
 document.addEventListener('keydown', e => {

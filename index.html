@@ -203,7 +203,8 @@
     .projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
     .project-card { border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--border); transition:box-shadow 250ms ease,transform 250ms ease; cursor:pointer; }
     .project-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-4px); }
-    .project-img { width:100%; height:200px; display:flex; align-items:center; justify-content:center; position:relative; }
+    .project-img { width:100%; height:200px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+    .project-photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
     .project-img.p1 { background:linear-gradient(135deg,#1E3A8A 0%,#3B82F6 100%); }
     .project-img.p2 { background:linear-gradient(135deg,#78350F 0%,#D97706 100%); }
     .project-img.p3 { background:linear-gradient(135deg,#374151 0%,#9CA3AF 100%); }
@@ -863,10 +864,7 @@
     <div class="projects-grid">
       <div class="project-card reveal">
         <div class="project-img p1">
-          <svg width="80" height="90" viewBox="0 0 140 160" class="project-img-svg">
-            <rect x="10" y="10" width="120" height="140" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <line x1="70" y1="10" x2="70" y2="150" stroke="#fff" stroke-width="3"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-pvc.jpg" alt="Installazione PVC">
           <span class="project-label">PVC · Bianco</span>
         </div>
         <div class="project-body">
@@ -876,10 +874,7 @@
       </div>
       <div class="project-card reveal">
         <div class="project-img p2">
-          <svg width="80" height="110" viewBox="0 0 120 180" class="project-img-svg">
-            <rect x="8" y="8" width="104" height="164" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <rect x="20" y="20" width="80" height="140" fill="none" stroke="#fff" stroke-width="2"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-legno.jpg" alt="Installazione Legno">
           <span class="project-label">Legno · Rovere</span>
         </div>
         <div class="project-body">
@@ -889,10 +884,7 @@
       </div>
       <div class="project-card reveal">
         <div class="project-img p3">
-          <svg width="110" height="80" viewBox="0 0 200 140" class="project-img-svg">
-            <rect x="10" y="10" width="180" height="120" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <line x1="100" y1="10" x2="100" y2="130" stroke="#fff" stroke-width="3"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-alluminio.jpg" alt="Installazione Alluminio">
           <span class="project-label">Alluminio · Antracite</span>
         </div>
         <div class="project-body">
@@ -902,11 +894,7 @@
       </div>
       <div class="project-card reveal">
         <div class="project-img p4">
-          <svg width="80" height="90" viewBox="0 0 140 160" class="project-img-svg">
-            <rect x="10" y="10" width="120" height="140" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <line x1="70" y1="10" x2="70" y2="150" stroke="#fff" stroke-width="3"/>
-            <polygon points="12,80 68,32 68,128" fill="rgba(255,255,255,0.12)" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" opacity=".7"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-pvc.jpg" alt="Installazione PVC">
           <span class="project-label">PVC · Grigio</span>
         </div>
         <div class="project-body">
@@ -916,9 +904,7 @@
       </div>
       <div class="project-card reveal">
         <div class="project-img p5">
-          <svg width="80" height="110" viewBox="0 0 120 180" class="project-img-svg">
-            <rect x="8" y="8" width="104" height="164" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-legno.jpg" alt="Installazione Legno">
           <span class="project-label">Legno · Pino</span>
         </div>
         <div class="project-body">
@@ -928,12 +914,7 @@
       </div>
       <div class="project-card reveal">
         <div class="project-img p6">
-          <svg width="110" height="80" viewBox="0 0 200 140" class="project-img-svg">
-            <rect x="10" y="10" width="180" height="120" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <line x1="100" y1="10" x2="100" y2="130" stroke="#fff" stroke-width="3"/>
-            <polygon points="12,70 96,16 96,124" fill="rgba(255,255,255,0.12)" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" opacity=".7"/>
-            <polygon points="188,70 104,16 104,124" fill="rgba(255,255,255,0.12)" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" opacity=".7"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-alluminio.jpg" alt="Installazione Alluminio">
           <span class="project-label">Alluminio · Nero</span>
         </div>
         <div class="project-body">

@@ -109,7 +109,8 @@
     .project-card { border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--border); transition:box-shadow 250ms ease,transform 250ms ease; cursor:pointer; }
     .project-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-5px); }
     .project-card.hidden { display:none; }
-    .project-img { width:100%; height:240px; display:flex; align-items:center; justify-content:center; position:relative; }
+    .project-img { width:100%; height:240px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+    .project-photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
     .project-img.p1  { background:linear-gradient(135deg,#1E3A8A 0%,#3B82F6 100%); }
     .project-img.p2  { background:linear-gradient(135deg,#78350F 0%,#D97706 100%); }
     .project-img.p3  { background:linear-gradient(135deg,#374151 0%,#9CA3AF 100%); }
@@ -315,12 +316,7 @@
 
       <div class="project-card reveal" data-mat="pvc">
         <div class="project-img p1">
-          <svg width="90" height="100" viewBox="0 0 140 160">
-            <rect x="10" y="10" width="120" height="140" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <line x1="70" y1="10" x2="70" y2="150" stroke="#fff" stroke-width="3"/>
-            <polygon points="12,80 68,12 68,148" fill="rgba(255,255,255,0.12)" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" opacity=".7"/>
-            <polygon points="128,80 72,12 72,148" fill="rgba(255,255,255,0.12)" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" opacity=".7"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-pvc.jpg" alt="Installazione PVC">
           <span class="project-mat-badge mat-pvc">PVC</span>
         </div>
         <div class="project-body">
@@ -336,11 +332,7 @@
 
       <div class="project-card reveal" data-mat="legno">
         <div class="project-img p2">
-          <svg width="70" height="110" viewBox="0 0 120 180">
-            <rect x="8" y="8" width="104" height="164" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <rect x="20" y="20" width="80" height="140" fill="none" stroke="#fff" stroke-width="2" opacity=".5"/>
-            <polygon points="22,90 98,22 98,158" fill="rgba(255,255,255,0.12)" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" opacity=".7"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-legno.jpg" alt="Installazione Legno">
           <span class="project-mat-badge mat-legno">Legno</span>
         </div>
         <div class="project-body">
@@ -356,12 +348,7 @@
 
       <div class="project-card reveal" data-mat="alluminio">
         <div class="project-img p3">
-          <svg width="110" height="80" viewBox="0 0 200 140">
-            <rect x="10" y="10" width="180" height="120" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <line x1="100" y1="10" x2="100" y2="130" stroke="#fff" stroke-width="3"/>
-            <polygon points="12,70 96,12 96,128" fill="rgba(255,255,255,0.12)" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" opacity=".7"/>
-            <polygon points="188,70 104,12 104,128" fill="rgba(255,255,255,0.12)" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" opacity=".7"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-alluminio.jpg" alt="Installazione Alluminio">
           <span class="project-mat-badge mat-allu">Alluminio</span>
         </div>
         <div class="project-body">
@@ -377,11 +364,7 @@
 
       <div class="project-card reveal" data-mat="pvc">
         <div class="project-img p4">
-          <svg width="90" height="100" viewBox="0 0 140 160">
-            <rect x="10" y="10" width="120" height="140" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <line x1="70" y1="10" x2="70" y2="150" stroke="#fff" stroke-width="3"/>
-            <polygon points="12,80 68,12 68,148" fill="rgba(255,255,255,0.12)" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" opacity=".7"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-pvc.jpg" alt="Installazione PVC">
           <span class="project-mat-badge mat-pvc">PVC</span>
         </div>
         <div class="project-body">
@@ -397,10 +380,7 @@
 
       <div class="project-card reveal" data-mat="legno">
         <div class="project-img p5">
-          <svg width="70" height="110" viewBox="0 0 120 180">
-            <rect x="8" y="8" width="104" height="164" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <line x1="60" y1="8" x2="60" y2="172" stroke="#fff" stroke-width="2" opacity=".5"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-legno.jpg" alt="Installazione Legno">
           <span class="project-mat-badge mat-legno">Legno</span>
         </div>
         <div class="project-body">
@@ -416,12 +396,7 @@
 
       <div class="project-card reveal" data-mat="alluminio">
         <div class="project-img p6">
-          <svg width="110" height="80" viewBox="0 0 200 140">
-            <rect x="10" y="10" width="180" height="120" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <line x1="100" y1="10" x2="100" y2="130" stroke="#fff" stroke-width="3"/>
-            <polygon points="12,65 96,12 96,118" fill="rgba(255,255,255,0.12)" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" opacity=".7"/>
-            <polygon points="188,65 104,12 104,118" fill="rgba(255,255,255,0.12)" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" opacity=".7"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-alluminio.jpg" alt="Installazione Alluminio">
           <span class="project-mat-badge mat-allu">Alluminio</span>
         </div>
         <div class="project-body">
@@ -437,11 +412,7 @@
 
       <div class="project-card reveal" data-mat="pvc">
         <div class="project-img p7">
-          <svg width="90" height="100" viewBox="0 0 140 160">
-            <rect x="10" y="10" width="120" height="140" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <line x1="10" y1="80" x2="130" y2="80" stroke="#fff" stroke-width="2" opacity=".5"/>
-            <line x1="70" y1="10" x2="70" y2="150" stroke="#fff" stroke-width="2" opacity=".5"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-pvc.jpg" alt="Installazione PVC">
           <span class="project-mat-badge mat-pvc">PVC</span>
         </div>
         <div class="project-body">
@@ -457,10 +428,7 @@
 
       <div class="project-card reveal" data-mat="legno">
         <div class="project-img p8">
-          <svg width="110" height="80" viewBox="0 0 200 140">
-            <rect x="10" y="10" width="180" height="120" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <line x1="10" y1="70" x2="190" y2="70" stroke="#fff" stroke-width="2" opacity=".5"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-legno.jpg" alt="Installazione Legno">
           <span class="project-mat-badge mat-legno">Legno</span>
         </div>
         <div class="project-body">
@@ -476,11 +444,7 @@
 
       <div class="project-card reveal" data-mat="alluminio">
         <div class="project-img p9">
-          <svg width="90" height="100" viewBox="0 0 140 200">
-            <rect x="10" y="10" width="120" height="180" rx="3" fill="none" stroke="#fff" stroke-width="6"/>
-            <line x1="10" y1="70" x2="130" y2="70" stroke="#fff" stroke-width="2" opacity=".5"/>
-            <line x1="10" y1="130" x2="130" y2="130" stroke="#fff" stroke-width="2" opacity=".5"/>
-          </svg>
+          <img class="project-photo" src="images/progetto-alluminio.jpg" alt="Installazione Alluminio">
           <span class="project-mat-badge mat-allu">Alluminio</span>
         </div>
         <div class="project-body">

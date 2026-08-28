@@ -251,6 +251,8 @@
       transition: border-color var(--t), background var(--t);
     }
     .opening-card.selected .radio-dot { border-color: var(--primary); background: var(--primary); }
+    .opening-card.toggle-card .radio-dot { border-radius: 4px; }
+    .opening-divider { font-size: 0.75rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: .03em; margin: 6px 0 -2px; }
 
     /* ── COLOR STEP (step 4) ──────────────── */
     .color-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
@@ -983,13 +985,11 @@ const OPENING_OPTS = {
     { id:'1a-dx', name:'1 anta, apertura interno destra',  desc:'Cerniere a sinistra, apre verso interno' },
     { id:'1a-sx', name:'1 anta, apertura interno sinistra', desc:'Cerniere a destra, apre verso interno' },
     { id:'2a',    name:'2 ante, entrambe verso interno',   desc:'Ampia apertura a doppia anta' },
-    { id:'vasistas', name:'Vasistas',                      desc:'Cerniere in alto, apre verso l\'esterno in basso' },
   ],
   'porta-finestra': [
     { id:'1a-dx', name:'1 anta, apertura interno destra',  desc:'Cerniere a sinistra, apre verso interno' },
     { id:'1a-sx', name:'1 anta, apertura interno sinistra', desc:'Cerniere a destra, apre verso interno' },
     { id:'2a',    name:'2 ante, entrambe verso interno',   desc:'Ampia apertura a doppia anta' },
-    { id:'vasistas', name:'Vasistas',                      desc:'Cerniere in alto, apre verso l\'esterno in basso' },
   ],
   'porta-ingresso': [
     { id:'int-dx', name:'Apertura interno destra',  desc:'Cerniere a sinistra, apre verso l\'interno' },
@@ -1082,6 +1082,7 @@ const st = {
   divSymmetric: false,
   warmEdge: false,
   opening: null,
+  vasistasExtra: false,
   color: 'ral9016',
   glass: 'doppio-lowe',
   glassColor: 'chiaro',
@@ -1138,7 +1139,7 @@ function buildPreviewSVG(compact) {
   const G = 3; // gap
 
   const type = st.type;
-  const op = st.opening;
+  const op = st.opening || (st.vasistasExtra ? 'vasistas' : null);
   const isDouble = (type === 'porta-finestra' || type === 'finestra') && op === '2a';
   const isDoor = type === 'porta-finestra' || type === 'porta-ingresso';
   const isRibalta = false;
@@ -1537,7 +1538,8 @@ function renderThicknessChips() {
 function renderOpeningGrid() {
   const opts = OPENING_OPTS[st.type] || OPENING_OPTS['porta-finestra'];
   const el = document.getElementById('opening-grid');
-  el.innerHTML = opts.map(o => `
+  const showVasistas = st.type === 'finestra' || st.type === 'porta-finestra';
+  const mainCards = opts.map(o => `
     <div class="opening-card${st.opening===o.id?' selected':''}"
          onclick="selectOpening('${o.id}')"
          role="button" tabindex="0" aria-pressed="${st.opening===o.id}">
@@ -1548,6 +1550,19 @@ function renderOpeningGrid() {
       </div>
       <div class="radio-dot" aria-hidden="true"></div>
     </div>`).join('');
+  const vasistasToggle = showVasistas ? `
+    <div class="opening-divider">Opzione aggiuntiva</div>
+    <div class="opening-card toggle-card${st.vasistasExtra?' selected':''}"
+         onclick="toggleVasistas()"
+         role="button" tabindex="0" aria-pressed="${st.vasistasExtra}">
+      <div class="opening-card-icon" aria-hidden="true">${openingIcon('vasistas')}</div>
+      <div>
+        <div class="opening-card-name">Vasistas</div>
+        <div class="opening-card-desc">Da sola: finestra vasistas pura. Insieme a un'altra apertura: vasistas aggiuntivo.</div>
+      </div>
+      <div class="radio-dot" aria-hidden="true"></div>
+    </div>` : '';
+  el.innerHTML = mainCards + vasistasToggle;
 }
 
 function openingIcon(id) {
@@ -1666,6 +1681,10 @@ function getConfigSpecs() {
   const gInfo  = panelOrGlassOpts.find(x=>x.id===st.glass);
   const cInfo  = COLOR_OPTS.find(x=>x.id===st.color);
   const opInfo = (OPENING_OPTS[st.type]||[]).find(x=>x.id===st.opening);
+  let openingLabel = 'N/D';
+  if(st.opening && st.vasistasExtra) openingLabel = `${opInfo?.name||'N/D'} + Vasistas`;
+  else if(st.opening) openingLabel = opInfo?.name||'N/D';
+  else if(st.vasistasExtra) openingLabel = 'Vasistas';
   const matLabel = { pvc:'PVC', legno:'Legno', alluminio:'Alluminio' }[st.material] || 'PVC';
   const accOpts = isEntryDoor ? ENTRY_ACCESSORY_OPTS : ACCESSORY_OPTS;
   const accNames = [...st.accessories].map(id=>accOpts.find(x=>x.id===id)?.name).filter(Boolean);
@@ -1674,7 +1693,7 @@ function getConfigSpecs() {
     ['Tipo',            tInfo?.name||'N/D'],
     ['Dimensioni',      `${st.width} × ${st.height} mm`],
     ['Canalina calda',  st.warmEdge ? 'Sì (warm edge spacer)' : 'No'],
-    ['Apertura',        opInfo?.name||'N/D'],
+    ['Apertura',        openingLabel],
     ['Colore profilo',  `${cInfo?.name||'N/D'} (${cInfo?.code||''})`],
     [isEntryDoor ? 'Pannello' : 'Vetro', gInfo?.name||'N/D'],
     ['Accessori',       accNames.length ? accNames.join(', ') : 'Nessuno'],
@@ -1772,6 +1791,7 @@ function selectMaterial(id) {
 function selectType(id) {
   st.type = id;
   st.opening = id === 'vetro-fisso' ? 'fisso-fix' : null;
+  st.vasistasExtra = false;
   st.color = null;
   st.glass = null;
 
@@ -1820,9 +1840,16 @@ function applyPreset(w, h) {
 
 function selectOpening(id) {
   st.opening = id;
-  document.querySelectorAll('.opening-card').forEach(c => {
+  document.querySelectorAll('.opening-card:not(.toggle-card)').forEach(c => {
     c.classList.toggle('selected', c.getAttribute('onclick')?.includes(`'${id}'`));
   });
+  updatePreviewPanel();
+}
+
+function toggleVasistas() {
+  st.vasistasExtra = !st.vasistasExtra;
+  const el = document.querySelector('.opening-card.toggle-card');
+  if(el) { el.classList.toggle('selected', st.vasistasExtra); el.setAttribute('aria-pressed', st.vasistasExtra); }
   updatePreviewPanel();
 }
 
@@ -1881,7 +1908,7 @@ function validate(step) {
     return dimsOk;
   }
   if(cid===3) return true; // divisioni optional
-  if(cid===4) return !!st.opening;
+  if(cid===4) return !!st.opening || !!st.vasistasExtra;
   if(cid===5) return !!st.color;
   if(cid===6) return !!st.glass;
   if(cid===7) return true; // accessories optional

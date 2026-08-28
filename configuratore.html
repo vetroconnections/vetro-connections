@@ -2092,7 +2092,7 @@ function renderSuccessRecap() {
     ).join('');
 }
 
-function buildPDFBase64() {
+function buildPDFDoc() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
 
@@ -2194,7 +2194,8 @@ function buildPDFBase64() {
   doc.text('Vetro Connections · P.IVA 05516400263 · Via Levada 34, 31050 Povegliano (TV)', W/2, 285, {align:'center'});
   doc.text(`${refNum} · ${date}`, W/2, 289, {align:'center'});
 
-  return doc.output('datauristring').split(',')[1];
+  doc.refNum = refNum;
+  return doc;
 }
 
 function submitContact() {
@@ -2212,8 +2213,11 @@ function submitContact() {
   btn.disabled = true;
   btn.innerHTML = 'Invio in corso...';
 
-  let pdfBase64 = '';
-  try { pdfBase64 = buildPDFBase64(); } catch(e) { console.warn('PDF generation failed', e); }
+  let pdfDoc = null, pdfBase64 = '';
+  try {
+    pdfDoc = buildPDFDoc();
+    pdfBase64 = pdfDoc.output('datauristring').split(',')[1];
+  } catch(e) { console.warn('PDF generation failed', e); }
 
   const specs = getConfigSpecs();
   const specVal = k => specs.find(([sk]) => sk === k)?.[1] || 'N/D';
@@ -2258,6 +2262,10 @@ function submitContact() {
       document.getElementById('success-screen-wrap').style.display = 'block';
       document.getElementById('btn-back').style.display = 'none';
       document.getElementById('btn-next').style.display = 'none';
+      if(pdfDoc) {
+        try { pdfDoc.save(`Preventivo-VetroConnections-${pdfDoc.refNum}.pdf`); }
+        catch(e) { console.warn('PDF download failed', e); }
+      }
     })
     .catch(() => {
       btn.disabled = false;

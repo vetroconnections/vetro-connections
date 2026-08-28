@@ -983,11 +983,13 @@ const OPENING_OPTS = {
     { id:'1a-dx', name:'1 anta, apertura interno destra',  desc:'Cerniere a sinistra, apre verso interno' },
     { id:'1a-sx', name:'1 anta, apertura interno sinistra', desc:'Cerniere a destra, apre verso interno' },
     { id:'2a',    name:'2 ante, entrambe verso interno',   desc:'Ampia apertura a doppia anta' },
+    { id:'vasistas', name:'Vasistas',                      desc:'Cerniere in alto, apre verso l\'esterno in basso' },
   ],
   'porta-finestra': [
     { id:'1a-dx', name:'1 anta, apertura interno destra',  desc:'Cerniere a sinistra, apre verso interno' },
     { id:'1a-sx', name:'1 anta, apertura interno sinistra', desc:'Cerniere a destra, apre verso interno' },
     { id:'2a',    name:'2 ante, entrambe verso interno',   desc:'Ampia apertura a doppia anta' },
+    { id:'vasistas', name:'Vasistas',                      desc:'Cerniere in alto, apre verso l\'esterno in basso' },
   ],
   'porta-ingresso': [
     { id:'int-dx', name:'Apertura interno destra',  desc:'Cerniere a sinistra, apre verso l\'interno' },
@@ -1105,6 +1107,11 @@ function ribTri(x, y, w, h) {
   const m = Math.min(w,h)*0.06;
   const x0=x+m, x1=x+w-m, y0=y+m, y1=y+h-m, midX=(x0+x1)/2;
   return `<polygon points="${x0},${y1} ${x1},${y1} ${midX},${y0}" fill="rgba(245,158,11,0.18)" stroke="#F59E0B" stroke-width="1.5" stroke-linejoin="round" opacity=".85"/>`;
+}
+function vasistasTri(x, y, w, h) {
+  const m = Math.min(w,h)*0.06;
+  const x0=x+m, x1=x+w-m, y0=y+m, y1=y+h-m, midX=(x0+x1)/2;
+  return `<polygon points="${x0},${y0} ${x1},${y0} ${midX},${y1}" fill="rgba(245,158,11,0.18)" stroke="#F59E0B" stroke-width="1.5" stroke-linejoin="round" opacity=".85"/>`;
 }
 
 function buildPreviewSVG(compact) {
@@ -1255,17 +1262,23 @@ function buildPreviewSVG(compact) {
     // Opening indicators — triangles
     const gx=sx2+S, gy=sy2+S;
     if(!isFisso) {
-      if(isRibalta) parts.push(ribTri(gx,gy,gw,gh));
-      if(op==='rib-dx'||op==='1a-dx'||op==='int-dx'||(!op&&!isRibalta)) {
-        parts.push(openTri('<',gx,gy,gw,gh));
-      } else if(op==='rib-sx'||op==='1a-sx'||op==='int-sx') {
-        parts.push(openTri('>',gx,gy,gw,gh));
-      }
+      if(op==='vasistas') {
+        parts.push(vasistasTri(gx,gy,gw,gh));
+        // Handle, centered at bottom
+        parts.push(`<rect x="${sx2+sw/2-11}" y="${sy2+sh-S-6}" width="22" height="4" rx="2" fill="#888"/>`);
+      } else {
+        if(isRibalta) parts.push(ribTri(gx,gy,gw,gh));
+        if(op==='rib-dx'||op==='1a-dx'||op==='int-dx'||(!op&&!isRibalta)) {
+          parts.push(openTri('<',gx,gy,gw,gh));
+        } else if(op==='rib-sx'||op==='1a-sx'||op==='int-sx') {
+          parts.push(openTri('>',gx,gy,gw,gh));
+        }
 
-      // Handle
-      const hOnLeft = op==='rib-sx'||op==='1a-sx'||op==='int-sx';
-      const hX = hOnLeft ? sx2+S+2 : sx2+sw-S-6;
-      parts.push(`<rect x="${hX}" y="${sy2+sh/2-11}" width="4" height="22" rx="2" fill="#888"/>`);
+        // Handle
+        const hOnLeft = op==='rib-sx'||op==='1a-sx'||op==='int-sx';
+        const hX = hOnLeft ? sx2+S+2 : sx2+sw-S-6;
+        parts.push(`<rect x="${hX}" y="${sy2+sh/2-11}" width="4" height="22" rx="2" fill="#888"/>`);
+      }
     }
   }
 
@@ -1540,6 +1553,7 @@ function renderOpeningGrid() {
 function openingIcon(id) {
   const box = `<rect x="3" y="3" width="22" height="22" rx="2" stroke="#3B82F6" stroke-width="2" fill="#DBEAFE"/>`;
   if(id==='ribalta') return `<svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">${box}<polygon points="5,23 23,23 14,5" fill="rgba(245,158,11,0.2)" stroke="#F59E0B" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+  if(id==='vasistas') return `<svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">${box}<line x1="3" y1="3" x2="25" y2="3" stroke="#1E40AF" stroke-width="2"/><polygon points="5,5 23,5 14,23" fill="rgba(245,158,11,0.2)" stroke="#F59E0B" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
   // Hinge line marks the fixed side; the triangle's wide base sits on that
   // same side, its tip points to the opening/handle side.
   if(id.includes('dx')) return `<svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">${box}<line x1="3" y1="3" x2="3" y2="25" stroke="#1E40AF" stroke-width="2"/><polygon points="23,14 5,5 5,23" fill="rgba(30,64,175,0.12)" stroke="#1E40AF" stroke-width="1.2" stroke-linejoin="round"/></svg>`;

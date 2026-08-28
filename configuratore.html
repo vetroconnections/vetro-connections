@@ -1662,7 +1662,7 @@ function renderAccList() {
     </div>`).join('');
 }
 
-function getConfigSpecs() {
+function getConfigSpecs(pieceOverride) {
   if(st.type === 'parapetto') {
     const g = PARAPETTO_GLASS_OPTS.find(x=>x.id===st.glass);
     const glassLabel = st.glass === 'altro'
@@ -1688,20 +1688,66 @@ function getConfigSpecs() {
   const matLabel = { pvc:'PVC', legno:'Legno', alluminio:'Alluminio' }[st.material] || 'PVC';
   const accOpts = isEntryDoor ? ENTRY_ACCESSORY_OPTS : ACCESSORY_OPTS;
   const accNames = [...st.accessories].map(id=>accOpts.find(x=>x.id===id)?.name).filter(Boolean);
+  const dimsLabel = pieceOverride
+    ? `${pieceOverride.w} × ${pieceOverride.h} mm${pieceOverride.qty>1?` × ${pieceOverride.qty} pezzi`:''}`
+    : `${st.width} × ${st.height} mm`;
   const specs = [
     ['Materiale',       matLabel],
     ['Tipo',            tInfo?.name||'N/D'],
-    ['Dimensioni',      `${st.width} × ${st.height} mm`],
+    ['Dimensioni',      dimsLabel],
     ['Canalina calda',  st.warmEdge ? 'Sì (warm edge spacer)' : 'No'],
     ['Apertura',        openingLabel],
     ['Colore profilo',  `${cInfo?.name||'N/D'} (${cInfo?.code||''})`],
     [isEntryDoor ? 'Pannello' : 'Vetro', gInfo?.name||'N/D'],
     ['Accessori',       accNames.length ? accNames.join(', ') : 'Nessuno'],
   ];
-  if(st.extraSizes.length) {
+  if(!pieceOverride && st.extraSizes.length) {
     specs.push(['Altri pezzi richiesti', st.extraSizes.map(s => `${s.qty}× ${s.w}×${s.h} mm`).join(', ')]);
   }
   return specs;
+}
+
+// Renders buildPreviewSVG for the given width/height (temporarily overriding
+// st.width/height) and rasterizes it to a PNG data URL for use in the PDF,
+// since jsPDF cannot embed raw SVG markup.
+function svgToPngDataUrl(svgString, srcW, srcH, scale) {
+  return new Promise((resolve, reject) => {
+    const svgBlob = new Blob([svgString], {type:'image/svg+xml;charset=utf-8'});
+    const url = URL.createObjectURL(svgBlob);
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = srcW * scale;
+      canvas.height = srcH * scale;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#F0F4F8';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(url);
+      resolve(canvas.toDataURL('image/jpeg', 0.82));
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
+async function imageUrlToDataUrl(url) {
+  const res = await fetch(url);
+  const blob = await res.blob();
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function getPiecePreviewImage(piece) {
+  const origW = st.width, origH = st.height;
+  st.width = piece.w; st.height = piece.h;
+  const svg = buildPreviewSVG(true);
+  st.width = origW; st.height = origH;
+  return svgToPngDataUrl(svg, 220, 200, 1.5);
 }
 
 function renderSummary() {
@@ -2141,7 +2187,7 @@ function renderSuccessRecap() {
     ).join('');
 }
 
-function buildPDFDoc() {
+async function buildPDFDoc() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
 
@@ -2205,23 +2251,71 @@ function buildPDFDoc() {
   doc.setDrawColor(191,219,254);
   doc.setLineWidth(0.4);
   doc.line(M, y, W-M, y);
-  y += 5;
-
-  const specs = getConfigSpecs();
-
-  specs.forEach(([k,v], i) => {
-    if(i%2===0) { doc.setFillColor(249,250,251); doc.rect(M, y-2, CW, 8, 'F'); }
-    doc.setFont('helvetica','bold');
-    doc.setFontSize(8);
-    doc.setTextColor(100,116,139);
-    doc.text(k, M+3, y+3);
-    doc.setFont('helvetica','normal');
-    doc.setTextColor(30,41,59);
-    doc.text(v, M+68, y+3, {maxWidth: CW-70});
-    y += 8;
-  });
-
   y += 6;
+
+  // ── One block per piece: preview icon on the left, full config on the right ──
+  const pieces = st.type === 'parapetto'
+    ? [{ w: st.width, h: st.height, qty: 1 }]
+    : [{ w: st.width, h: st.height, qty: 1 }, ...st.extraSizes];
+
+  const imgW = 40, imgH = imgW * 200/220, gapX = 6, padTB = 4, rowH = 7;
+  const specX = M + imgW + gapX;
+  const specW = CW - imgW - gapX;
+
+  for (let pi = 0; pi < pieces.length; pi++) {
+    const piece = pieces[pi];
+    let imgData, imgFormat;
+    try {
+      if (st.type === 'parapetto') {
+        imgData = await imageUrlToDataUrl('images/parapetto.jpg');
+        imgFormat = 'JPEG';
+      } else {
+        imgData = await getPiecePreviewImage(piece);
+        imgFormat = 'JPEG';
+      }
+    } catch(e) { console.warn('PDF preview image failed', e); }
+
+    const specs = getConfigSpecs(st.type === 'parapetto' ? undefined : piece);
+    const blockInnerH = Math.max(imgH, specs.length * rowH);
+    const blockH = blockInnerH + padTB * 2;
+
+    if (y + blockH > 270) { doc.addPage(); y = 20; }
+
+    if (pieces.length > 1) {
+      doc.setFont('helvetica','bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(30,64,175);
+      doc.text(`PEZZO ${pi+1}${piece.qty>1?` (×${piece.qty})`:''}`, M, y);
+      y += 4;
+      if (y + blockH > 270) { doc.addPage(); y = 20; }
+    }
+
+    doc.setDrawColor(226,232,240);
+    doc.setLineWidth(0.3);
+    doc.roundedRect(M, y, CW, blockH, 2, 2, 'S');
+
+    if (imgData) {
+      try { doc.addImage(imgData, imgFormat, M+3, y+padTB, imgW-6, imgH-4); }
+      catch(e) { console.warn('PDF addImage failed', e); }
+    }
+
+    const labelW = 30;
+    specs.forEach(([k,v], i) => {
+      const ry = y + padTB + i*rowH;
+      if(i%2===0) { doc.setFillColor(249,250,251); doc.rect(specX, ry-2, specW, rowH, 'F'); }
+      doc.setFont('helvetica','bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(100,116,139);
+      doc.text(k, specX+3, ry+3);
+      doc.setFont('helvetica','normal');
+      doc.setTextColor(30,41,59);
+      doc.text(String(v), specX+labelW, ry+3, {maxWidth: specW-labelW-3});
+    });
+
+    y += blockH + 8;
+  }
+
+  y += 2;
 
   // ── Note box ──
   doc.setFillColor(240,253,244);
@@ -2247,7 +2341,7 @@ function buildPDFDoc() {
   return doc;
 }
 
-function submitContact() {
+async function submitContact() {
   const nome  = document.getElementById('cf-nome').value.trim();
   const email = document.getElementById('cf-email').value.trim();
   const tel   = document.getElementById('cf-tel').value.trim();
@@ -2264,7 +2358,7 @@ function submitContact() {
 
   let pdfDoc = null, pdfBase64 = '';
   try {
-    pdfDoc = buildPDFDoc();
+    pdfDoc = await buildPDFDoc();
     pdfBase64 = pdfDoc.output('datauristring').split(',')[1];
   } catch(e) { console.warn('PDF generation failed', e); }
 
@@ -2312,7 +2406,7 @@ function submitContact() {
       document.getElementById('btn-back').style.display = 'none';
       document.getElementById('btn-next').style.display = 'none';
       if(pdfDoc) {
-        try { pdfDoc.save(`Preventivo-VetroConnections-${pdfDoc.refNum}.pdf`); }
+        try { pdfDoc.save(`Riepilogo-VetroConnections-${pdfDoc.refNum}.pdf`); }
         catch(e) { console.warn('PDF download failed', e); }
       }
     })

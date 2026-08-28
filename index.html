@@ -46,6 +46,9 @@
     .logo-icon svg { width:22px; height:22px; fill:#fff; }
     .logo-text { font-family:'Poppins',sans-serif; font-size:1.25rem; font-weight:700; color:var(--primary-dark); }
     .logo-text span { color:var(--accent); }
+    .nav-phone { display:flex; align-items:center; gap:6px; font-size:0.85rem; font-weight:600; color:var(--primary-dark); white-space:nowrap; }
+    .nav-phone svg { width:16px; height:16px; fill:var(--accent); flex-shrink:0; }
+    .nav-phone:hover { color:var(--accent); }
     .nav-links { display:flex; align-items:center; gap:4px; list-style:none; }
     .nav-links a { font-size:0.875rem; font-weight:500; color:var(--text-mid); padding:8px 12px; border-radius:var(--radius-sm); transition:color var(--transition),background var(--transition); }
     .nav-links a:hover { color:var(--primary); background:var(--bg); }
@@ -308,6 +311,7 @@
     }
     @media (max-width: 768px) {
       .nav-links { display:none; }
+      .nav-phone { display:none; }
       .hamburger { display:flex; }
       .hero { padding:60px 0 50px; }
       .hero-grid { grid-template-columns:1fr; gap:40px; }
@@ -384,6 +388,10 @@
         <li><a href="#servizi">Servizi</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#contatti">Contatti</a></li>
+        <li><a href="tel:+393455086065" class="nav-phone">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.56.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.49a1 1 0 011 1 11.36 11.36 0 00.57 3.56 1 1 0 01-.25 1.02l-2.2 2.21z"/></svg>
+          +39 345 5086065
+        </a></li>
         <li><a href="configuratore.html" class="nav-cta">Configura Ora</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Menu">

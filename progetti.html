@@ -132,6 +132,8 @@
     .mat-pvc  { background:rgba(30,64,175,.75); color:#fff; }
     .mat-legno  { background:rgba(120,53,15,.75); color:#fff; }
     .mat-allu  { background:rgba(55,65,81,.75); color:#fff; }
+    .mat-doccia  { background:rgba(8,145,178,.75); color:#fff; }
+    .mat-parapetto  { background:rgba(180,83,9,.75); color:#fff; }
     .project-body { background:#fff; padding:18px 22px; }
     .project-body h4 { font-size:1rem; font-weight:600; color:var(--primary-dark); margin-bottom:4px; }
     .project-body p { font-size:0.82rem; color:var(--text-mid); line-height:1.6; margin-bottom:12px; }
@@ -319,6 +321,8 @@
       <button class="filter-btn" onclick="filterProjects('pvc', this)">PVC</button>
       <button class="filter-btn" onclick="filterProjects('legno', this)">Legno</button>
       <button class="filter-btn" onclick="filterProjects('alluminio', this)">Alluminio</button>
+      <button class="filter-btn" onclick="filterProjects('vetridoccia', this)">Vetri doccia</button>
+      <button class="filter-btn" onclick="filterProjects('parapetti', this)">Parapetti</button>
     </div>
 
     <div class="projects-grid" id="projects-grid">
@@ -326,144 +330,66 @@
       <div class="project-card reveal" data-mat="pvc">
         <div class="project-img p1">
           <img class="project-photo" src="images/progetto-pvc.jpg" alt="Installazione PVC">
-          <span class="project-mat-badge mat-pvc">PVC</span>
+          <span class="project-mat-badge mat-pvc">PVC · Bianco</span>
         </div>
         <div class="project-body">
-          <h4>Appartamento residenziale, Treviso</h4>
-          <p>Sostituzione completa di 8 finestre 2 ante in PVC bianco RAL 9016 con triplo vetro low-e e canalina calda.</p>
-          <div class="project-tags">
-            <span class="project-tag">PVC Bianco</span>
-            <span class="project-tag">Triplo vetro</span>
-            <span class="project-tag">8 unità</span>
-          </div>
+          <h4>Villa a schiera</h4>
+          <p>Finestre 2 ante PVC bianco, porta ingresso, scorrevole, triplo vetro low-e</p>
         </div>
       </div>
 
-      <div class="project-card reveal" data-mat="legno">
+      <div class="project-card reveal" data-mat="pvc">
         <div class="project-img p2">
           <img class="project-photo" src="images/progetto-legno.jpg" alt="Installazione Legno">
-          <span class="project-mat-badge mat-legno">Legno</span>
+          <span class="project-mat-badge mat-pvc">PVC · Bianco</span>
         </div>
         <div class="project-body">
-          <h4>Villa storica, Venezia</h4>
-          <p>Porte finestra in legno rovere con doppio vetro basso emissivo. Compatibile con vincoli architettonici.</p>
-          <div class="project-tags">
-            <span class="project-tag">Legno Rovere</span>
-            <span class="project-tag">Doppio vetro</span>
-            <span class="project-tag">4 unità</span>
-          </div>
+          <h4>Appartamento · Spresiano</h4>
+          <p>Finestroni oversize</p>
         </div>
       </div>
 
       <div class="project-card reveal" data-mat="alluminio">
         <div class="project-img p3">
           <img class="project-photo" src="images/progetto-alluminio.jpg" alt="Installazione Alluminio">
-          <span class="project-mat-badge mat-allu">Alluminio</span>
+          <span class="project-mat-badge mat-allu">Alluminio · Nero</span>
         </div>
         <div class="project-body">
-          <h4>Uffici direzionali, Padova</h4>
-          <p>12 finestre scorrevoli in alluminio antracite RAL 7016 con triplo vetro. Grandi dimensioni, massima luminosità.</p>
-          <div class="project-tags">
-            <span class="project-tag">Alluminio Antracite</span>
-            <span class="project-tag">Scorrevole</span>
-            <span class="project-tag">12 unità</span>
-          </div>
+          <h4>Uffici · Pieve Di Soligo · Pivot doors</h4>
+          <p>Pivot doors - alluminio nero</p>
         </div>
       </div>
 
-      <div class="project-card reveal" data-mat="pvc">
+      <div class="project-card reveal" data-mat="parapetti">
         <div class="project-img p4">
-          <img class="project-photo" src="images/progetto-pvc.jpg" alt="Installazione PVC">
-          <span class="project-mat-badge mat-pvc">PVC</span>
+          <img class="project-photo" src="images/progetto-vetri-doccia.jpg" alt="Scala con parapetto in vetro">
+          <span class="project-mat-badge mat-parapetto">Parapetto</span>
         </div>
         <div class="project-body">
-          <h4>Casa indipendente, Mestre</h4>
-          <p>Finestre PVC grigio antracite con ribalta-basculante. Triplo vetro con traversa divisoria centrale.</p>
-          <div class="project-tags">
-            <span class="project-tag">PVC Antracite</span>
-            <span class="project-tag">Ribalta</span>
-            <span class="project-tag">10 unità</span>
-          </div>
+          <h4>Treviso · Scala con parapetto in Vetro</h4>
+          <p>Vetro di sicurezza extrachiaro</p>
         </div>
       </div>
 
-      <div class="project-card reveal" data-mat="legno">
+      <div class="project-card reveal" data-mat="vetridoccia">
         <div class="project-img p5">
-          <img class="project-photo" src="images/progetto-legno.jpg" alt="Installazione Legno">
-          <span class="project-mat-badge mat-legno">Legno</span>
+          <img class="project-photo" src="images/progetto-vetri-doccia-2.jpg" alt="Vetri doccia walk-in">
+          <span class="project-mat-badge mat-doccia">Vetri doccia</span>
         </div>
         <div class="project-body">
-          <h4>Casale di campagna, Treviso</h4>
-          <p>Porte finestra 2 ante in legno di pino con doppio vetro basso emissivo. Finitura naturale verniciata.</p>
-          <div class="project-tags">
-            <span class="project-tag">Legno Pino</span>
-            <span class="project-tag">Porta finestra</span>
-            <span class="project-tag">6 unità</span>
-          </div>
+          <h4>Treviso · Vetri doccia walk-in</h4>
+          <p>Vetro temperato extrachiaro</p>
         </div>
       </div>
 
       <div class="project-card reveal" data-mat="alluminio">
         <div class="project-img p6">
-          <img class="project-photo" src="images/progetto-alluminio.jpg" alt="Installazione Alluminio">
-          <span class="project-mat-badge mat-allu">Alluminio</span>
+          <img class="project-photo" src="images/progetto-porte-ingresso.jpg" alt="Porte d'ingresso">
+          <span class="project-mat-badge mat-allu">Alluminio · Blu e Antracite</span>
         </div>
         <div class="project-body">
-          <h4>Appartamento moderno, Vicenza</h4>
-          <p>Finestre 2 ante in alluminio nero opaco con triplo vetro. Design minimalista a profilo sottile.</p>
-          <div class="project-tags">
-            <span class="project-tag">Alluminio Nero</span>
-            <span class="project-tag">Triplo vetro</span>
-            <span class="project-tag">5 unità</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card reveal" data-mat="pvc">
-        <div class="project-img p7">
-          <img class="project-photo" src="images/progetto-pvc.jpg" alt="Installazione PVC">
-          <span class="project-mat-badge mat-pvc">PVC</span>
-        </div>
-        <div class="project-body">
-          <h4>Condominio residenziale, Pordenone</h4>
-          <p>Fornitura di 24 finestre PVC bianco con traverse orizzontali, doppio vetro e canalina calda per tutto il condominio.</p>
-          <div class="project-tags">
-            <span class="project-tag">PVC Bianco</span>
-            <span class="project-tag">Traversa divisoria</span>
-            <span class="project-tag">24 unità</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card reveal" data-mat="legno">
-        <div class="project-img p8">
-          <img class="project-photo" src="images/progetto-legno.jpg" alt="Installazione Legno">
-          <span class="project-mat-badge mat-legno">Legno</span>
-        </div>
-        <div class="project-body">
-          <h4>Abitazione rurale, Udine</h4>
-          <p>Finestre scorrevoli in legno di larice con vetro doppio camera. Restauro conservativo con materiali naturali.</p>
-          <div class="project-tags">
-            <span class="project-tag">Legno Larice</span>
-            <span class="project-tag">Scorrevole</span>
-            <span class="project-tag">3 unità</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card reveal" data-mat="alluminio">
-        <div class="project-img p9">
-          <img class="project-photo" src="images/progetto-alluminio.jpg" alt="Installazione Alluminio">
-          <span class="project-mat-badge mat-allu">Alluminio</span>
-        </div>
-        <div class="project-body">
-          <h4>Showroom commerciale, Verona</h4>
-          <p>Vetrina commerciale in alluminio grigio con 3 sezioni orizzontali. Triplo vetro per massimo isolamento acustico.</p>
-          <div class="project-tags">
-            <span class="project-tag">Alluminio Grigio</span>
-            <span class="project-tag">Commerciale</span>
-            <span class="project-tag">1 unità</span>
-          </div>
+          <h4>Porte d'ingresso</h4>
+          <p>Porte alluminio - oltre 100 configurazioni possibili</p>
         </div>
       </div>
 

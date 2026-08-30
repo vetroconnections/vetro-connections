@@ -440,6 +440,8 @@
     .privacy-note { font-size:.72rem; color:var(--text-light); text-align:center; margin-top:6px; }
     /* Success screen */
     .success-screen { text-align:center; padding:24px 0 8px; }
+    #btn-redownload-pdf { display:flex; align-items:center; justify-content:center; gap:6px; background:#fff; color:var(--primary); font-family:'Poppins',sans-serif; font-size:0.9rem; font-weight:600; padding:12px 20px; border:2px solid var(--primary); border-radius:var(--radius-sm); cursor:pointer; width:100%; transition:background var(--t),color var(--t); }
+    #btn-redownload-pdf:hover { background:var(--primary); color:#fff; }
     .success-icon { width:64px; height:64px; background:#DCFCE7; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
     .success-icon svg { width:32px; height:32px; stroke:var(--accent); fill:none; }
     .success-title { font-family:'Poppins',sans-serif; font-size:1.3rem; font-weight:700; color:var(--text-dark); margin-bottom:8px; }
@@ -897,6 +899,10 @@
             <div class="success-recap" id="success-recap">
               <!-- filled by JS -->
             </div>
+            <button class="btn-outline" id="btn-redownload-pdf" type="button" style="display:none;margin-top:4px;">
+              <svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:-3px;margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill="none" stroke="currentColor" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
+              Scarica di nuovo il PDF
+            </button>
           </div>
         </div>
 
@@ -2059,6 +2065,12 @@ document.getElementById('btn-next').addEventListener('click', () => {
 // Summary action: go to contact form (step 9)
 document.getElementById('btn-quote').addEventListener('click', () => goToStep(STEPS.length));
 
+document.getElementById('btn-redownload-pdf').addEventListener('click', () => {
+  if(!lastPdfDoc) return;
+  try { lastPdfDoc.save(`Riepilogo-VetroConnections-${lastPdfDoc.refNum}.pdf`); }
+  catch(e) { console.warn('PDF re-download failed', e); }
+});
+
 function generateQuotePDF() {
   const tInfo  = WINDOW_TYPES.find(x=>x.id===st.type);
   const gInfo  = GLASS_OPTS.find(x=>x.id===st.glass);
@@ -2341,6 +2353,8 @@ async function buildPDFDoc() {
   return doc;
 }
 
+let lastPdfDoc = null;
+
 async function submitContact() {
   const nome  = document.getElementById('cf-nome').value.trim();
   const email = document.getElementById('cf-email').value.trim();
@@ -2360,7 +2374,13 @@ async function submitContact() {
   try {
     pdfDoc = await buildPDFDoc();
     pdfBase64 = pdfDoc.output('datauristring').split(',')[1];
-  } catch(e) { console.warn('PDF generation failed', e); }
+    // Trigger the download here, right after generation and still close to the
+    // original click — mobile browsers (iOS Safari in particular) block
+    // programmatic downloads once too much time/async work has passed since
+    // the user's tap, so we must not wait for the emailjs network round-trip.
+    pdfDoc.save(`Riepilogo-VetroConnections-${pdfDoc.refNum}.pdf`);
+    lastPdfDoc = pdfDoc;
+  } catch(e) { console.warn('PDF generation/download failed', e); }
 
   const specs = getConfigSpecs();
   const specVal = k => specs.find(([sk]) => sk === k)?.[1] || 'N/D';
@@ -2405,9 +2425,8 @@ async function submitContact() {
       document.getElementById('success-screen-wrap').style.display = 'block';
       document.getElementById('btn-back').style.display = 'none';
       document.getElementById('btn-next').style.display = 'none';
-      if(pdfDoc) {
-        try { pdfDoc.save(`Riepilogo-VetroConnections-${pdfDoc.refNum}.pdf`); }
-        catch(e) { console.warn('PDF download failed', e); }
+      if(lastPdfDoc) {
+        document.getElementById('btn-redownload-pdf').style.display = 'flex';
       }
     })
     .catch(() => {

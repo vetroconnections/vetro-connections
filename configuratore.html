@@ -2417,7 +2417,19 @@ async function submitContact() {
     pdf_attachment:   pdfBase64,
   };
 
+  // EmailJS rejects the whole request (HTTP 413) if the combined template
+  // variables exceed 50KB — easy to hit once the PDF has several pieces or
+  // many accessories. Since the customer already has the PDF from the local
+  // download, the email itself must never be lost just because the
+  // attachment was too big: retry once without it if that happens.
   emailjs.send('service_4apw62j', 'template_r71atcv', params)
+    .catch(err => {
+      if(err && err.status === 413 && params.pdf_attachment) {
+        console.warn('EmailJS: payload too large with PDF attached, retrying without it', err);
+        return emailjs.send('service_4apw62j', 'template_r71atcv', { ...params, pdf_attachment: '' });
+      }
+      throw err;
+    })
     .then(() => {
       submitted = true;
       renderSuccessRecap();
@@ -2429,7 +2441,8 @@ async function submitContact() {
         document.getElementById('btn-redownload-pdf').style.display = 'flex';
       }
     })
-    .catch(() => {
+    .catch(err => {
+      console.error('EmailJS send failed', err);
       btn.disabled = false;
       btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>Invia Richiesta Preventivo`;
       const errEl = document.getElementById('err-9');

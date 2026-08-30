@@ -2374,13 +2374,7 @@ async function submitContact() {
   try {
     pdfDoc = await buildPDFDoc();
     pdfBase64 = pdfDoc.output('datauristring').split(',')[1];
-    // Trigger the download here, right after generation and still close to the
-    // original click — mobile browsers (iOS Safari in particular) block
-    // programmatic downloads once too much time/async work has passed since
-    // the user's tap, so we must not wait for the emailjs network round-trip.
-    pdfDoc.save(`Riepilogo-VetroConnections-${pdfDoc.refNum}.pdf`);
-    lastPdfDoc = pdfDoc;
-  } catch(e) { console.warn('PDF generation/download failed', e); }
+  } catch(e) { console.warn('PDF generation failed', e); }
 
   const specs = getConfigSpecs();
   const specVal = k => specs.find(([sk]) => sk === k)?.[1] || 'N/D';
@@ -2422,6 +2416,14 @@ async function submitContact() {
   // many accessories. Since the customer already has the PDF from the local
   // download, the email itself must never be lost just because the
   // attachment was too big: retry once without it if that happens.
+  //
+  // The email send must complete BEFORE we ever touch the PDF download.
+  // jsPDF's save() clicks a same-tab <a download> link with no target, and
+  // on mobile Safari — where blob-URL download support has a history of
+  // being unreliable — this can end up navigating the page to the PDF
+  // instead of downloading it, tearing down this page's JS (and any
+  // request that hasn't finished yet) in the process. Sending the email
+  // first guarantees the lead is never lost even if that happens.
   emailjs.send('service_4apw62j', 'template_r71atcv', params)
     .catch(err => {
       if(err && err.status === 413 && params.pdf_attachment) {
@@ -2437,8 +2439,12 @@ async function submitContact() {
       document.getElementById('success-screen-wrap').style.display = 'block';
       document.getElementById('btn-back').style.display = 'none';
       document.getElementById('btn-next').style.display = 'none';
-      if(lastPdfDoc) {
-        document.getElementById('btn-redownload-pdf').style.display = 'flex';
+      if(pdfDoc) {
+        try {
+          pdfDoc.save(`Riepilogo-VetroConnections-${pdfDoc.refNum}.pdf`);
+          lastPdfDoc = pdfDoc;
+          document.getElementById('btn-redownload-pdf').style.display = 'flex';
+        } catch(e) { console.warn('PDF download failed', e); }
       }
     })
     .catch(err => {

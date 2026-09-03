@@ -722,8 +722,14 @@
 
       <!-- ── STEP 2: DIMENSIONI ────────────────────────── -->
       <div class="step-content" id="sc-2">
+        <div id="parapetto-shape-block" style="display:none;margin-bottom:24px;">
+          <div style="font-size:.8rem;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">Forma del parapetto</div>
+          <div class="type-grid" id="parapetto-shape-grid" style="grid-template-columns:repeat(3,1fr);">
+            <!-- rendered by JS -->
+          </div>
+        </div>
         <div class="dim-grid">
-          <div class="form-group">
+          <div class="form-group" id="width-field-wrap">
             <label for="inp-width" id="label-width">Larghezza (mm)</label>
             <input type="number" id="inp-width" min="400" max="2500" value="1000" step="10" />
             <span class="hint" id="hint-width">Min 400, Max 2500 mm</span>
@@ -733,6 +739,9 @@
             <input type="number" id="inp-height" min="400" max="2500" value="1200" step="10" />
             <span class="hint" id="hint-height">Min 400, Max 2500 mm</span>
           </div>
+        </div>
+        <div id="parapetto-segments-wrap" style="display:none;gap:20px;flex-wrap:wrap;margin-bottom:20px;">
+          <!-- rendered by JS: 2 o 3 campi lunghezza lato -->
         </div>
         <div class="size-presets">
           <div class="size-presets-label">Misure standard comuni:</div>
@@ -1063,6 +1072,13 @@ const PARAPETTO_GLASS_OPTS = [
   { id:'altro',       name:'Altro',              tag:'Altro',    badge:null, desc:'Specifica lo spessore o la composizione desiderata', isCustom:true },
 ];
 
+// Forma del parapetto: quante "lati"/lunghezze indipendenti bisogna chiedere
+const PARAPETTO_SHAPES = [
+  { id:'dritto',   name:'Dritto',   segments:1, desc:'Ringhiera lineare su un unico lato' },
+  { id:'angolare', name:'Angolare', segments:2, desc:'Due lati che formano un angolo' },
+  { id:'u',        name:'A "U"',    segments:3, desc:'Tre lati, ideale per angoli e nicchie' },
+];
+
 const SIZE_PRESETS = {
   'finestra':      [{w:600,h:900},{w:800,h:1200},{w:1000,h:1200},{w:1200,h:1400}],
   'porta-finestra':[{w:900,h:2200},{w:1200,h:2100},{w:1600,h:2200}],
@@ -1095,6 +1111,8 @@ const st = {
   accessories: new Set(),
   glassCustomNote: '',
   extraSizes: [], // { w, h, qty } — altri pezzi con misure diverse per lo stesso preventivo
+  parapettoShape: 'dritto',
+  parapettoSegments: [1500], // lunghezze (mm) dei singoli lati, per parapetti angolari/a U
   contact: { nome:'', email:'', tel:'', note:'' },
 };
 
@@ -1364,6 +1382,29 @@ function parapettoTypeIcon() {
   </svg>`;
 }
 
+// Mini SVGs per la scelta forma parapetto: vista dall'alto della ringhiera
+// (dritto riusa l'icona esistente in vista frontale, angolare/U mostrano
+// la spezzata a L / a U che rappresenta i lati vetrati)
+function parapettoShapeSVG(id) {
+  if(id === 'angolare') return parapettoAngolareIcon();
+  if(id === 'u') return parapettoUIcon();
+  return parapettoTypeIcon();
+}
+
+function parapettoAngolareIcon() {
+  return `<svg viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="2" width="64" height="64" rx="2" fill="#BFDBFE" stroke="#3B82F6" stroke-width="4"/>
+    <path d="M14 54 L14 20 L54 20" fill="none" stroke="#1E40AF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+}
+
+function parapettoUIcon() {
+  return `<svg viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="2" width="64" height="64" rx="2" fill="#BFDBFE" stroke="#3B82F6" stroke-width="4"/>
+    <path d="M16 18 L16 50 L52 50 L52 18" fill="none" stroke="#1E40AF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+}
+
 function scorrevoleTypeIcon() {
   // same double-panel + inward-arrows motif used on the homepage
   // "Finestre Scorrevoli & Speciali" product card
@@ -1470,6 +1511,7 @@ function renderTypeGrid() {
 
 function renderSizeChips() {
   const isParapetto = st.type === 'parapetto';
+  const isDritto = st.parapettoShape === 'dritto';
   const t = WINDOW_TYPES.find(x=>x.id===st.type);
   const presets = SIZE_PRESETS[st.type] || SIZE_PRESETS['porta-finestra'];
   const el = document.getElementById('size-chips');
@@ -1487,6 +1529,14 @@ function renderSizeChips() {
   }
   document.getElementById('label-width').textContent = isParapetto ? 'Lunghezza totale (mm)' : 'Larghezza (mm)';
   document.getElementById('label-height').textContent = isParapetto ? 'Altezza vetro (mm)' : 'Altezza (mm)';
+  const shapeBlock = document.getElementById('parapetto-shape-block');
+  if(shapeBlock) {
+    shapeBlock.style.display = isParapetto ? 'block' : 'none';
+    if(isParapetto) renderParapettoShapeGrid();
+  }
+  renderParapettoSegmentFields();
+  const sizePresetsBlock = document.querySelector('.size-presets');
+  if(sizePresetsBlock) sizePresetsBlock.style.display = (isParapetto && !isDritto) ? 'none' : '';
   const thickBlock = document.getElementById('parapetto-thickness-block');
   if(thickBlock) {
     thickBlock.style.display = isParapetto ? 'block' : 'none';
@@ -1497,6 +1547,67 @@ function renderSizeChips() {
     extraBlock.style.display = isParapetto ? 'none' : 'block';
     if(!isParapetto) renderExtraSizes();
   }
+}
+
+function renderParapettoShapeGrid() {
+  const el = document.getElementById('parapetto-shape-grid');
+  if(!el) return;
+  el.innerHTML = PARAPETTO_SHAPES.map(s => `
+    <div class="type-card${st.parapettoShape===s.id?' selected':''}"
+         onclick="selectParapettoShape('${s.id}')"
+         role="button" tabindex="0"
+         aria-label="${s.name}" aria-pressed="${st.parapettoShape===s.id}">
+      <div class="type-card-svg">${parapettoShapeSVG(s.id)}</div>
+      <div class="type-card-name">${s.name}</div>
+      <div class="type-card-desc">${s.desc}</div>
+    </div>`).join('');
+}
+
+function selectParapettoShape(id) {
+  const shape = PARAPETTO_SHAPES.find(s=>s.id===id);
+  if(!shape) return;
+  st.parapettoShape = id;
+  const old = st.parapettoSegments.length ? st.parapettoSegments : [st.width || 1500];
+  const next = [];
+  for(let i=0;i<shape.segments;i++) next.push(old[i] || 1500);
+  st.parapettoSegments = next;
+  syncParapettoWidth();
+  renderParapettoShapeGrid();
+  const sizePresetsBlock = document.querySelector('.size-presets');
+  if(sizePresetsBlock) sizePresetsBlock.style.display = (id !== 'dritto') ? 'none' : '';
+  renderParapettoSegmentFields();
+  updatePreviewPanel();
+}
+
+function syncParapettoWidth() {
+  st.width = st.parapettoSegments.reduce((a,b)=>a+(b||0), 0);
+  const iw = document.getElementById('inp-width');
+  if(iw) iw.value = st.width;
+}
+
+function renderParapettoSegmentFields() {
+  const wrap = document.getElementById('parapetto-segments-wrap');
+  const widthWrap = document.getElementById('width-field-wrap');
+  if(!wrap || !widthWrap) return;
+  const isParapetto = st.type === 'parapetto';
+  const isDritto = st.parapettoShape === 'dritto';
+  const showSegments = isParapetto && !isDritto;
+  widthWrap.style.display = showSegments ? 'none' : '';
+  wrap.style.display = showSegments ? 'flex' : 'none';
+  if(!showSegments) return;
+  const labels = ['Lato A (mm)','Lato B (mm)','Lato C (mm)'];
+  wrap.innerHTML = st.parapettoSegments.map((val,i) => `
+    <div class="form-group" style="flex:1;min-width:140px;">
+      <label for="seg-len-${i}">${labels[i]||('Lato '+(i+1)+' (mm)')}</label>
+      <input type="number" id="seg-len-${i}" min="200" max="6000" step="10" value="${val}"
+             oninput="updateParapettoSegment(${i}, this.value)" />
+    </div>`).join('');
+}
+
+function updateParapettoSegment(i, val) {
+  st.parapettoSegments[i] = Math.max(0, parseInt(val)||0);
+  syncParapettoWidth();
+  updatePreviewPanel();
 }
 
 function renderExtraSizes() {
@@ -1674,12 +1785,18 @@ function getConfigSpecs(pieceOverride) {
     const glassLabel = st.glass === 'altro'
       ? `Altro: ${st.glassCustomNote.trim() || 'N/D'}`
       : (g?.name || 'N/D');
-    return [
-      ['Prodotto',         'Parapetto in vetro'],
-      ['Lunghezza totale', `${(st.width/1000).toFixed(1)} m`],
-      ['Altezza vetro',    `${st.height} mm`],
-      ['Spessore vetro',   glassLabel],
+    const shape = PARAPETTO_SHAPES.find(x=>x.id===st.parapettoShape) || PARAPETTO_SHAPES[0];
+    const specs = [
+      ['Prodotto', 'Parapetto in vetro'],
+      ['Forma',    shape.name],
     ];
+    if(shape.segments > 1) {
+      specs.push(['Lati', st.parapettoSegments.map(v=>(v/1000).toFixed(1)+' m').join(' + ')]);
+    }
+    specs.push(['Lunghezza totale', `${(st.width/1000).toFixed(1)} m`]);
+    specs.push(['Altezza vetro',    `${st.height} mm`]);
+    specs.push(['Spessore vetro',   glassLabel]);
+    return specs;
   }
   const isEntryDoor = st.type === 'porta-ingresso';
   const tInfo  = WINDOW_TYPES.find(x=>x.id===st.type);
@@ -1788,8 +1905,10 @@ function updatePreviewPanel() {
     document.getElementById('prev-dim').textContent = `${(st.width/1000).toFixed(1)} m × ${st.height} mm`;
     if(previewInfo) previewInfo.style.display = 'none';
     const g = PARAPETTO_GLASS_OPTS.find(x=>x.id===st.glass);
+    const shape = PARAPETTO_SHAPES.find(x=>x.id===st.parapettoShape) || PARAPETTO_SHAPES[0];
     const miniSpecs = [
       { k:'Prodotto', v:'Parapetto in vetro' },
+      { k:'Forma',    v: shape.name },
       { k:'Spessore', v: g?.name||'N/D' },
     ];
     document.getElementById('preview-specs-mini').innerHTML = miniSpecs.map(s=>
@@ -1858,6 +1977,10 @@ function selectType(id) {
     if(iw) iw.value = defaultSize.w;
     if(ih) ih.value = defaultSize.h;
   }
+  if(id === 'parapetto') {
+    st.parapettoShape = 'dritto';
+    st.parapettoSegments = [defaultSize ? defaultSize.w : 1500];
+  }
 
   document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
   event.currentTarget.classList.add('selected');
@@ -1885,6 +2008,7 @@ function applyTypeUI() {
 
 function applyPreset(w, h) {
   st.width = w; st.height = h;
+  if(st.type === 'parapetto' && st.parapettoShape === 'dritto') st.parapettoSegments = [w];
   document.getElementById('inp-width').value = w;
   document.getElementById('inp-height').value = h;
   updatePreviewPanel();
@@ -1955,7 +2079,8 @@ function validate(step) {
                    st.height>=(t?.minH||400) && st.height<=(t?.maxH||2500);
     if(st.type === 'parapetto') {
       const glassOk = st.glass === 'altro' ? !!st.glassCustomNote.trim() : !!st.glass;
-      return dimsOk && glassOk;
+      const segsOk = st.parapettoShape === 'dritto' || st.parapettoSegments.every(v=>v>=200);
+      return dimsOk && glassOk && segsOk;
     }
     return dimsOk;
   }
@@ -2049,6 +2174,7 @@ function updateNavButtons() {
 // Dimension inputs
 document.getElementById('inp-width').addEventListener('input', e => {
   st.width = parseInt(e.target.value)||1000;
+  if(st.type === 'parapetto' && st.parapettoShape === 'dritto') st.parapettoSegments = [st.width];
   updatePreviewPanel();
 });
 document.getElementById('inp-height').addEventListener('input', e => {
@@ -2386,7 +2512,7 @@ async function submitContact() {
     client_note:      note  || 'Nessuna',
     config_materiale: 'Vetro',
     config_tipo:      'Parapetto in vetro',
-    config_dimensioni:`${specVal('Lunghezza totale')} lunghezza × ${specVal('Altezza vetro')} altezza`,
+    config_dimensioni:`${specVal('Forma')}${specVal('Lati')!=='N/D' ? ' ('+specVal('Lati')+')' : ''}: ${specVal('Lunghezza totale')} lunghezza totale × ${specVal('Altezza vetro')} altezza`,
     config_apertura:  'N/A',
     config_divisioni: 'N/A',
     config_canalina:  'N/A',
@@ -2488,7 +2614,7 @@ document.addEventListener('keydown', e => {
   if(preset && WINDOW_TYPES.find(x=>x.id===preset)) {
     st.type = preset;
     if(preset === 'vetro-fisso') st.opening = 'fisso-fix';
-    if(preset === 'parapetto') { st.width = 3000; st.height = 1000; }
+    if(preset === 'parapetto') { st.width = 3000; st.height = 1000; st.parapettoShape = 'dritto'; st.parapettoSegments = [3000]; }
   }
   applyTypeUI();
   if(st.type === 'parapetto') {

@@ -1310,6 +1310,78 @@ function buildPreviewSVG(compact) {
   return `<svg viewBox="0 0 ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">${parts.join('')}</svg>`;
 }
 
+// Sequenza di direzioni (vista dall'alto) per ciascuna forma di parapetto —
+// stessa geometria delle iconcine di selezione, ma scalata sulle lunghezze
+// reali dei lati così l'anteprima riflette davvero le misure inserite.
+const PARAPETTO_PATH_DIRS = {
+  dritto:   [ {dx:1, dy:0} ],
+  angolare: [ {dx:0, dy:-1}, {dx:1, dy:0} ],
+  u:        [ {dx:0, dy:1},  {dx:1, dy:0}, {dx:0, dy:-1} ],
+};
+
+// Anteprima interattiva del parapetto: vista dall'alto, aggiornata in tempo
+// reale in base a forma, lunghezze dei lati e altezza vetro (che qui
+// controlla lo spessore del tratto, non essendo una vista in elevazione).
+function buildParapettoPreviewSVG(compact) {
+  const VW = compact ? 220 : 260;
+  const VH = compact ? 200 : 300;
+  const PAD = compact ? 34 : 44;
+  const maxW = VW - PAD*2, maxH = VH - PAD*2;
+
+  const shape = st.parapettoShape || 'dritto';
+  const dirs = PARAPETTO_PATH_DIRS[shape] || PARAPETTO_PATH_DIRS.dritto;
+  const segs = (st.parapettoSegments && st.parapettoSegments.length === dirs.length)
+    ? st.parapettoSegments : dirs.map(()=>st.width || 1500);
+
+  let x = 0, y = 0;
+  const pts = [{x,y}];
+  dirs.forEach((d,i) => {
+    const len = Math.max(1, segs[i]||1);
+    x += d.dx*len; y += d.dy*len;
+    pts.push({x,y});
+  });
+
+  const xs = pts.map(p=>p.x), ys = pts.map(p=>p.y);
+  const rawW = Math.max(1, Math.max(...xs)-Math.min(...xs));
+  const rawH = Math.max(1, Math.max(...ys)-Math.min(...ys));
+  const scale = Math.min(maxW/rawW, maxH/rawH);
+  const scaledW = rawW*scale, scaledH = rawH*scale;
+  const offX = (VW-scaledW)/2 - Math.min(...xs)*scale;
+  const offY = (VH-scaledH)/2 - Math.min(...ys)*scale;
+  const sp = pts.map(p => ({ x: p.x*scale+offX, y: p.y*scale+offY }));
+
+  // Lo spessore del tratto riflette l'altezza vetro (mm), tra 10 e 22px
+  const strokeW = Math.max(10, Math.min(22, 10 + (st.height/3210)*14));
+  const pathD = 'M' + sp.map(p=>`${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' L');
+
+  const parts = [];
+  parts.push(`<defs>
+    <filter id="pfs" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(0,0,0,.16)"/>
+    </filter>
+  </defs>`);
+  // Base/ombra a terra
+  parts.push(`<path d="${pathD}" fill="none" stroke="rgba(30,41,59,.10)" stroke-width="${strokeW+6}" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,4)"/>`);
+  // Vetro (tratto principale)
+  parts.push(`<path d="${pathD}" fill="none" stroke="rgba(186,230,253,.55)" stroke-width="${strokeW}" stroke-linecap="round" stroke-linejoin="round" filter="url(#pfs)"/>`);
+  parts.push(`<path d="${pathD}" fill="none" stroke="#3B82F6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>`);
+  // Riflesso vetro
+  parts.push(`<path d="${pathD}" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="${Math.max(2,strokeW*0.22)}" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,${-strokeW*0.22})"/>`);
+  // Montanti/giunti alle estremità e alle pieghe
+  sp.forEach((p,i) => {
+    const isEnd = i===0 || i===sp.length-1;
+    const r = isEnd ? 4.5 : 5.5;
+    parts.push(`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${r}" fill="#1E40AF"/>`);
+  });
+
+  return `<svg viewBox="0 0 ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">${parts.join('')}</svg>`;
+}
+
+async function getParapettoPreviewImage() {
+  const svg = buildParapettoPreviewSVG(true);
+  return svgToPngDataUrl(svg, 220, 200, 1.5);
+}
+
 // Type-card mini SVGs (static schematic)
 function typeCardSVG(typeId) {
   if(typeId === 'parapetto') return parapettoTypeIcon();
@@ -1372,13 +1444,11 @@ function typeCardSVG(typeId) {
 }
 
 function parapettoTypeIcon() {
+  // Linea dritta unica, stesso stile grafico (spessore, colore) delle
+  // icone Angolare/A "U" così le tre forme si leggono come varianti coerenti.
   return `<svg viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg">
     <rect x="2" y="2" width="64" height="64" rx="2" fill="#BFDBFE" stroke="#3B82F6" stroke-width="4"/>
-    <rect x="10" y="27" width="48" height="5" rx="1" fill="#1E40AF"/>
-    <rect x="15" y="32" width="4" height="24" fill="#1E40AF"/>
-    <rect x="49" y="32" width="4" height="24" fill="#1E40AF"/>
-    <rect x="32" y="32" width="4" height="24" fill="#1E40AF"/>
-    <rect x="8" y="56" width="52" height="4" rx="1" fill="#1E40AF"/>
+    <path d="M10 34 L58 34" fill="none" stroke="#1E40AF" stroke-width="6" stroke-linecap="round"/>
   </svg>`;
 }
 
@@ -1876,7 +1946,7 @@ async function getPiecePreviewImage(piece) {
 function renderSummary() {
   const isParapetto = st.type === 'parapetto';
   document.getElementById('summary-svg-wrap').innerHTML = isParapetto
-    ? `<img src="images/parapetto.jpg" alt="Parapetto in vetro" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`
+    ? buildParapettoPreviewSVG(false)
     : buildPreviewSVG(false);
 
   const specs = getConfigSpecs();
@@ -1900,8 +1970,7 @@ function updatePreviewPanel() {
   const previewInfo = document.querySelector('.preview-info');
 
   if(isParapetto) {
-    document.getElementById('preview-svg-area').innerHTML =
-      `<img src="images/parapetto.jpg" alt="Parapetto in vetro" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`;
+    document.getElementById('preview-svg-area').innerHTML = buildParapettoPreviewSVG(true);
     document.getElementById('prev-dim').textContent = `${(st.width/1000).toFixed(1)} m × ${st.height} mm`;
     if(previewInfo) previewInfo.style.display = 'none';
     const g = PARAPETTO_GLASS_OPTS.find(x=>x.id===st.glass);
@@ -2405,7 +2474,7 @@ async function buildPDFDoc() {
     let imgData, imgFormat;
     try {
       if (st.type === 'parapetto') {
-        imgData = await imageUrlToDataUrl('images/parapetto.jpg');
+        imgData = await getParapettoPreviewImage();
         imgFormat = 'JPEG';
       } else {
         imgData = await getPiecePreviewImage(piece);

@@ -509,7 +509,7 @@
 
 <!-- BRANDS CAROUSEL -->
 <div class="brands-bar">
-  <div class="brands-bar-hd"><span>Profili certificati dai migliori produttori europei</span></div>
+  <div class="brands-bar-hd"><span>Profili PVC certificati dai migliori produttori europei</span></div>
   <div class="brands-marquee-wrap">
     <div class="brands-track">
       <!-- Set 1 -->
@@ -1473,18 +1473,20 @@
     update();
   })();
 
-  // Brands marquee — infinite scroll via requestAnimationFrame
+  // Brands marquee — infinite scroll via requestAnimationFrame.
+  // Non deve mai fermarsi: niente pausa on-hover, perché uno scroll della
+  // pagina con la rotella può far scivolare la fascia loghi sotto un cursore
+  // fermo, scatenando comunque un mouseenter e bloccando l'animazione per
+  // sempre finché l'utente non muove più il mouse via da lì.
   (function() {
     const track = document.querySelector('.brands-track');
     if (!track) return;
-    let pos = 0, paused = false, setW = 0;
-    track.parentElement.addEventListener('mouseenter', () => { paused = true; });
-    track.parentElement.addEventListener('mouseleave', () => { paused = false; });
+    let pos = 0, setW = 0;
     function measure() { setW = track.scrollWidth / 2; }
     window.addEventListener('load', measure);
     function tick() {
       if (!setW && track.scrollWidth > 0) measure();
-      if (setW > 0 && !paused) {
+      if (setW > 0) {
         pos -= 0.5;
         if (Math.abs(pos) >= setW) pos = 0;
         track.style.transform = `translateX(${pos}px)`;

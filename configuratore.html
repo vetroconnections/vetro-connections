@@ -766,11 +766,11 @@
           <div class="dim-grid" style="grid-template-columns:1fr 1fr 90px auto;align-items:end;gap:10px;">
             <div class="form-group">
               <label for="extra-width">Larghezza (mm)</label>
-              <input type="number" id="extra-width" min="200" max="20000" value="1000" step="10" />
+              <input type="number" id="extra-width" min="200" max="100000" value="1000" step="10" />
             </div>
             <div class="form-group">
               <label for="extra-height">Altezza (mm)</label>
-              <input type="number" id="extra-height" min="200" max="20000" value="1200" step="10" />
+              <input type="number" id="extra-height" min="200" max="100000" value="1200" step="10" />
             </div>
             <div class="form-group">
               <label for="extra-qty">Quantità</label>
@@ -987,12 +987,12 @@ const STEPS_PARAPETTO = [
 let STEPS = STEPS_FULL.map(s => ({...s}));
 
 const WINDOW_TYPES = [
-  { id:'finestra',     name:'Finestra',           desc:'Anta con apertura standard, per una o due ante', rate:120, minW:400, maxW:2500, minH:400,  maxH:2000 },
-  { id:'porta-ingresso', name:'Porta di ingresso', desc:'Porta blindata/di sicurezza d\'ingresso', rate:210, minW:700, maxW:1200, minH:2000, maxH:2400 },
-  { id:'parapetto',    name:'Parapetto',           desc:'Ringhiera in vetro per balconi, scale e piscine', rate:0,   minW:300, maxW:6000, minH:300,  maxH:3210 },
-  { id:'porta-finestra', name:'Porta finestra',    desc:'Vetrata, per balconi e terrazzi',        rate:150, minW:600, maxW:2500, minH:1800, maxH:2400 },
-  { id:'vetro-fisso',  name:'Vetro fisso',         desc:'Pannello non apribile, massima luce',    rate:95,  minW:300, maxW:3000, minH:300,  maxH:2500 },
-  { id:'scorrevole',   name:'Scorrevoli',          desc:'Sistemi scorrevoli e alzanti-scorrevoli, massima luminosità', rate:160, minW:1200, maxW:6000, minH:1800, maxH:2400 },
+  { id:'finestra',     name:'Finestra',           desc:'Anta con apertura standard, per una o due ante', rate:120, minW:300, maxW:6000, minH:300,  maxH:3210 },
+  { id:'porta-ingresso', name:'Porta di ingresso', desc:'Porta blindata/di sicurezza d\'ingresso', rate:210, minW:700, maxW:6000, minH:1000, maxH:6000 },
+  { id:'parapetto',    name:'Parapetto',           desc:'Ringhiera in vetro per balconi, scale e piscine', rate:0,   minW:100, maxW:6000, minH:100,  maxH:3210 },
+  { id:'porta-finestra', name:'Porta finestra',    desc:'Vetrata, per balconi e terrazzi',        rate:150, minW:500, maxW:6000, minH:1000, maxH:6000 },
+  { id:'vetro-fisso',  name:'Vetro fisso',         desc:'Pannello non apribile, massima luce',    rate:95,  minW:300, maxW:6000, minH:300,  maxH:6000 },
+  { id:'scorrevole',   name:'Scorrevoli',          desc:'Sistemi scorrevoli e alzanti-scorrevoli, massima luminosità', rate:160, minW:1000, maxW:6000, minH:300, maxH:6000 },
 ];
 
 const OPENING_OPTS = {

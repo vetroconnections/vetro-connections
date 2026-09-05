@@ -1586,7 +1586,7 @@ function renderSizeChips() {
   const presets = SIZE_PRESETS[st.type] || SIZE_PRESETS['porta-finestra'];
   const el = document.getElementById('size-chips');
   el.innerHTML = presets.map(p =>
-    `<button class="size-chip" type="button" onclick="applyPreset(${p.w},${p.h})">${isParapetto ? (p.w/1000)+' m × '+p.h+' mm' : p.w+'×'+p.h+' mm'}</button>`
+    `<button class="size-chip" type="button" onclick="applyPreset(${p.w},${p.h})">${p.w}×${p.h} mm</button>`
   ).join('');
   // Update ranges
   if(t){
@@ -1861,9 +1861,9 @@ function getConfigSpecs(pieceOverride) {
       ['Forma',    shape.name],
     ];
     if(shape.segments > 1) {
-      specs.push(['Lati', st.parapettoSegments.map(v=>(v/1000).toFixed(1)+' m').join(' + ')]);
+      specs.push(['Lati', st.parapettoSegments.map(v=>v+' mm').join(' + ')]);
     }
-    specs.push(['Lunghezza totale', `${(st.width/1000).toFixed(1)} m`]);
+    specs.push(['Lunghezza totale', `${st.width} mm`]);
     specs.push(['Altezza vetro',    `${st.height} mm`]);
     specs.push(['Spessore vetro',   glassLabel]);
     return specs;
@@ -1971,7 +1971,7 @@ function updatePreviewPanel() {
 
   if(isParapetto) {
     document.getElementById('preview-svg-area').innerHTML = buildParapettoPreviewSVG(true);
-    document.getElementById('prev-dim').textContent = `${(st.width/1000).toFixed(1)} m × ${st.height} mm`;
+    document.getElementById('prev-dim').textContent = `${st.width} × ${st.height} mm`;
     if(previewInfo) previewInfo.style.display = 'none';
     const g = PARAPETTO_GLASS_OPTS.find(x=>x.id===st.glass);
     const shape = PARAPETTO_SHAPES.find(x=>x.id===st.parapettoShape) || PARAPETTO_SHAPES[0];

@@ -172,6 +172,46 @@
     .material-feature { display:flex; align-items:center; gap:10px; font-size:0.875rem; color:var(--text-mid); margin-bottom:10px; }
     .material-feature:last-child { margin-bottom:0; }
     .material-feature svg { width:16px; height:16px; fill:var(--accent); flex-shrink:0; }
+    .material-card { cursor:pointer; }
+    .material-card-hint { display:flex; align-items:center; gap:6px; margin-top:16px; padding-top:16px; border-top:1px solid var(--border); font-size:0.8rem; font-weight:600; color:var(--secondary); }
+    .material-card-hint svg { width:14px; height:14px; fill:var(--secondary); }
+
+    /* MATERIAL MODAL */
+    .material-modal-overlay { display:none; position:fixed; inset:0; background:rgba(15,23,42,.55); z-index:1100; align-items:center; justify-content:center; padding:24px; }
+    .material-modal-overlay.open { display:flex; }
+    .material-modal { background:#fff; border-radius:var(--radius-lg); max-width:720px; width:100%; max-height:88vh; overflow-y:auto; box-shadow:var(--shadow-lg); }
+    .material-modal-header { padding:32px 32px 24px; position:relative; color:#fff; }
+    .material-modal-header.pvc { background:linear-gradient(135deg,#1E40AF,#3B82F6); }
+    .material-modal-header.legno { background:linear-gradient(135deg,#92400E,#D97706); }
+    .material-modal-header.alluminio { background:linear-gradient(135deg,#374151,#6B7280); }
+    .material-modal-close { position:absolute; top:16px; right:16px; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.18); border:none; color:#fff; font-size:1.3rem; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 150ms ease; }
+    .material-modal-close:hover { background:rgba(255,255,255,.32); }
+    .material-modal-header .material-icon { margin-bottom:14px; }
+    .material-modal-header h3 { font-size:1.5rem; font-weight:700; margin-bottom:6px; }
+    .material-modal-header p { font-size:0.92rem; opacity:.88; }
+    .material-modal-tabs { display:flex; gap:4px; padding:0 24px; background:var(--bg); border-bottom:1px solid var(--border); overflow-x:auto; }
+    .material-modal-tab { display:flex; align-items:center; gap:8px; padding:14px 16px; font-size:0.85rem; font-weight:600; color:var(--text-mid); background:none; border:none; border-bottom:3px solid transparent; cursor:pointer; white-space:nowrap; transition:color 150ms ease; }
+    .material-modal-tab svg { width:16px; height:16px; fill:currentColor; flex-shrink:0; }
+    .material-modal-tab:hover { color:var(--primary); }
+    .material-modal-tab.active { color:var(--primary); border-bottom-color:var(--primary); }
+    .material-modal-panel { display:none; padding:28px 32px 32px; }
+    .material-modal-panel.active { display:block; }
+    .material-modal-placeholder { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:12px; padding:44px 20px; background:var(--bg); border:1.5px dashed var(--border); border-radius:var(--radius-md); color:var(--text-light); }
+    .material-modal-placeholder svg { width:36px; height:36px; fill:var(--text-light); }
+    .material-modal-placeholder strong { color:var(--text-mid); font-size:0.95rem; }
+    .material-modal-placeholder span { font-size:0.82rem; max-width:360px; }
+    .material-modal-specs { display:flex; flex-direction:column; gap:0; }
+    .material-modal-spec { display:flex; align-items:center; gap:12px; font-size:0.92rem; color:var(--text-dark); padding:13px 0; border-bottom:1px solid var(--border); }
+    .material-modal-spec:last-child { border-bottom:none; }
+    .material-modal-spec svg { width:18px; height:18px; fill:var(--accent); flex-shrink:0; }
+    .material-modal-gallery { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+    .material-modal-gallery img { width:100%; height:140px; object-fit:cover; border-radius:var(--radius-sm); border:1px solid var(--border); }
+    @media (max-width:600px) {
+      .material-modal-gallery { grid-template-columns:1fr; }
+      .material-modal-header { padding:26px 22px 20px; }
+      .material-modal-tabs { padding:0 12px; }
+      .material-modal-panel { padding:22px; }
+    }
 
     /* HOW IT WORKS */
     .steps-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:32px; position:relative; }
@@ -744,7 +784,7 @@
       <p class="section-sub">Tre famiglie di materiali per rispondere ad ogni esigenza estetica, energetica e di budget.</p>
     </div>
     <div class="materials-grid">
-      <div class="material-card reveal">
+      <div class="material-card reveal" onclick="openMaterialModal('pvc')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openMaterialModal('pvc');}">
         <div class="material-photo"><img src="images/materiale-pvc.jpg" alt="Profilo PVC"></div>
         <div class="material-header pvc">
           <div class="material-icon">
@@ -770,9 +810,13 @@
             <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             30+ colori RAL disponibili
           </div>
+          <div class="material-card-hint">
+            <svg viewBox="0 0 24 24"><path d="M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6H6z"/></svg>
+            Materiali informativi, video, immagini e dati tecnici
+          </div>
         </div>
       </div>
-      <div class="material-card reveal">
+      <div class="material-card reveal" onclick="openMaterialModal('legno')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openMaterialModal('legno');}">
         <div class="material-photo"><img src="images/materiale-legno.jpg" alt="Profilo Legno"></div>
         <div class="material-header legno">
           <div class="material-icon">
@@ -798,9 +842,13 @@
             <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             Legni certificati FSC su richiesta
           </div>
+          <div class="material-card-hint">
+            <svg viewBox="0 0 24 24"><path d="M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6H6z"/></svg>
+            Materiali informativi, video, immagini e dati tecnici
+          </div>
         </div>
       </div>
-      <div class="material-card reveal">
+      <div class="material-card reveal" onclick="openMaterialModal('alluminio')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openMaterialModal('alluminio');}">
         <div class="material-photo"><img src="images/materiale-alluminio.jpg" alt="Profilo Alluminio"></div>
         <div class="material-header alluminio">
           <div class="material-icon">
@@ -826,11 +874,65 @@
             <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             Forme speciali e grandi dimensioni
           </div>
+          <div class="material-card-hint">
+            <svg viewBox="0 0 24 24"><path d="M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6H6z"/></svg>
+            Materiali informativi, video, immagini e dati tecnici
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- MATERIAL INFO MODAL -->
+<div class="material-modal-overlay" id="materialModalOverlay" onclick="if(event.target===this)closeMaterialModal()">
+  <div class="material-modal" role="dialog" aria-modal="true" aria-labelledby="materialModalTitle">
+    <div class="material-modal-header" id="materialModalHeader">
+      <button class="material-modal-close" onclick="closeMaterialModal()" aria-label="Chiudi">×</button>
+      <div class="material-icon" id="materialModalIcon"></div>
+      <h3 id="materialModalTitle"></h3>
+      <p id="materialModalSubtitle"></p>
+    </div>
+    <div class="material-modal-tabs">
+      <button class="material-modal-tab active" data-tab="info" onclick="switchMaterialTab('info')">
+        <svg viewBox="0 0 24 24"><path d="M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6H6z"/></svg>
+        Materiale informativo
+      </button>
+      <button class="material-modal-tab" data-tab="video" onclick="switchMaterialTab('video')">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        Video
+      </button>
+      <button class="material-modal-tab" data-tab="immagini" onclick="switchMaterialTab('immagini')">
+        <svg viewBox="0 0 24 24"><path d="M21 19V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+        Immagini
+      </button>
+      <button class="material-modal-tab" data-tab="dati" onclick="switchMaterialTab('dati')">
+        <svg viewBox="0 0 24 24"><path d="M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4zm2.5 2H4.5V5h15z"/></svg>
+        Dati tecnici
+      </button>
+    </div>
+    <div class="material-modal-panel active" data-panel="info">
+      <div class="material-modal-placeholder">
+        <svg viewBox="0 0 24 24"><path d="M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6H6z"/></svg>
+        <strong>Brochure e schede informative in arrivo</strong>
+        <span>Qui troverai a breve la documentazione scaricabile in PDF su questo materiale. Nel frattempo puoi richiederla direttamente contattandoci.</span>
+      </div>
+    </div>
+    <div class="material-modal-panel" data-panel="video">
+      <div class="material-modal-placeholder">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <strong>Video in arrivo</strong>
+        <span>Stiamo preparando contenuti video di approfondimento su lavorazione, posa e manutenzione di questo materiale.</span>
+      </div>
+    </div>
+    <div class="material-modal-panel" data-panel="immagini">
+      <div class="material-modal-gallery" id="materialModalGallery"></div>
+    </div>
+    <div class="material-modal-panel" data-panel="dati">
+      <div class="material-modal-specs" id="materialModalSpecs"></div>
+    </div>
+  </div>
+</div>
 
 <!-- HOW IT WORKS -->
 <section class="section section-alt">
@@ -1436,6 +1538,84 @@
     document.querySelectorAll('.window-card').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
   }
+
+  // Material info modal — dati tecnici ripresi 1:1 dalle card "I nostri materiali"
+  // qui sopra, per non inventare specifiche non pubblicate altrove sul sito.
+  const MATERIALS_INFO = {
+    pvc: {
+      name: 'PVC',
+      subtitle: 'Il più diffuso. Eccellente rapporto qualità/prezzo',
+      headerClass: 'pvc',
+      icon: '<svg viewBox="0 0 24 24"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v10H7V7zm2 2v6h6V9H9z"/></svg>',
+      photo: 'images/materiale-pvc.jpg',
+      specs: [
+        'Profilo a scelta, qualità premium garantita',
+        'Uw fino a 0.5 con triplo vetro',
+        'Manutenzione minima, lunga durata',
+        '30+ colori RAL disponibili',
+      ],
+    },
+    legno: {
+      name: 'Legno',
+      subtitle: 'Calore naturale. Ideale per contesti storici e rustici',
+      headerClass: 'legno',
+      icon: '<svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21c1.06-1.06 3.43-2.9 6.82-3.5 1.07 2.11 2.18 3.94 3.18 5.5C19.5 19 22 13 22 8h-5z"/></svg>',
+      photo: 'images/materiale-legno.jpg',
+      specs: [
+        'Estetica naturale e pregiata',
+        'Eccellente isolamento termico naturale',
+        'Compatibile con edifici storici e vincolati',
+        'Legni certificati FSC su richiesta',
+      ],
+    },
+    alluminio: {
+      name: 'Alluminio',
+      subtitle: 'Design moderno. Massima libertà di forma e colore',
+      headerClass: 'alluminio',
+      icon: '<svg viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm2 6h12v4H6v-4z"/></svg>',
+      photo: 'images/materiale-alluminio.jpg',
+      specs: [
+        'Profili sottili e design minimalista',
+        'Taglio termico per alta efficienza',
+        'Inossidabile e resistente alle intemperie',
+        'Forme speciali e grandi dimensioni',
+      ],
+    },
+  };
+  const specCheckIcon = '<svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+
+  function openMaterialModal(id) {
+    const m = MATERIALS_INFO[id];
+    if(!m) return;
+    const overlay = document.getElementById('materialModalOverlay');
+    const header = document.getElementById('materialModalHeader');
+    header.className = 'material-modal-header ' + m.headerClass;
+    document.getElementById('materialModalIcon').innerHTML = m.icon;
+    document.getElementById('materialModalTitle').textContent = m.name;
+    document.getElementById('materialModalSubtitle').textContent = m.subtitle;
+    document.getElementById('materialModalGallery').innerHTML =
+      `<img src="${m.photo}" alt="Profilo ${m.name}">`;
+    document.getElementById('materialModalSpecs').innerHTML = m.specs.map(s =>
+      `<div class="material-modal-spec">${specCheckIcon}<span>${s}</span></div>`
+    ).join('');
+    switchMaterialTab('info');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMaterialModal() {
+    document.getElementById('materialModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function switchMaterialTab(tab) {
+    document.querySelectorAll('.material-modal-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+    document.querySelectorAll('.material-modal-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === tab));
+  }
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') closeMaterialModal();
+  });
 
   // Trust bar carousel (arrows on mobile, plain row on desktop)
   (function() {

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy | Vetro Connections</title>
+  <meta name="description" content="Informativa sulla privacy di Vetro Connections: dati raccolti, finalità del trattamento, diritti dell'interessato ai sensi del GDPR (Reg. UE 2016/679).">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary:     #1E40AF;
+      --primary-dark:#1E3A8A;
+      --secondary:   #3B82F6;
+      --accent:      #16A34A;
+      --accent-dark: #15803D;
+      --bg:          #EFF6FF;
+      --bg-white:    #FFFFFF;
+      --muted:       #F1F5F9;
+      --border:      #BFDBFE;
+      --text-dark:   #1E293B;
+      --text-mid:    #475569;
+      --text-light:  #94A3B8;
+      --radius-sm:   6px;
+      --radius-md:   12px;
+      --radius-lg:   20px;
+      --shadow-sm:   0 1px 4px rgba(30,64,175,.08);
+      --shadow-md:   0 4px 20px rgba(30,64,175,.12);
+      --transition:  150ms ease;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Open Sans',sans-serif; font-size:16px; line-height:1.6; color:var(--text-dark); background:var(--bg-white); overflow-x:hidden; }
+    h1,h2,h3,h4,h5 { font-family:'Poppins',sans-serif; line-height:1.25; }
+    a { text-decoration:none; color:inherit; }
+    img { max-width:100%; display:block; }
+    .container { max-width:1200px; margin:0 auto; padding:0 24px; }
+
+    /* NAVBAR */
+    .navbar { position:sticky; top:0; z-index:100; background:var(--bg-white); border-bottom:1px solid var(--border); box-shadow:var(--shadow-sm); }
+    .navbar-inner { display:flex; align-items:center; justify-content:space-between; height:68px; }
+    .logo { display:flex; align-items:center; gap:10px; }
+    .logo-icon { width:38px; height:38px; background:var(--primary); border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; }
+    .logo-icon svg { width:22px; height:22px; fill:#fff; }
+    .logo-text { font-family:'Poppins',sans-serif; font-size:1.25rem; font-weight:700; color:var(--primary-dark); }
+    .logo-text span { color:var(--accent); }
+    .nav-phone { display:flex; align-items:center; gap:6px; font-size:0.85rem; font-weight:600; color:var(--primary-dark); white-space:nowrap; }
+    .nav-phone svg { width:16px; height:16px; fill:var(--accent); flex-shrink:0; }
+    .nav-phone:hover { color:var(--accent); }
+    .nav-links { display:flex; align-items:center; gap:4px; list-style:none; }
+    .nav-links a { font-size:0.875rem; font-weight:500; color:var(--text-mid); padding:8px 12px; border-radius:var(--radius-sm); transition:color var(--transition),background var(--transition); }
+    .nav-links a:hover { color:var(--primary); background:var(--bg); }
+    .nav-cta { background:var(--accent)!important; color:#fff!important; border-radius:var(--radius-sm)!important; padding:10px 18px!important; font-weight:600!important; box-shadow:0 2px 8px rgba(22,163,74,.3); }
+    .nav-cta:hover { background:var(--accent-dark)!important; transform:translateY(-1px); }
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; border:none; background:none; }
+    .hamburger span { display:block; width:24px; height:2px; background:var(--text-dark); border-radius:2px; }
+    .mobile-menu { display:none; position:fixed; top:68px; left:0; right:0; bottom:0; background:#fff; z-index:99; padding:24px; overflow-y:auto; }
+    .mobile-menu.open { display:flex; flex-direction:column; gap:8px; }
+    .mobile-menu a { font-size:1.05rem; font-weight:500; color:var(--text-dark); padding:14px 16px; border-radius:var(--radius-md); border:1px solid var(--border); display:block; }
+    .mobile-menu a:hover { background:var(--bg); }
+    .mobile-menu-cta { background:var(--accent)!important; color:#fff!important; border-color:var(--accent)!important; font-weight:700!important; text-align:center; margin-top:8px; }
+
+    /* PAGE HEADER */
+    .legal-hero { background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 50%,#2563EB 100%); color:#fff; padding:56px 0; }
+    .legal-hero h1 { font-size:clamp(1.7rem,3.5vw,2.4rem); font-weight:800; margin-bottom:10px; }
+    .legal-hero p { opacity:.85; font-size:.95rem; }
+
+    /* LEGAL CONTENT */
+    .legal-wrap { max-width:820px; margin:0 auto; padding:64px 24px 88px; }
+    .legal-updated { display:inline-block; font-size:.78rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:var(--bg); border:1px solid var(--border); border-radius:100px; padding:6px 14px; margin-bottom:32px; }
+    .legal-wrap h2 { font-size:1.35rem; font-weight:700; color:var(--primary-dark); margin:40px 0 14px; }
+    .legal-wrap h2:first-of-type { margin-top:0; }
+    .legal-wrap h3 { font-size:1.05rem; font-weight:700; color:var(--text-dark); margin:22px 0 8px; }
+    .legal-wrap p { color:var(--text-mid); margin-bottom:14px; font-size:.96rem; }
+    .legal-wrap ul { color:var(--text-mid); margin:0 0 14px 22px; font-size:.96rem; }
+    .legal-wrap li { margin-bottom:8px; }
+    .legal-wrap a.inline-link { color:var(--secondary); font-weight:600; text-decoration:underline; }
+    .legal-table { width:100%; border-collapse:collapse; margin:12px 0 22px; font-size:.9rem; }
+    .legal-table th, .legal-table td { text-align:left; padding:10px 12px; border:1px solid var(--border); vertical-align:top; }
+    .legal-table th { background:var(--bg); color:var(--primary-dark); font-family:'Poppins',sans-serif; font-size:.82rem; }
+    .legal-table td { color:var(--text-mid); }
+    .legal-note { background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-md); padding:18px 20px; font-size:.9rem; color:var(--text-mid); margin-top:36px; }
+    .legal-note strong { color:var(--primary-dark); }
+
+    /* FOOTER */
+    .footer { background:var(--primary-dark); color:rgba(255,255,255,.75); padding:48px 0 32px; }
+    .footer-inner { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:32px; margin-bottom:36px; }
+    .footer-brand .logo-text { color:#fff; }
+    .footer-brand p { font-size:0.875rem; line-height:1.7; margin-top:12px; max-width:280px; }
+    .footer-links { display:flex; gap:40px; flex-wrap:wrap; }
+    .footer-col h4 { font-family:'Poppins',sans-serif; font-size:0.875rem; font-weight:600; color:#fff; margin-bottom:14px; }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .footer-col ul li a { font-size:0.85rem; color:rgba(255,255,255,.65); transition:color var(--transition); }
+    .footer-col ul li a:hover { color:#fff; }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.12); padding-top:24px; font-size:0.8rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+    .footer-bottom a:hover { color:#fff; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display:none; }
+      .nav-phone { display:none; }
+      .hamburger { display:flex; }
+      .footer-inner { flex-direction:column; }
+      .footer-links { flex-direction:column; gap:24px; }
+      .footer-bottom { flex-direction:column; text-align:center; }
+    }
+    @media (max-width: 480px) {
+      .container { padding:0 16px; }
+      .legal-wrap { padding:44px 16px 64px; }
+    }
+
+    .wa-widget { position:fixed; bottom:24px; right:24px; z-index:1000; display:flex; flex-direction:column; align-items:flex-end; gap:12px; }
+    .wa-btn { width:56px; height:56px; border-radius:50%; background:#25D366; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:none; transition:transform 200ms ease; }
+    .wa-btn:hover { transform:scale(1.08); }
+    .wa-popup { display:none; background:#fff; border-radius:20px; box-shadow:0 8px 40px rgba(0,0,0,.18); width:300px; overflow:hidden; }
+    .wa-popup.open { display:block; }
+    .wa-popup-header { background:#075E54; padding:14px 16px; display:flex; align-items:center; gap:10px; }
+    .wa-avatar { width:38px; height:38px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; font-family:'Poppins',sans-serif; font-size:.85rem; font-weight:700; color:#fff; flex-shrink:0; }
+    .wa-popup-name { font-size:.9rem; font-weight:700; color:#fff; }
+    .wa-popup-status { font-size:.72rem; color:rgba(255,255,255,.75); margin-top:1px; }
+    .wa-close { margin-left:auto; background:none; border:none; color:rgba(255,255,255,.7); font-size:1.4rem; cursor:pointer; line-height:1; }
+    .wa-bubble { background:#DCF8C6; margin:16px 12px 8px; padding:10px 12px; border-radius:8px 8px 8px 0; font-size:.82rem; line-height:1.5; color:#1a1a1a; }
+    .wa-input-area { padding:8px 12px 14px; display:flex; flex-direction:column; gap:8px; }
+    .wa-input { width:100%; border:1px solid #BFDBFE; border-radius:6px; padding:8px 10px; font-size:.82rem; font-family:'Open Sans',sans-serif; resize:none; outline:none; height:72px; }
+    .wa-send { background:#25D366; color:#fff; border:none; border-radius:6px; padding:9px 14px; font-size:.82rem; font-weight:600; cursor:pointer; }
+    .wa-send:hover { background:#1DA851; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v10H7V7zm2 2v6h6V9H9z"/></svg>
+        </div>
+        <span class="logo-text">Vetro<span>Connections</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#prodotti">Prodotti</a></li>
+        <li><a href="index.html#materiali">Materiali</a></li>
+        <li><a href="progetti.html">Progetti</a></li>
+        <li><a href="index.html#servizi">Servizi</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="index.html#contatti">Contatti</a></li>
+        <li><a href="tel:+393455086065" class="nav-phone">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.56.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.49a1 1 0 011 1 11.36 11.36 0 00.57 3.56 1 1 0 01-.25 1.02l-2.2 2.21z"/></svg>
+          +39 345 5086065
+        </a></li>
+        <li><a href="configuratore.html" class="nav-cta">Configura Ora</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#prodotti" onclick="closeMobileMenu()">Prodotti</a>
+  <a href="index.html#materiali" onclick="closeMobileMenu()">Materiali</a>
+  <a href="progetti.html" onclick="closeMobileMenu()">Progetti</a>
+  <a href="index.html#servizi" onclick="closeMobileMenu()">Servizi</a>
+  <a href="index.html#faq" onclick="closeMobileMenu()">FAQ</a>
+  <a href="index.html#contatti" onclick="closeMobileMenu()">Contatti</a>
+  <a href="configuratore.html" class="mobile-menu-cta">Configura Ora →</a>
+</div>
+
+<!-- PAGE HEADER -->
+<section class="legal-hero">
+  <div class="container">
+    <h1>Privacy Policy</h1>
+    <p>Informativa sul trattamento dei dati personali ai sensi degli artt. 13-14 del Regolamento (UE) 2016/679 (GDPR)</p>
+  </div>
+</section>
+
+<!-- LEGAL CONTENT -->
+<div class="legal-wrap">
+  <span class="legal-updated">Ultimo aggiornamento: 5 settembre 2026</span>
+
+  <p>La presente informativa descrive le modalità di trattamento dei dati personali degli utenti che visitano il sito <strong>vetroconnections.it</strong> (di seguito, il "Sito") e di coloro che utilizzano il configuratore online o i moduli di contatto, in conformità al Regolamento (UE) 2016/679 ("GDPR") e al D.Lgs. 196/2003 come modificato dal D.Lgs. 101/2018 ("Codice Privacy").</p>
+
+  <h2>1. Titolare del trattamento</h2>
+  <p>Il Titolare del trattamento dei dati è:</p>
+  <p>
+    <strong>Vetro Connections</strong><br>
+    Via Levada 34, 31050 Povegliano (TV), Italia<br>
+    P.IVA: 05516400263<br>
+    Email: <a class="inline-link" href="mailto:vetroconnections@gmail.com">vetroconnections@gmail.com</a><br>
+    Telefono: <a class="inline-link" href="tel:+393455086065">+39 345 5086065</a>
+  </p>
+
+  <h2>2. Quali dati raccogliamo</h2>
+  <p>Raccogliamo dati personali esclusivamente quando l'utente li fornisce volontariamente, compilando uno dei moduli presenti sul Sito:</p>
+  <ul>
+    <li><strong>Modulo Configuratore</strong> (pagina "Configura Ora"): nome e cognome, email e/o telefono, note aggiuntive, oltre ai dati tecnici della configurazione scelta (tipo di prodotto, dimensioni, materiali, colori, accessori) necessari a predisporre il preventivo.</li>
+    <li><strong>Modulo "Rilievo in Situ"</strong>: nome, cognome, telefono, indirizzo del sopralluogo, numero indicativo di aperture, note aggiuntive.</li>
+    <li><strong>Modulo "Contatti" / "Inviaci un messaggio"</strong>: nome, cognome, email, oggetto della richiesta, testo del messaggio.</li>
+  </ul>
+  <p>Non raccogliamo categorie particolari di dati (dati sensibili) e il Sito non è rivolto a minori di 16 anni. Il Sito non utilizza cookie di profilazione propri e non effettua tracciamento pubblicitario.</p>
+
+  <h2>3. Finalità e base giuridica del trattamento</h2>
+  <table class="legal-table">
+    <tr><th>Finalità</th><th>Base giuridica</th></tr>
+    <tr><td>Rispondere a richieste di preventivo, informazioni o sopralluogo inviate tramite i moduli del Sito</td><td>Esecuzione di misure precontrattuali richieste dall'interessato (art. 6.1.b GDPR)</td></tr>
+    <tr><td>Gestione della relazione commerciale e, se il preventivo viene accettato, esecuzione del contratto di fornitura/installazione</td><td>Esecuzione di un contratto (art. 6.1.b GDPR)</td></tr>
+    <tr><td>Adempimenti contabili, fiscali e amministrativi conseguenti a un eventuale ordine</td><td>Obbligo legale (art. 6.1.c GDPR)</td></tr>
+  </table>
+  <p>Il conferimento dei dati contrassegnati come obbligatori nei moduli è necessario per poter dare seguito alla richiesta: in assenza di tali dati non saremo in grado di rispondere.</p>
+
+  <h2>4. Come vengono trattati i dati e a chi vengono comunicati</h2>
+  <p>I dati inseriti nei moduli del Sito vengono trasmessi tramite il servizio di invio email <strong>EmailJS</strong> (EmailJS Corp.) direttamente alla casella di posta del Titolare, che li conserva e li tratta per le finalità indicate al punto 3. EmailJS agisce in questo contesto come responsabile del trattamento limitatamente alla trasmissione tecnica del messaggio.</p>
+  <p>Il Sito è ospitato sull'infrastruttura di hosting <strong>Vercel Inc.</strong>, che elabora automaticamente dati tecnici di connessione (es. indirizzo IP, tipo di browser) per il solo funzionamento e la sicurezza del servizio.</p>
+  <p>Il Sito carica i caratteri tipografici da <strong>Google Fonts</strong> (Google LLC): il browser dell'utente effettua una richiesta diretta ai server di Google per scaricare i font, che può comportare la trasmissione dell'indirizzo IP a Google secondo le sue policy.</p>
+  <p>Se l'utente sceglie di contattarci tramite il pulsante WhatsApp presente sul Sito, la conversazione avviene sull'infrastruttura di <strong>WhatsApp (Meta Platforms, Inc.)</strong> secondo i termini e l'informativa privacy di WhatsApp, che l'utente accetta separatamente aprendo l'applicazione.</p>
+  <p>I dati non vengono in alcun caso venduti, ceduti o comunicati a terzi per finalità di marketing di soggetti diversi dal Titolare.</p>
+
+  <h2>5. Periodo di conservazione</h2>
+  <p>I dati raccolti tramite i moduli di contatto e preventivo sono conservati per il tempo necessario a gestire la richiesta e, in caso di instaurazione di un rapporto contrattuale, per la durata di quest'ultimo e per il periodo successivo previsto dalla legge per obblighi contabili e fiscali (di norma 10 anni). Le richieste che non danno seguito a un contratto vengono conservate per un massimo di 24 mesi dall'ultimo contatto, salvo diversa richiesta dell'interessato.</p>
+
+  <h2>6. Diritti dell'interessato</h2>
+  <p>In qualità di interessato, hai diritto di richiedere in qualsiasi momento al Titolare, ai sensi degli artt. 15-22 del GDPR:</p>
+  <ul>
+    <li>l'accesso ai tuoi dati personali e una copia degli stessi;</li>
+    <li>la rettifica dei dati inesatti o l'integrazione di quelli incompleti;</li>
+    <li>la cancellazione dei dati ("diritto all'oblio"), nei casi previsti dalla legge;</li>
+    <li>la limitazione del trattamento;</li>
+    <li>la portabilità dei dati forniti, in formato strutturato e leggibile;</li>
+    <li>l'opposizione al trattamento, in tutto o in parte;</li>
+    <li>la revoca del consenso eventualmente prestato, in qualsiasi momento, senza pregiudicare la liceità del trattamento svolto prima della revoca.</li>
+  </ul>
+  <p>Le richieste possono essere inviate a <a class="inline-link" href="mailto:vetroconnections@gmail.com">vetroconnections@gmail.com</a>. Hai inoltre diritto di proporre reclamo all'Autorità Garante per la protezione dei dati personali (<a class="inline-link" href="https://www.garanteprivacy.it" target="_blank" rel="noopener">www.garanteprivacy.it</a>) qualora ritenga che il trattamento dei tuoi dati violi la normativa vigente.</p>
+
+  <h2>7. Sicurezza dei dati</h2>
+  <p>Adottiamo misure tecniche e organizzative adeguate a proteggere i dati personali da accessi non autorizzati, perdita, distruzione o divulgazione, in linea con i principi di integrità e riservatezza del GDPR. Le comunicazioni tra il browser dell'utente e il Sito avvengono tramite protocollo sicuro HTTPS.</p>
+
+  <h2>8. Modifiche alla presente informativa</h2>
+  <p>Questa informativa può essere aggiornata periodicamente per riflettere modifiche normative o cambiamenti nelle modalità di trattamento dei dati. La data di ultimo aggiornamento è indicata in cima alla pagina. Ti invitiamo a consultarla periodicamente.</p>
+
+  <div class="legal-note">
+    <strong>Nota:</strong> questo documento fornisce un'informativa privacy di base costruita sulle effettive modalità di raccolta dati di questo sito. Per una piena conformità normativa alla tua specifica situazione aziendale, ti consigliamo di farla rivedere da un consulente legale o dal tuo commercialista prima della pubblicazione definitiva.
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v10H7V7zm2 2v6h6V9H9z"/></svg>
+          </div>
+          <span class="logo-text">Vetro<span>Connections</span></span>
+        </div>
+        <p>Finestre e porte in PVC, legno e alluminio su misura. Qualità europea, consegna in tutta Italia.</p>
+        <p style="margin-top:10px;font-size:0.8rem;opacity:.6;">Via Levada 34, 31050 Povegliano (TV)<br>P.IVA: 05516400263</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Navigazione</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#prodotti">Prodotti</a></li>
+            <li><a href="index.html#materiali">Materiali</a></li>
+            <li><a href="progetti.html">Progetti</a></li>
+            <li><a href="configuratore.html">Configuratore</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contatti</h4>
+          <ul>
+            <li><a href="mailto:vetroconnections@gmail.com">vetroconnections@gmail.com</a></li>
+            <li><a href="tel:+393455086065">+39 345 5086065</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Vetro Connections · P.IVA 05516400263</span>
+      <span><a href="privacy.html">Privacy Policy</a> · Via Levada 34, 31050 Povegliano (TV), Italia</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  function closeMobileMenu() { mobileMenu.classList.remove('open'); }
+</script>
+
+<!-- ══ WHATSAPP WIDGET ═══════════════════════════════ -->
+<div class="wa-widget">
+  <div class="wa-popup" id="waPopup">
+    <div class="wa-popup-header">
+      <div class="wa-avatar">VC</div>
+      <div>
+        <div class="wa-popup-name">Vetro Connections</div>
+        <div class="wa-popup-status">Di solito risponde in pochi minuti</div>
+      </div>
+      <button class="wa-close" onclick="toggleWa()" aria-label="Chiudi">×</button>
+    </div>
+    <div class="wa-bubble">Ciao! 👋 Come possiamo aiutarti? Scrivi qui il tuo messaggio e ti risponderemo su WhatsApp.</div>
+    <div class="wa-input-area">
+      <textarea class="wa-input" id="waText" placeholder="Es: Vorrei un preventivo per finestre in PVC..."></textarea>
+      <button class="wa-send" onclick="sendWa()">Invia su WhatsApp →</button>
+    </div>
+  </div>
+  <button class="wa-btn" onclick="toggleWa()" aria-label="Chatta su WhatsApp">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+  </button>
+</div>
+<script>
+function toggleWa(){document.getElementById('waPopup').classList.toggle('open');}
+function sendWa(){const m=document.getElementById('waText').value.trim()||'Ciao, vorrei informazioni sui vostri progetti!';window.open('https://api.whatsapp.com/send?phone=393455086065&text='+encodeURIComponent(m),'_blank');}
+</script>
+</body>
+</html>

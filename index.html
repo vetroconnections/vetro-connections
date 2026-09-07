@@ -263,6 +263,18 @@
     .project-img.fit-contain .project-label { z-index:2; }
     .project-label { position:absolute; bottom:12px; left:12px; background:rgba(0,0,0,.5); color:#fff; font-size:0.72rem; font-weight:700; padding:4px 10px; border-radius:100px; backdrop-filter:blur(4px); }
     .project-body { background:#fff; padding:16px 20px; }
+
+    /* LIGHTBOX */
+    .lightbox-overlay { display:none; position:fixed; inset:0; background:rgba(10,12,20,.9); z-index:1200; align-items:center; justify-content:center; padding:32px; flex-direction:column; }
+    .lightbox-overlay.open { display:flex; }
+    .lightbox-overlay img { max-width:100%; max-height:80vh; border-radius:var(--radius-md); box-shadow:0 20px 60px rgba(0,0,0,.5); }
+    .lightbox-caption { color:#fff; margin-top:18px; font-size:0.95rem; font-weight:600; text-align:center; }
+    .lightbox-close { position:absolute; top:20px; right:24px; width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,.12); border:none; color:#fff; font-size:1.6rem; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 150ms ease; }
+    .lightbox-close:hover { background:rgba(255,255,255,.24); }
+    @media (max-width:600px) {
+      .lightbox-overlay { padding:16px; }
+      .lightbox-close { top:12px; right:12px; }
+    }
     .project-body h4 { font-size:0.95rem; font-weight:600; color:var(--primary-dark); margin-bottom:4px; }
     .project-body p { font-size:0.82rem; color:var(--text-mid); }
     .projects-cta { text-align:center; margin-top:40px; }
@@ -884,6 +896,13 @@
   </div>
 </section>
 
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightboxOverlay" onclick="if(event.target===this)closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Chiudi">×</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
 <!-- MATERIAL INFO MODAL -->
 <div class="material-modal-overlay" id="materialModalOverlay" onclick="if(event.target===this)closeMaterialModal()">
   <div class="material-modal" role="dialog" aria-modal="true" aria-labelledby="materialModalTitle">
@@ -977,7 +996,7 @@
     </div>
     <div class="projects-grid">
       <div class="project-card reveal">
-        <div class="project-img p1 fit-contain" style="background-image:url('images/progetto-pvc.jpg')">
+        <div class="project-img p1 fit-contain" style="background-image:url('images/progetto-pvc.jpg')" onclick="openLightbox(this)">
           <img class="project-photo" src="images/progetto-pvc.jpg" alt="Installazione PVC">
           <span class="project-label">PVC · Bianco</span>
         </div>
@@ -987,7 +1006,7 @@
         </div>
       </div>
       <div class="project-card reveal">
-        <div class="project-img p2 fit-contain" style="background-image:url('images/progetto-legno.jpg')">
+        <div class="project-img p2 fit-contain" style="background-image:url('images/progetto-legno.jpg')" onclick="openLightbox(this)">
           <img class="project-photo" src="images/progetto-legno.jpg" alt="Installazione Legno">
           <span class="project-label">PVC · Bianco</span>
         </div>
@@ -997,7 +1016,7 @@
         </div>
       </div>
       <div class="project-card reveal">
-        <div class="project-img p3">
+        <div class="project-img p3" onclick="openLightbox(this)">
           <img class="project-photo" src="images/progetto-alluminio.jpg" alt="Installazione Alluminio">
           <span class="project-label">Alluminio · Nero</span>
         </div>
@@ -1007,7 +1026,7 @@
         </div>
       </div>
       <div class="project-card reveal">
-        <div class="project-img p4 fit-contain" style="background-image:url('images/progetto-vetri-parapetto.jpg')">
+        <div class="project-img p4 fit-contain" style="background-image:url('images/progetto-vetri-parapetto.jpg')" onclick="openLightbox(this)">
           <img class="project-photo" src="images/progetto-vetri-parapetto.jpg" alt="Scala con parapetto in vetro">
           <span class="project-label">Parapetto</span>
         </div>
@@ -1017,7 +1036,7 @@
         </div>
       </div>
       <div class="project-card reveal">
-        <div class="project-img p5 fit-contain" style="background-image:url('images/progetto-vetri-doccia.jpg')">
+        <div class="project-img p5 fit-contain" style="background-image:url('images/progetto-vetri-doccia.jpg')" onclick="openLightbox(this)">
           <img class="project-photo" src="images/progetto-vetri-doccia.jpg" alt="Vetri doccia walk-in">
           <span class="project-label">Vetri doccia</span>
         </div>
@@ -1027,7 +1046,7 @@
         </div>
       </div>
       <div class="project-card reveal">
-        <div class="project-img p6 fit-contain" style="background-image:url('images/progetto-porte-ingresso.jpg')">
+        <div class="project-img p6 fit-contain" style="background-image:url('images/progetto-porte-ingresso.jpg')" onclick="openLightbox(this)">
           <img class="project-photo" src="images/progetto-porte-ingresso.jpg" alt="Porte d'ingresso">
           <span class="project-label">Alluminio · Blu e Antracite</span>
         </div>
@@ -1538,6 +1557,23 @@
     document.querySelectorAll('.window-card').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
   }
+
+  // Project photo lightbox
+  function openLightbox(imgContainer) {
+    const img = imgContainer.querySelector('.project-photo');
+    if(!img) return;
+    const caption = imgContainer.closest('.project-card')?.querySelector('h4')?.textContent || img.alt || '';
+    document.getElementById('lightboxImg').src = img.src;
+    document.getElementById('lightboxImg').alt = img.alt;
+    document.getElementById('lightboxCaption').textContent = caption;
+    document.getElementById('lightboxOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightboxOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
 
   // Material info modal — dati tecnici ripresi 1:1 dalle card "I nostri materiali"
   // qui sopra, per non inventare specifiche non pubblicate altrove sul sito.

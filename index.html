@@ -128,17 +128,21 @@
 
     /* FEATURES */
     .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
-    .feature-card { position:relative; overflow:hidden; background:var(--bg-white); border:1px solid var(--border); border-radius:var(--radius-md); padding:32px 28px; transition:box-shadow 200ms ease,transform 200ms ease,border-color 200ms ease; }
+    .feature-card { position:relative; overflow:hidden; background:var(--bg-white); border:1px solid var(--border); border-radius:var(--radius-md); padding:150px 28px 32px; transition:box-shadow 200ms ease,transform 200ms ease,border-color 200ms ease; }
     .feature-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-4px); border-color:var(--secondary); }
-    .feature-card::before { content:''; position:absolute; inset:0; background-size:cover; background-position:center; opacity:.14; transition:opacity 250ms ease; z-index:0; }
-    .feature-card:hover::before { opacity:.24; }
+    .feature-card::before {
+      content:''; position:absolute; inset:0;
+      background-image: linear-gradient(180deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.12) 32%, rgba(255,255,255,.7) 52%, #fff 70%), var(--fc-img);
+      background-size:cover; background-position:center top;
+      transition:background-image 250ms ease; z-index:0;
+    }
     .feature-card > * { position:relative; z-index:1; }
-    .feature-card.fc-configuratore::before   { background-image:url('images/feature-configuratore.jpg'); }
-    .feature-card.fc-efficienza::before      { background-image:url('images/feature-efficienza.jpg'); }
-    .feature-card.fc-certificazione::before  { background-image:url('images/feature-certificazione.jpg'); }
-    .feature-card.fc-consegna::before        { background-image:url('images/feature-consegna.jpg'); }
-    .feature-card.fc-rilievi::before         { background-image:url('images/feature-rilievi.jpg'); }
-    .feature-card.fc-qualita::before         { background-image:url('images/feature-qualita.jpg'); }
+    .feature-card.fc-configuratore { --fc-img:url('images/feature-configuratore.jpg'); }
+    .feature-card.fc-efficienza    { --fc-img:url('images/feature-efficienza.jpg'); }
+    .feature-card.fc-certificazione{ --fc-img:url('images/feature-certificazione.jpg'); }
+    .feature-card.fc-consegna      { --fc-img:url('images/feature-consegna.jpg'); }
+    .feature-card.fc-rilievi       { --fc-img:url('images/feature-rilievi.jpg'); }
+    .feature-card.fc-qualita       { --fc-img:url('images/feature-qualita.jpg'); }
     .feature-icon { width:52px; height:52px; border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; margin-bottom:20px; }
     .feature-icon svg { width:26px; height:26px; }
     .feature-icon.blue   { background:#DBEAFE; } .feature-icon.blue svg   { fill:var(--primary); }
@@ -655,7 +659,7 @@
           <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
         <h3>Consegna Rapida</h3>
-        <p>Produzione e consegna in 4/5 settimane. Avviso telefonico 1 settimana prima, poi 1 giorno prima.</p>
+        <p>Produzione e consegna in 4/5 settimane.</p>
       </div>
       <div class="feature-card fc-rilievi reveal">
         <div class="feature-icon cyan">

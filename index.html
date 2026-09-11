@@ -206,6 +206,14 @@
     .material-modal-spec svg { width:18px; height:18px; fill:var(--accent); flex-shrink:0; }
     .material-modal-gallery { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
     .material-modal-gallery img { width:100%; height:140px; object-fit:cover; border-radius:var(--radius-sm); border:1px solid var(--border); }
+    .material-modal-doc { display:flex; align-items:center; gap:14px; padding:16px; border:1px solid var(--border); border-radius:var(--radius-md); text-decoration:none; color:inherit; transition:border-color 150ms ease,background 150ms ease; margin-bottom:10px; }
+    .material-modal-doc:hover { border-color:var(--secondary); background:var(--bg); }
+    .material-modal-doc svg { width:32px; height:32px; fill:#DC2626; flex-shrink:0; }
+    .material-modal-doc strong { display:block; font-size:0.92rem; color:var(--text-dark); }
+    .material-modal-doc span { display:block; font-size:0.78rem; color:var(--text-light); margin-top:2px; }
+    .material-modal-video-list { display:flex; flex-direction:column; gap:22px; }
+    .material-modal-video-item video { width:100%; border-radius:var(--radius-md); background:#000; display:block; }
+    .material-modal-video-item span { display:block; margin-top:8px; font-size:0.85rem; font-weight:600; color:var(--text-mid); }
     @media (max-width:600px) {
       .material-modal-gallery { grid-template-columns:1fr; }
       .material-modal-header { padding:26px 22px 20px; }
@@ -931,18 +939,10 @@
       </button>
     </div>
     <div class="material-modal-panel active" data-panel="info">
-      <div class="material-modal-placeholder">
-        <svg viewBox="0 0 24 24"><path d="M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6H6z"/></svg>
-        <strong>Brochure e schede informative in arrivo</strong>
-        <span>Qui troverai a breve la documentazione scaricabile in PDF su questo materiale. Nel frattempo puoi richiederla direttamente contattandoci.</span>
-      </div>
+      <div id="materialModalInfo"></div>
     </div>
     <div class="material-modal-panel" data-panel="video">
-      <div class="material-modal-placeholder">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        <strong>Video in arrivo</strong>
-        <span>Stiamo preparando contenuti video di approfondimento su lavorazione, posa e manutenzione di questo materiale.</span>
-      </div>
+      <div id="materialModalVideo"></div>
     </div>
     <div class="material-modal-panel" data-panel="immagini">
       <div class="material-modal-gallery" id="materialModalGallery"></div>
@@ -1616,9 +1616,19 @@
         'Inossidabile e resistente alle intemperie',
         'Forme speciali e grandi dimensioni',
       ],
+      brochures: [
+        { name: 'Catalogo Sosoares — Sistemi di Alluminio e Vetro per Architettura', url: 'assets/catalogo-sosoares-alluminio.pdf', size: '24 MB' },
+      ],
+      videos: [
+        { title: 'Porta a bilico (pivot door)', src: 'assets/pivot-door.mp4' },
+        { title: 'Porta scorrevole', src: 'assets/sliding-door.mp4' },
+      ],
     },
   };
   const specCheckIcon = '<svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+  const pdfDocIcon = '<svg viewBox="0 0 24 24"><path d="M13 9V3.5L18.5 9M6 2c-1.11 0-2 .89-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6H6z"/></svg>';
+  const infoPlaceholder = `<div class="material-modal-placeholder">${pdfDocIcon}<strong>Brochure e schede informative in arrivo</strong><span>Qui troverai a breve la documentazione scaricabile in PDF su questo materiale. Nel frattempo puoi richiederla direttamente contattandoci.</span></div>`;
+  const videoPlaceholder = '<div class="material-modal-placeholder"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><strong>Video in arrivo</strong><span>Stiamo preparando contenuti video di approfondimento su lavorazione, posa e manutenzione di questo materiale.</span></div>';
 
   function openMaterialModal(id) {
     const m = MATERIALS_INFO[id];
@@ -1634,6 +1644,20 @@
     document.getElementById('materialModalSpecs').innerHTML = m.specs.map(s =>
       `<div class="material-modal-spec">${specCheckIcon}<span>${s}</span></div>`
     ).join('');
+    document.getElementById('materialModalInfo').innerHTML = (m.brochures && m.brochures.length)
+      ? m.brochures.map(b => `
+        <a class="material-modal-doc" href="${b.url}" target="_blank" rel="noopener">
+          ${pdfDocIcon}
+          <div><strong>${b.name}</strong><span>${b.size ? b.size + ' · ' : ''}PDF — apri o scarica</span></div>
+        </a>`).join('')
+      : infoPlaceholder;
+    document.getElementById('materialModalVideo').innerHTML = (m.videos && m.videos.length)
+      ? `<div class="material-modal-video-list">${m.videos.map(v => `
+        <div class="material-modal-video-item">
+          <video controls preload="metadata" src="${v.src}"></video>
+          <span>${v.title}</span>
+        </div>`).join('')}</div>`
+      : videoPlaceholder;
     switchMaterialTab('info');
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';

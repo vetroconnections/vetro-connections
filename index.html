@@ -329,9 +329,22 @@
 
     /* RIPRISTINO */
     .ripristino-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-    .ripristino-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius-md); padding:28px; transition:box-shadow 200ms ease,transform 200ms ease; }
-    .ripristino-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-4px); }
-    .ripristino-icon { width:52px; height:52px; border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; margin-bottom:18px; }
+    .ripristino-card { position:relative; overflow:hidden; background:var(--bg-white); border:1px solid var(--border); border-radius:var(--radius-md); padding:150px 28px 32px; transition:box-shadow 200ms ease,transform 200ms ease,border-color 200ms ease; }
+    .ripristino-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-4px); border-color:var(--secondary); }
+    .ripristino-card::before {
+      content:''; position:absolute; inset:0;
+      background-image: linear-gradient(180deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.12) 32%, rgba(255,255,255,.7) 52%, #fff 70%), var(--rp-img);
+      background-size:cover; background-position:center top;
+      transition:background-image 250ms ease; z-index:0;
+    }
+    .ripristino-card > * { position:relative; z-index:1; }
+    .ripristino-card.rp-manutenzione      { --rp-img:url('images/ripristino-manutenzione.jpg'); }
+    .ripristino-card.rp-vetri             { --rp-img:url('images/ripristino-vetri.jpg'); }
+    .ripristino-card.rp-ristrutturazione  { --rp-img:url('images/ripristino-ristrutturazione.jpg'); }
+    .ripristino-card.rp-risanamento       { --rp-img:url('images/ripristino-risanamento.jpg'); }
+    .ripristino-card.rp-costruzione       { --rp-img:url('images/ripristino-costruzione.jpg'); }
+    .ripristino-card.rp-attivita          { --rp-img:url('images/ripristino-attivita.jpg'); }
+    .ripristino-icon { width:52px; height:52px; border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; margin-bottom:20px; }
     .ripristino-icon svg { width:26px; height:26px; }
     .ripristino-icon.blue { background:#DBEAFE; } .ripristino-icon.blue svg { fill:var(--primary); }
     .ripristino-icon.green { background:#DCFCE7; } .ripristino-icon.green svg { fill:var(--accent); }
@@ -339,8 +352,8 @@
     .ripristino-icon.purple { background:#F3E8FF; } .ripristino-icon.purple svg { fill:#7C3AED; }
     .ripristino-icon.teal { background:#CCFBF1; } .ripristino-icon.teal svg { fill:#0D9488; }
     .ripristino-icon.rose { background:#FFE4E6; } .ripristino-icon.rose svg { fill:#E11D48; }
-    .ripristino-card h3 { font-size:1rem; font-weight:600; color:var(--primary-dark); margin-bottom:8px; }
-    .ripristino-card p { font-size:0.875rem; color:var(--text-mid); line-height:1.6; }
+    .ripristino-card h3 { font-size:1.1rem; font-weight:600; color:var(--primary-dark); margin-bottom:10px; }
+    .ripristino-card p { font-size:0.9rem; color:var(--text-mid); line-height:1.65; }
 
     /* FAQ */
     .faq-list { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
@@ -1194,42 +1207,42 @@
       <p class="section-sub">Le tue finestre esistenti perdono calore o presentano problemi? Interveniamo con soluzioni mirate senza necessariamente sostituire tutto.</p>
     </div>
     <div class="ripristino-grid">
-      <div class="ripristino-card reveal">
+      <div class="ripristino-card rp-manutenzione reveal">
         <div class="ripristino-icon blue">
           <svg viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
         </div>
         <h3>Regolazione e manutenzione</h3>
         <p>Regolazione di ferramenta, guarnizioni usurate, cerniere disallineate. Ripristino funzionalità completa senza sostituzione.</p>
       </div>
-      <div class="ripristino-card reveal">
+      <div class="ripristino-card rp-vetri reveal">
         <div class="ripristino-icon green">
           <svg viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
         </div>
         <h3>Sostituzione vetri</h3>
         <p>Sostituzione del solo vetro con doppio o triplo vetro low-e. Miglioramento energetico senza toccare il telaio esistente.</p>
       </div>
-      <div class="ripristino-card reveal">
+      <div class="ripristino-card rp-ristrutturazione reveal">
         <div class="ripristino-icon orange">
           <svg viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         </div>
         <h3>Ristrutturazione con nuovo serramento</h3>
         <p>Sostituzione completa di finestre e porte con nuovi serramenti in PVC, legno o alluminio. Rimozione e smaltimento inclusi.</p>
       </div>
-      <div class="ripristino-card reveal">
+      <div class="ripristino-card rp-risanamento reveal">
         <div class="ripristino-icon purple">
           <svg viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
         </div>
         <h3>Risanamento energetico</h3>
         <p>Diagnosi energetica completa, installazione guarnizioni ad alta tenuta, canalina calda per ridurre ponti termici e condensazione.</p>
       </div>
-      <div class="ripristino-card reveal">
+      <div class="ripristino-card rp-costruzione reveal">
         <div class="ripristino-icon teal">
           <svg viewBox="0 0 24 24"><path d="M19.006 3.705a.75.75 0 00-.512-1.41L6 6.838V3a.75.75 0 00-.75-.75h-1.5A.75.75 0 003 3v4.93l-1.006.365a.75.75 0 00.512 1.41l16.5-6z"/><path fill-rule="evenodd" d="M3.019 11.115L18 5.667V9.09l4.006 1.456a.75.75 0 11-.512 1.41l-.494-.18v8.475h.75a.75.75 0 010 1.5H2.25a.75.75 0 010-1.5H3v-9.129l.019-.006zM18 20.25v-9.565l1.5.545v9.02H18zm-9-6a.75.75 0 00-.75.75v4.5c0 .414.336.75.75.75h3a.75.75 0 00.75-.75V15a.75.75 0 00-.75-.75H9z" clip-rule="evenodd"/></svg>
         </div>
         <h3>Nuova costruzione</h3>
         <p>Studio dell'infisso in base a posizione, inquinamento acustico e stile.</p>
       </div>
-      <div class="ripristino-card reveal">
+      <div class="ripristino-card rp-attivita reveal">
         <div class="ripristino-icon rose">
           <svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5zm-3 8.25a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75v-.008a.75.75 0 00-.75-.75H12z" clip-rule="evenodd"/><path d="M3 18.4v-2.796a4.3 4.3 0 00.713.31A26.226 26.226 0 0012 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.283.427-6.477.427a49.19 49.19 0 01-6.477-.427C4.047 21.128 3 19.852 3 18.4z"/></svg>
         </div>

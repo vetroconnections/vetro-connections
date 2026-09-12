@@ -242,6 +242,7 @@
     }
 
     /* HOW IT WORKS */
+    .steps-section { background-image:linear-gradient(rgba(239,246,255,.87),rgba(239,246,255,.87)), url('images/steps-bg.jpg'); background-size:cover; background-position:center; }
     .steps-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:32px; position:relative; }
     .steps-grid::before { content:''; position:absolute; top:32px; left:calc(12.5% + 16px); right:calc(12.5% + 16px); height:2px; background:linear-gradient(90deg,var(--border),var(--secondary),var(--border)); z-index:0; }
     .step-card { text-align:center; position:relative; z-index:1; }
@@ -1014,7 +1015,7 @@
 </div>
 
 <!-- HOW IT WORKS -->
-<section class="section section-alt">
+<section class="section section-alt steps-section">
   <div class="container">
     <div class="section-header center">
       <div class="section-label">Come funziona</div>

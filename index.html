@@ -325,7 +325,9 @@
     .projects-cta { text-align:center; margin-top:40px; }
 
     /* RILIEVI */
+    .rilievi-section { background-image:linear-gradient(rgba(239,246,255,.1),rgba(239,246,255,.1)), url('images/feature-rilievi.jpg'); background-size:cover; background-position:center; }
     .rilievi-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+    .rilievi-content { background:rgba(255,255,255,.72); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-radius:var(--radius-lg); padding:32px; box-shadow:0 12px 40px rgba(15,23,42,.12); }
     .rilievi-content h2 { font-size:clamp(1.6rem,3vw,2.2rem); font-weight:700; color:var(--primary-dark); margin-bottom:16px; }
     .rilievi-content p { font-size:1rem; color:var(--text-mid); line-height:1.7; margin-bottom:24px; }
     .rilievi-steps { display:flex; flex-direction:column; gap:16px; margin-bottom:32px; }
@@ -1161,7 +1163,7 @@
 </section>
 
 <!-- RILIEVI IN SITU -->
-<section class="section section-alt" id="servizi">
+<section class="section section-alt rilievi-section" id="servizi">
   <div class="container">
     <div class="rilievi-grid">
       <div class="rilievi-content reveal">

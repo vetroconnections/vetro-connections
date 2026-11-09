@@ -142,7 +142,22 @@
     .wa-input { width:100%; border:1px solid #BFDBFE; border-radius:6px; padding:8px 10px; font-size:.82rem; font-family:'Open Sans',sans-serif; resize:none; outline:none; height:72px; }
     .wa-send { background:#25D366; color:#fff; border:none; border-radius:6px; padding:9px 14px; font-size:.82rem; font-weight:600; cursor:pointer; }
     .wa-send:hover { background:#1DA851; }
+      /* LANGUAGE SWITCHER */
+    .lang-switcher { position:relative; }
+    .lang-current { display:flex; align-items:center; gap:5px; background:var(--bg); border:1px solid var(--border); border-radius:100px; padding:6px 10px; font-size:0.8rem; font-weight:600; color:var(--text-dark); cursor:pointer; }
+    .lang-current:hover { border-color:var(--secondary); }
+    .lang-current .lang-caret { width:12px; height:12px; fill:none; stroke:var(--text-mid); stroke-width:2; }
+    .lang-dropdown { display:none; position:absolute; top:calc(100% + 6px); right:0; background:#fff; border:1px solid var(--border); border-radius:var(--radius-md); box-shadow:var(--shadow-md); padding:6px; min-width:130px; z-index:200; }
+    .lang-dropdown.open { display:block; }
+    .lang-option { display:flex; align-items:center; gap:8px; width:100%; background:none; border:none; padding:8px 10px; border-radius:var(--radius-sm); font-size:0.85rem; font-weight:500; color:var(--text-dark); cursor:pointer; text-align:left; }
+    .lang-option:hover { background:var(--bg); }
+    .lang-option.active { background:var(--bg); color:var(--primary); font-weight:700; }
+    .mobile-lang-switcher { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+    .mobile-lang-switcher .lang-option { flex:1; justify-content:center; border:1px solid var(--border); }
   </style>
+  <script src="js/i18n-dict.js"></script>
+  <script src="js/i18n-pages.js"></script>
+  <script src="js/i18n.js"></script>
 </head>
 <body>
 
@@ -157,18 +172,30 @@
         <span class="logo-text">Vetro<span>Connections</span></span>
       </a>
       <ul class="nav-links">
-        <li><a href="index.html#prodotti">Prodotti</a></li>
-        <li><a href="index.html#materiali">Materiali</a></li>
-        <li><a href="progetti.html">Progetti</a></li>
-        <li><a href="index.html#servizi">Servizi</a></li>
-        <li><a href="index.html#faq">FAQ</a></li>
-        <li><a href="index.html#contatti">Contatti</a></li>
+        <li><a href="index.html#prodotti" data-i18n="nav.prodotti">Prodotti</a></li>
+        <li><a href="index.html#materiali" data-i18n="nav.materiali">Materiali</a></li>
+        <li><a href="progetti.html" data-i18n="nav.progetti">Progetti</a></li>
+        <li><a href="index.html#servizi" data-i18n="nav.servizi">Servizi</a></li>
+        <li><a href="index.html#faq" data-i18n="nav.faq">FAQ</a></li>
+        <li><a href="index.html#contatti" data-i18n="nav.contatti">Contatti</a></li>
         <li><a href="tel:+393455086065" class="nav-phone">
           <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.56.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.49a1 1 0 011 1 11.36 11.36 0 00.57 3.56 1 1 0 01-.25 1.02l-2.2 2.21z"/></svg>
           +39 345 5086065
         </a></li>
-        <li><a href="configuratore.html" class="nav-cta">Configura Ora</a></li>
+        <li><a href="configuratore.html" class="nav-cta" data-i18n="nav.cta">Configura Ora</a></li>
       </ul>
+      <div class="lang-switcher">
+        <button class="lang-current" aria-haspopup="true" aria-label="Cambia lingua" data-i18n-aria="pg.langAria">
+          <span class="lang-flag">🇮🇹</span><span class="lang-code">IT</span>
+          <svg class="lang-caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="lang-dropdown">
+          <button class="lang-option active" data-lang="it"><span>🇮🇹</span> IT</button>
+          <button class="lang-option" data-lang="en"><span>🇬🇧</span> EN</button>
+          <button class="lang-option" data-lang="es"><span>🇪🇸</span> ES</button>
+          <button class="lang-option" data-lang="pt"><span>🇵🇹</span> PT</button>
+        </div>
+      </div>
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -176,32 +203,37 @@
   </div>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="index.html#prodotti" onclick="closeMobileMenu()">Prodotti</a>
-  <a href="index.html#materiali" onclick="closeMobileMenu()">Materiali</a>
-  <a href="progetti.html" onclick="closeMobileMenu()">Progetti</a>
-  <a href="index.html#servizi" onclick="closeMobileMenu()">Servizi</a>
-  <a href="index.html#faq" onclick="closeMobileMenu()">FAQ</a>
-  <a href="index.html#contatti" onclick="closeMobileMenu()">Contatti</a>
-  <a href="configuratore.html" class="mobile-menu-cta">Configura Ora →</a>
+  <a href="index.html#prodotti" onclick="closeMobileMenu()" data-i18n="nav.prodotti">Prodotti</a>
+  <a href="index.html#materiali" onclick="closeMobileMenu()" data-i18n="nav.materiali">Materiali</a>
+  <a href="progetti.html" onclick="closeMobileMenu()" data-i18n="nav.progetti">Progetti</a>
+  <a href="index.html#servizi" onclick="closeMobileMenu()" data-i18n="nav.servizi">Servizi</a>
+  <a href="index.html#faq" onclick="closeMobileMenu()" data-i18n="nav.faq">FAQ</a>
+  <a href="index.html#contatti" onclick="closeMobileMenu()" data-i18n="nav.contatti">Contatti</a>
+  <a href="configuratore.html" class="mobile-menu-cta" data-i18n="nav.ctaArrow">Configura Ora →</a>
+  <div class="mobile-lang-switcher">
+    <button class="lang-option active" data-lang="it">🇮🇹 IT</button>
+    <button class="lang-option" data-lang="en">🇬🇧 EN</button>
+    <button class="lang-option" data-lang="es">🇪🇸 ES</button>
+    <button class="lang-option" data-lang="pt">🇵🇹 PT</button>
+  </div>
 </div>
-
 <!-- PAGE HEADER -->
 <section class="legal-hero">
   <div class="container">
     <h1>Privacy Policy</h1>
-    <p>Informativa sul trattamento dei dati personali ai sensi degli artt. 13-14 del Regolamento (UE) 2016/679 (GDPR)</p>
+    <p data-i18n="priv.sub">Informativa sul trattamento dei dati personali ai sensi degli artt. 13-14 del Regolamento (UE) 2016/679 (GDPR)</p>
   </div>
 </section>
 
 <!-- LEGAL CONTENT -->
 <div class="legal-wrap">
-  <span class="legal-updated">Ultimo aggiornamento: 5 settembre 2026</span>
+  <span class="legal-updated" data-i18n="priv.updated">Ultimo aggiornamento: 5 settembre 2026</span>
 
-  <p>La presente informativa descrive le modalità di trattamento dei dati personali degli utenti che visitano il sito <strong>vetroconnections.it</strong> (di seguito, il "Sito") e di coloro che utilizzano il configuratore online o i moduli di contatto, in conformità al Regolamento (UE) 2016/679 ("GDPR") e al D.Lgs. 196/2003 come modificato dal D.Lgs. 101/2018 ("Codice Privacy").</p>
+  <p data-i18n-html="priv.intro">La presente informativa descrive le modalità di trattamento dei dati personali degli utenti che visitano il sito <strong>vetroconnections.it</strong> (di seguito, il "Sito") e di coloro che utilizzano il configuratore online o i moduli di contatto, in conformità al Regolamento (UE) 2016/679 ("GDPR") e al D.Lgs. 196/2003 come modificato dal D.Lgs. 101/2018 ("Codice Privacy").</p>
 
-  <h2>1. Titolare del trattamento</h2>
-  <p>Il Titolare del trattamento dei dati è:</p>
-  <p>
+  <h2 data-i18n="priv.h1">1. Titolare del trattamento</h2>
+  <p data-i18n="priv.ownerIntro">Il Titolare del trattamento dei dati è:</p>
+  <p data-i18n-html="priv.owner">
     <strong>Vetro Connections</strong><br>
     Via Levada 34, 31050 Povegliano (TV), Italia<br>
     P.IVA: 05516400263<br>
@@ -209,54 +241,54 @@
     Telefono: <a class="inline-link" href="tel:+393455086065">+39 345 5086065</a>
   </p>
 
-  <h2>2. Quali dati raccogliamo</h2>
-  <p>Raccogliamo dati personali esclusivamente quando l'utente li fornisce volontariamente, compilando uno dei moduli presenti sul Sito:</p>
+  <h2 data-i18n="priv.h2">2. Quali dati raccogliamo</h2>
+  <p data-i18n="priv.p2a">Raccogliamo dati personali esclusivamente quando l'utente li fornisce volontariamente, compilando uno dei moduli presenti sul Sito:</p>
   <ul>
-    <li><strong>Modulo Configuratore</strong> (pagina "Configura Ora"): nome e cognome, email e/o telefono, note aggiuntive, oltre ai dati tecnici della configurazione scelta (tipo di prodotto, dimensioni, materiali, colori, accessori) necessari a predisporre il preventivo.</li>
-    <li><strong>Modulo "Rilievo in Situ"</strong>: nome, cognome, telefono, indirizzo del sopralluogo, numero indicativo di aperture, note aggiuntive.</li>
-    <li><strong>Modulo "Contatti" / "Inviaci un messaggio"</strong>: nome, cognome, email, oggetto della richiesta, testo del messaggio.</li>
+    <li data-i18n-html="priv.li1"><strong>Modulo Configuratore</strong> (pagina "Configura Ora"): nome e cognome, email e/o telefono, note aggiuntive, oltre ai dati tecnici della configurazione scelta (tipo di prodotto, dimensioni, materiali, colori, accessori) necessari a predisporre il preventivo.</li>
+    <li data-i18n-html="priv.li2"><strong>Modulo "Rilievo in Situ"</strong>: nome, cognome, telefono, indirizzo del sopralluogo, numero indicativo di aperture, note aggiuntive.</li>
+    <li data-i18n-html="priv.li3"><strong>Modulo "Contatti" / "Inviaci un messaggio"</strong>: nome, cognome, email, oggetto della richiesta, testo del messaggio.</li>
   </ul>
-  <p>Non raccogliamo categorie particolari di dati (dati sensibili) e il Sito non è rivolto a minori di 16 anni. Il Sito non utilizza cookie di profilazione propri e non effettua tracciamento pubblicitario.</p>
+  <p data-i18n="priv.p2b">Non raccogliamo categorie particolari di dati (dati sensibili) e il Sito non è rivolto a minori di 16 anni. Il Sito non utilizza cookie di profilazione propri e non effettua tracciamento pubblicitario.</p>
 
-  <h2>3. Finalità e base giuridica del trattamento</h2>
+  <h2 data-i18n="priv.h3">3. Finalità e base giuridica del trattamento</h2>
   <table class="legal-table">
-    <tr><th>Finalità</th><th>Base giuridica</th></tr>
-    <tr><td>Rispondere a richieste di preventivo, informazioni o sopralluogo inviate tramite i moduli del Sito</td><td>Esecuzione di misure precontrattuali richieste dall'interessato (art. 6.1.b GDPR)</td></tr>
-    <tr><td>Gestione della relazione commerciale e, se il preventivo viene accettato, esecuzione del contratto di fornitura/installazione</td><td>Esecuzione di un contratto (art. 6.1.b GDPR)</td></tr>
-    <tr><td>Adempimenti contabili, fiscali e amministrativi conseguenti a un eventuale ordine</td><td>Obbligo legale (art. 6.1.c GDPR)</td></tr>
+    <tr><th data-i18n="priv.th1">Finalità</th><th data-i18n="priv.th2">Base giuridica</th></tr>
+    <tr><td data-i18n="priv.r1a">Rispondere a richieste di preventivo, informazioni o sopralluogo inviate tramite i moduli del Sito</td><td data-i18n="priv.r1b">Esecuzione di misure precontrattuali richieste dall'interessato (art. 6.1.b GDPR)</td></tr>
+    <tr><td data-i18n="priv.r2a">Gestione della relazione commerciale e, se il preventivo viene accettato, esecuzione del contratto di fornitura/installazione</td><td data-i18n="priv.r2b">Esecuzione di un contratto (art. 6.1.b GDPR)</td></tr>
+    <tr><td data-i18n="priv.r3a">Adempimenti contabili, fiscali e amministrativi conseguenti a un eventuale ordine</td><td data-i18n="priv.r3b">Obbligo legale (art. 6.1.c GDPR)</td></tr>
   </table>
-  <p>Il conferimento dei dati contrassegnati come obbligatori nei moduli è necessario per poter dare seguito alla richiesta: in assenza di tali dati non saremo in grado di rispondere.</p>
+  <p data-i18n="priv.p3">Il conferimento dei dati contrassegnati come obbligatori nei moduli è necessario per poter dare seguito alla richiesta: in assenza di tali dati non saremo in grado di rispondere.</p>
 
-  <h2>4. Come vengono trattati i dati e a chi vengono comunicati</h2>
-  <p>I dati inseriti nei moduli del Sito vengono trasmessi tramite il servizio di invio email <strong>EmailJS</strong> (EmailJS Corp.) direttamente alla casella di posta del Titolare, che li conserva e li tratta per le finalità indicate al punto 3. EmailJS agisce in questo contesto come responsabile del trattamento limitatamente alla trasmissione tecnica del messaggio.</p>
-  <p>Il Sito è ospitato sull'infrastruttura di hosting <strong>Vercel Inc.</strong>, che elabora automaticamente dati tecnici di connessione (es. indirizzo IP, tipo di browser) per il solo funzionamento e la sicurezza del servizio.</p>
-  <p>Il Sito carica i caratteri tipografici da <strong>Google Fonts</strong> (Google LLC): il browser dell'utente effettua una richiesta diretta ai server di Google per scaricare i font, che può comportare la trasmissione dell'indirizzo IP a Google secondo le sue policy.</p>
-  <p>Se l'utente sceglie di contattarci tramite il pulsante WhatsApp presente sul Sito, la conversazione avviene sull'infrastruttura di <strong>WhatsApp (Meta Platforms, Inc.)</strong> secondo i termini e l'informativa privacy di WhatsApp, che l'utente accetta separatamente aprendo l'applicazione.</p>
-  <p>I dati non vengono in alcun caso venduti, ceduti o comunicati a terzi per finalità di marketing di soggetti diversi dal Titolare.</p>
+  <h2 data-i18n="priv.h4">4. Come vengono trattati i dati e a chi vengono comunicati</h2>
+  <p data-i18n-html="priv.p4a">I dati inseriti nei moduli del Sito vengono trasmessi tramite il servizio di invio email <strong>EmailJS</strong> (EmailJS Corp.) direttamente alla casella di posta del Titolare, che li conserva e li tratta per le finalità indicate al punto 3. EmailJS agisce in questo contesto come responsabile del trattamento limitatamente alla trasmissione tecnica del messaggio.</p>
+  <p data-i18n-html="priv.p4b">Il Sito è ospitato sull'infrastruttura di hosting <strong>Vercel Inc.</strong>, che elabora automaticamente dati tecnici di connessione (es. indirizzo IP, tipo di browser) per il solo funzionamento e la sicurezza del servizio.</p>
+  <p data-i18n-html="priv.p4c">Il Sito carica i caratteri tipografici da <strong>Google Fonts</strong> (Google LLC): il browser dell'utente effettua una richiesta diretta ai server di Google per scaricare i font, che può comportare la trasmissione dell'indirizzo IP a Google secondo le sue policy.</p>
+  <p data-i18n-html="priv.p4d">Se l'utente sceglie di contattarci tramite il pulsante WhatsApp presente sul Sito, la conversazione avviene sull'infrastruttura di <strong>WhatsApp (Meta Platforms, Inc.)</strong> secondo i termini e l'informativa privacy di WhatsApp, che l'utente accetta separatamente aprendo l'applicazione.</p>
+  <p data-i18n="priv.p4e">I dati non vengono in alcun caso venduti, ceduti o comunicati a terzi per finalità di marketing di soggetti diversi dal Titolare.</p>
 
-  <h2>5. Periodo di conservazione</h2>
-  <p>I dati raccolti tramite i moduli di contatto e preventivo sono conservati per il tempo necessario a gestire la richiesta e, in caso di instaurazione di un rapporto contrattuale, per la durata di quest'ultimo e per il periodo successivo previsto dalla legge per obblighi contabili e fiscali (di norma 10 anni). Le richieste che non danno seguito a un contratto vengono conservate per un massimo di 24 mesi dall'ultimo contatto, salvo diversa richiesta dell'interessato.</p>
+  <h2 data-i18n="priv.h5">5. Periodo di conservazione</h2>
+  <p data-i18n="priv.p5">I dati raccolti tramite i moduli di contatto e preventivo sono conservati per il tempo necessario a gestire la richiesta e, in caso di instaurazione di un rapporto contrattuale, per la durata di quest'ultimo e per il periodo successivo previsto dalla legge per obblighi contabili e fiscali (di norma 10 anni). Le richieste che non danno seguito a un contratto vengono conservate per un massimo di 24 mesi dall'ultimo contatto, salvo diversa richiesta dell'interessato.</p>
 
-  <h2>6. Diritti dell'interessato</h2>
-  <p>In qualità di interessato, hai diritto di richiedere in qualsiasi momento al Titolare, ai sensi degli artt. 15-22 del GDPR:</p>
+  <h2 data-i18n="priv.h6">6. Diritti dell'interessato</h2>
+  <p data-i18n="priv.p6a">In qualità di interessato, hai diritto di richiedere in qualsiasi momento al Titolare, ai sensi degli artt. 15-22 del GDPR:</p>
   <ul>
-    <li>l'accesso ai tuoi dati personali e una copia degli stessi;</li>
-    <li>la rettifica dei dati inesatti o l'integrazione di quelli incompleti;</li>
-    <li>la cancellazione dei dati ("diritto all'oblio"), nei casi previsti dalla legge;</li>
-    <li>la limitazione del trattamento;</li>
-    <li>la portabilità dei dati forniti, in formato strutturato e leggibile;</li>
-    <li>l'opposizione al trattamento, in tutto o in parte;</li>
-    <li>la revoca del consenso eventualmente prestato, in qualsiasi momento, senza pregiudicare la liceità del trattamento svolto prima della revoca.</li>
+    <li data-i18n="priv.d1">l'accesso ai tuoi dati personali e una copia degli stessi;</li>
+    <li data-i18n="priv.d2">la rettifica dei dati inesatti o l'integrazione di quelli incompleti;</li>
+    <li data-i18n="priv.d3">la cancellazione dei dati ("diritto all'oblio"), nei casi previsti dalla legge;</li>
+    <li data-i18n="priv.d4">la limitazione del trattamento;</li>
+    <li data-i18n="priv.d5">la portabilità dei dati forniti, in formato strutturato e leggibile;</li>
+    <li data-i18n="priv.d6">l'opposizione al trattamento, in tutto o in parte;</li>
+    <li data-i18n="priv.d7">la revoca del consenso eventualmente prestato, in qualsiasi momento, senza pregiudicare la liceità del trattamento svolto prima della revoca.</li>
   </ul>
-  <p>Le richieste possono essere inviate a <a class="inline-link" href="mailto:vetroconnections@gmail.com">vetroconnections@gmail.com</a>. Hai inoltre diritto di proporre reclamo all'Autorità Garante per la protezione dei dati personali (<a class="inline-link" href="https://www.garanteprivacy.it" target="_blank" rel="noopener">www.garanteprivacy.it</a>) qualora ritenga che il trattamento dei tuoi dati violi la normativa vigente.</p>
+  <p data-i18n-html="priv.p6b">Le richieste possono essere inviate a <a class="inline-link" href="mailto:vetroconnections@gmail.com">vetroconnections@gmail.com</a>. Hai inoltre diritto di proporre reclamo all'Autorità Garante per la protezione dei dati personali (<a class="inline-link" href="https://www.garanteprivacy.it" target="_blank" rel="noopener">www.garanteprivacy.it</a>) qualora ritenga che il trattamento dei tuoi dati violi la normativa vigente.</p>
 
-  <h2>7. Sicurezza dei dati</h2>
-  <p>Adottiamo misure tecniche e organizzative adeguate a proteggere i dati personali da accessi non autorizzati, perdita, distruzione o divulgazione, in linea con i principi di integrità e riservatezza del GDPR. Le comunicazioni tra il browser dell'utente e il Sito avvengono tramite protocollo sicuro HTTPS.</p>
+  <h2 data-i18n="priv.h7">7. Sicurezza dei dati</h2>
+  <p data-i18n="priv.p7">Adottiamo misure tecniche e organizzative adeguate a proteggere i dati personali da accessi non autorizzati, perdita, distruzione o divulgazione, in linea con i principi di integrità e riservatezza del GDPR. Le comunicazioni tra il browser dell'utente e il Sito avvengono tramite protocollo sicuro HTTPS.</p>
 
-  <h2>8. Modifiche alla presente informativa</h2>
-  <p>Questa informativa può essere aggiornata periodicamente per riflettere modifiche normative o cambiamenti nelle modalità di trattamento dei dati. La data di ultimo aggiornamento è indicata in cima alla pagina. Ti invitiamo a consultarla periodicamente.</p>
+  <h2 data-i18n="priv.h8">8. Modifiche alla presente informativa</h2>
+  <p data-i18n="priv.p8">Questa informativa può essere aggiornata periodicamente per riflettere modifiche normative o cambiamenti nelle modalità di trattamento dei dati. La data di ultimo aggiornamento è indicata in cima alla pagina. Ti invitiamo a consultarla periodicamente.</p>
 
-  <div class="legal-note">
+  <div class="legal-note" data-i18n-html="priv.note">
     <strong>Nota:</strong> questo documento fornisce un'informativa privacy di base costruita sulle effettive modalità di raccolta dati di questo sito. Per una piena conformità normativa alla tua specifica situazione aziendale, ti consigliamo di farla rivedere da un consulente legale o dal tuo commercialista prima della pubblicazione definitiva.
   </div>
 </div>
@@ -272,8 +304,8 @@
           </div>
           <span class="logo-text">Vetro<span>Connections</span></span>
         </div>
-        <p>Finestre e porte in PVC, legno e alluminio su misura. Qualità europea, consegna in tutta Italia.</p>
-        <p style="margin-top:10px;font-size:0.8rem;opacity:.6;">Via Levada 34, 31050 Povegliano (TV)<br>P.IVA: 05516400263</p>
+        <p data-i18n="pg.footTagline">Finestre e porte in PVC, legno e alluminio su misura. Qualità europea, consegna in tutta Italia.</p>
+        <p style="margin-top:10px;font-size:0.8rem;opacity:.6;" data-i18n-html="pg.footAddr">Via Levada 34, 31050 Povegliano (TV)<br>P.IVA: 05516400263</p>
         <div class="footer-social">
           <a href="https://www.facebook.com/profile.php?id=61593995924149" target="_blank" rel="noopener" aria-label="Facebook">
             <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99h-2.54V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99C18.34 21.13 22 16.99 22 12z"/></svg>
@@ -285,29 +317,29 @@
       </div>
       <div class="footer-links">
         <div class="footer-col">
-          <h4>Navigazione</h4>
+          <h4 data-i18n="pg.footNav">Navigazione</h4>
           <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#prodotti">Prodotti</a></li>
-            <li><a href="index.html#materiali">Materiali</a></li>
-            <li><a href="progetti.html">Progetti</a></li>
-            <li><a href="configuratore.html">Configuratore</a></li>
+            <li><a href="index.html" data-i18n="pg.footHome">Home</a></li>
+            <li><a href="index.html#prodotti" data-i18n="nav.prodotti">Prodotti</a></li>
+            <li><a href="index.html#materiali" data-i18n="nav.materiali">Materiali</a></li>
+            <li><a href="progetti.html" data-i18n="nav.progetti">Progetti</a></li>
+            <li><a href="configuratore.html" data-i18n="footer.prod5">Configuratore</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Contatti</h4>
+          <h4 data-i18n="footer.colContatti">Contatti</h4>
           <ul>
             <li><a href="mailto:vetroconnections@gmail.com">vetroconnections@gmail.com</a></li>
             <li><a href="tel:+393455086065">+39 345 5086065</a></li>
-            <li><a href="index.html#faq">FAQ</a></li>
-            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="index.html#faq" data-i18n="nav.faq">FAQ</a></li>
+            <li><a href="privacy.html" data-i18n="common.privacyLink">Privacy Policy</a></li>
           </ul>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Vetro Connections · P.IVA 05516400263</span>
-      <span><a href="privacy.html">Privacy Policy</a> · Via Levada 34, 31050 Povegliano (TV), Italia</span>
+      <span data-i18n="footer.copyright">© 2026 Vetro Connections · P.IVA 05516400263</span>
+      <span><a href="privacy.html" data-i18n="common.privacyLink">Privacy Policy</a> · <span data-i18n="footer.address2">Via Levada 34, 31050 Povegliano (TV), Italia</span></span>
     </div>
   </div>
 </footer>
@@ -326,23 +358,22 @@
       <div class="wa-avatar">VC</div>
       <div>
         <div class="wa-popup-name">Vetro Connections</div>
-        <div class="wa-popup-status">Di solito risponde in pochi minuti</div>
+        <div class="wa-popup-status" data-i18n="wa.status">Di solito risponde in pochi minuti</div>
       </div>
-      <button class="wa-close" onclick="toggleWa()" aria-label="Chiudi">×</button>
+      <button class="wa-close" onclick="toggleWa()" aria-label="Chiudi" data-i18n-aria="common.close">×</button>
     </div>
-    <div class="wa-bubble">Ciao! 👋 Come possiamo aiutarti? Scrivi qui il tuo messaggio e ti risponderemo su WhatsApp.</div>
+    <div class="wa-bubble" data-i18n="wa.bubble">Ciao! 👋 Come possiamo aiutarti? Scrivi qui il tuo messaggio e ti risponderemo su WhatsApp.</div>
     <div class="wa-input-area">
-      <textarea class="wa-input" id="waText" placeholder="Es: Vorrei un preventivo per finestre in PVC..."></textarea>
-      <button class="wa-send" onclick="sendWa()">Invia su WhatsApp →</button>
+      <textarea class="wa-input" id="waText" placeholder="Es: Vorrei un preventivo per finestre in PVC..." data-i18n-placeholder="wa.placeholder"></textarea>
+      <button class="wa-send" onclick="sendWa()" data-i18n="wa.sendBtn">Invia su WhatsApp →</button>
     </div>
   </div>
-  <button class="wa-btn" onclick="toggleWa()" aria-label="Chatta su WhatsApp">
-    <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+  <button class="wa-btn" onclick="toggleWa()" aria-label="Chatta su WhatsApp" data-i18n-aria="wa.chatAria">    <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
   </button>
 </div>
 <script>
 function toggleWa(){document.getElementById('waPopup').classList.toggle('open');}
-function sendWa(){const m=document.getElementById('waText').value.trim()||'Ciao, vorrei informazioni sui vostri progetti!';window.open('https://api.whatsapp.com/send?phone=393455086065&text='+encodeURIComponent(m),'_blank');}
+function sendWa(){const m=document.getElementById('waText').value.trim()||vcT('pg.waDefault');window.open('https://api.whatsapp.com/send?phone=393455086065&text='+encodeURIComponent(m),'_blank');}
 </script>
 </body>
 </html>

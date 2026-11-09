@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuratore Finestre | Vetro Connections</title>
+  <title data-i18n="cfg.title">Configuratore Finestre | Vetro Connections</title>
   <meta name="description" content="Configura la tua finestra o porta in PVC, legno e alluminio su misura. Scegli tipo, dimensioni, colore e vetro e ricevi un preventivo gratuito.">
   <link rel="canonical" href="https://vetroconnections.com/configuratore.html">
   <meta name="robots" content="index, follow">
@@ -23,6 +23,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="js/i18n-dict.js"></script>
+  <script src="js/i18n-pages.js"></script>
+  <script src="js/i18n-config.js"></script>
+  <script src="js/i18n.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -635,6 +639,20 @@
       .wa-widget { bottom:16px; right:16px; }
       .wa-popup { width:260px; }
     }
+    /* LANGUAGE SWITCHER */
+    .lang-switcher { position:relative; }
+    .lang-current { display:flex; align-items:center; gap:5px; background:var(--bg); border:1px solid var(--border); border-radius:100px; padding:6px 10px; font-size:0.8rem; font-weight:600; color:var(--text-dark); cursor:pointer; }
+    .lang-current:hover { border-color:var(--secondary); }
+    .lang-current .lang-caret { width:12px; height:12px; fill:none; stroke:var(--text-mid); stroke-width:2; }
+    .lang-dropdown { display:none; position:absolute; top:calc(100% + 6px); right:0; background:#fff; border:1px solid var(--border); border-radius:var(--radius-md); box-shadow:var(--shadow-md); padding:6px; min-width:130px; z-index:200; }
+    .lang-dropdown.open { display:block; }
+    .lang-option { display:flex; align-items:center; gap:8px; width:100%; background:none; border:none; padding:8px 10px; border-radius:var(--radius-sm); font-size:0.85rem; font-weight:500; color:var(--text-dark); cursor:pointer; text-align:left; }
+    .lang-option:hover { background:var(--bg); }
+    .lang-option.active { background:var(--bg); color:var(--primary); font-weight:700; }
+    .mobile-lang-switcher { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+    .mobile-lang-switcher .lang-option { flex:1; justify-content:center; border:1px solid var(--border); }
+    .lang-switcher { flex-shrink:0; } .nav-cta { white-space:nowrap; }
+    @media (max-width:1100px) { .nav-phone { display:none; } .nav-links a { padding:8px 8px; } }
   </style>
 </head>
 <body>
@@ -650,18 +668,30 @@
         <span class="logo-text">Vetro<span>Connections</span></span>
       </a>
       <ul class="nav-links">
-        <li><a href="index.html#prodotti">Prodotti</a></li>
-        <li><a href="index.html#materiali">Materiali</a></li>
-        <li><a href="progetti.html">Progetti</a></li>
-        <li><a href="index.html#servizi">Servizi</a></li>
-        <li><a href="index.html#faq">FAQ</a></li>
-        <li><a href="index.html#contatti">Contatti</a></li>
+        <li><a href="index.html#prodotti" data-i18n="nav.prodotti">Prodotti</a></li>
+        <li><a href="index.html#materiali" data-i18n="nav.materiali">Materiali</a></li>
+        <li><a href="progetti.html" data-i18n="nav.progetti">Progetti</a></li>
+        <li><a href="index.html#servizi" data-i18n="nav.servizi">Servizi</a></li>
+        <li><a href="index.html#faq" data-i18n="nav.faq">FAQ</a></li>
+        <li><a href="index.html#contatti" data-i18n="nav.contatti">Contatti</a></li>
         <li><a href="tel:+393455086065" class="nav-phone">
           <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.56.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.49a1 1 0 011 1 11.36 11.36 0 00.57 3.56 1 1 0 01-.25 1.02l-2.2 2.21z"/></svg>
           +39 345 5086065
         </a></li>
-        <li><a href="configuratore.html" class="nav-cta">Configura Ora</a></li>
+        <li><a href="configuratore.html" class="nav-cta" data-i18n="nav.cta">Configura Ora</a></li>
       </ul>
+      <div class="lang-switcher">
+        <button class="lang-current" aria-haspopup="true" aria-label="Cambia lingua" data-i18n-aria="pg.langAria">
+          <span class="lang-flag">🇮🇹</span><span class="lang-code">IT</span>
+          <svg class="lang-caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="lang-dropdown">
+          <button class="lang-option active" data-lang="it"><span>🇮🇹</span> IT</button>
+          <button class="lang-option" data-lang="en"><span>🇬🇧</span> EN</button>
+          <button class="lang-option" data-lang="es"><span>🇪🇸</span> ES</button>
+          <button class="lang-option" data-lang="pt"><span>🇵🇹</span> PT</button>
+        </div>
+      </div>
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -669,23 +699,28 @@
   </div>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="index.html#prodotti">Prodotti</a>
-  <a href="index.html#materiali">Materiali</a>
-  <a href="progetti.html">Progetti</a>
-  <a href="index.html#servizi">Servizi</a>
-  <a href="index.html#faq">FAQ</a>
-  <a href="index.html#contatti">Contatti</a>
-  <a href="configuratore.html" class="mobile-menu-cta">Configura Ora →</a>
+  <a href="index.html#prodotti" data-i18n="nav.prodotti">Prodotti</a>
+  <a href="index.html#materiali" data-i18n="nav.materiali">Materiali</a>
+  <a href="progetti.html" data-i18n="nav.progetti">Progetti</a>
+  <a href="index.html#servizi" data-i18n="nav.servizi">Servizi</a>
+  <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+  <a href="index.html#contatti" data-i18n="nav.contatti">Contatti</a>
+  <a href="configuratore.html" class="mobile-menu-cta" data-i18n="nav.ctaArrow">Configura Ora →</a>
+  <div class="mobile-lang-switcher">
+    <button class="lang-option active" data-lang="it">🇮🇹 IT</button>
+    <button class="lang-option" data-lang="en">🇬🇧 EN</button>
+    <button class="lang-option" data-lang="es">🇪🇸 ES</button>
+    <button class="lang-option" data-lang="pt">🇵🇹 PT</button>
+  </div>
 </div>
-
 <!-- ══ CONFIG HEADER ═══════════════════════════════════ -->
 <div class="config-header">
   <div class="inner">
     <div>
-      <h1 id="config-h1">Configuratore Finestre, Porte e Parapetti</h1>
-      <p id="config-sub">Personalizza il tuo prodotto passo per passo e ricevi un preventivo gratuito</p>
+      <h1 id="config-h1" data-i18n="cfg.h1">Configuratore Finestre, Porte e Parapetti</h1>
+      <p id="config-sub" data-i18n="cfg.sub">Personalizza il tuo prodotto passo per passo e ricevi un preventivo gratuito</p>
     </div>
-    <div class="config-header-badge">Preventivo gratuito in 5 minuti</div>
+    <div class="config-header-badge" data-i18n="cfg.badge">Preventivo gratuito in 5 minuti</div>
   </div>
 </div>
 
@@ -713,30 +748,30 @@
       <!-- ── STEP 1: TIPO ──────────────────────────────── -->
       <div class="step-content active" id="sc-1">
         <div style="margin-bottom:20px;" id="mat-block">
-          <div style="font-size:.8rem;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">Materiale del profilo</div>
+          <div style="font-size:.8rem;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;" data-i18n="cfg.matLabel">Materiale del profilo</div>
           <div class="mat-chips" id="mat-chips">
             <div class="mat-chip selected" onclick="selectMaterial('pvc')" id="mat-pvc">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>PVC
             </div>
             <div class="mat-chip" onclick="selectMaterial('legno')" id="mat-legno">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Legno
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span data-i18n="pg.fWood">Legno</span>
             </div>
             <div class="mat-chip" onclick="selectMaterial('alluminio')" id="mat-alluminio">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 9h16M4 14h16M9 4v16M14 4v16"/></svg>Alluminio
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 9h16M4 14h16M9 4v16M14 4v16"/></svg><span data-i18n="pg.fAllu">Alluminio</span>
             </div>
           </div>
         </div>
-        <div style="font-size:.8rem;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;" id="type-grid-label">Tipo di prodotto</div>
+        <div style="font-size:.8rem;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;" id="type-grid-label" data-i18n="cfg.typeLabel">Tipo di prodotto</div>
         <div class="type-grid" id="type-grid">
           <!-- rendered by JS -->
         </div>
-        <div class="val-error" id="err-1">Seleziona il prodotto da configurare per continuare.</div>
+        <div class="val-error" id="err-1" data-i18n="cfg.err1">Seleziona il prodotto da configurare per continuare.</div>
       </div>
 
       <!-- ── STEP 2: DIMENSIONI ────────────────────────── -->
       <div class="step-content" id="sc-2">
         <div id="parapetto-shape-block" style="display:none;margin-bottom:24px;">
-          <div style="font-size:.8rem;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">Forma del parapetto</div>
+          <div style="font-size:.8rem;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;" data-i18n="cfg.shapeLabel">Forma del parapetto</div>
           <div class="type-grid" id="parapetto-shape-grid" style="grid-template-columns:repeat(3,1fr);">
             <!-- rendered by JS -->
           </div>
@@ -757,42 +792,42 @@
           <!-- rendered by JS: 2 o 3 campi lunghezza lato -->
         </div>
         <div class="size-presets">
-          <div class="size-presets-label">Misure standard comuni:</div>
+          <div class="size-presets-label" data-i18n="cfg.presets">Misure standard comuni:</div>
           <div class="size-chips" id="size-chips">
             <!-- rendered by JS -->
           </div>
         </div>
         <div id="parapetto-thickness-block" style="display:none;margin-top:24px;">
-          <div style="font-size:.8rem;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">Spessore del vetro</div>
+          <div style="font-size:.8rem;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;" data-i18n="cfg.thickLabel">Spessore del vetro</div>
           <div class="glass-grid" id="thickness-chips" style="margin-bottom:0;">
             <!-- rendered by JS -->
           </div>
           <div id="glass-custom-note-block" class="form-group" style="display:none;margin-top:14px;">
-            <label for="glass-custom-note">Specifica lo spessore/composizione</label>
-            <input type="text" id="glass-custom-note" maxlength="100" placeholder="Es. Stratificato 12+12 mm extrachiaro" />
-            <span class="hint">Max 100 caratteri</span>
+            <label for="glass-custom-note" data-i18n="cfg.customThickLabel">Specifica lo spessore/composizione</label>
+            <input type="text" id="glass-custom-note" maxlength="100" placeholder="Es. Stratificato 12+12 mm extrachiaro" data-i18n-placeholder="cfg.customThickPh" />
+            <span class="hint" data-i18n="cfg.max100">Max 100 caratteri</span>
           </div>
         </div>
         <div id="extra-sizes-block" style="margin-top:24px;">
-          <div class="size-presets-label" style="margin-bottom:10px;">Altre misure da aggiungere allo stesso preventivo (opzionale)</div>
+          <div class="size-presets-label" style="margin-bottom:10px;" data-i18n="cfg.extraTitle">Altre misure da aggiungere allo stesso preventivo (opzionale)</div>
           <div id="extra-sizes-list"></div>
           <div class="dim-grid" style="grid-template-columns:1fr 1fr 90px auto;align-items:end;gap:10px;">
             <div class="form-group">
-              <label for="extra-width">Larghezza (mm)</label>
+              <label for="extra-width" data-i18n="cfg.width">Larghezza (mm)</label>
               <input type="number" id="extra-width" min="200" max="100000" value="1000" step="10" />
             </div>
             <div class="form-group">
-              <label for="extra-height">Altezza (mm)</label>
+              <label for="extra-height" data-i18n="cfg.height">Altezza (mm)</label>
               <input type="number" id="extra-height" min="200" max="100000" value="1200" step="10" />
             </div>
             <div class="form-group">
-              <label for="extra-qty">Quantità</label>
+              <label for="extra-qty" data-i18n="cfg.qty">Quantità</label>
               <input type="number" id="extra-qty" min="1" max="99" value="1" step="1" />
             </div>
-            <button type="button" class="size-chip" onclick="addExtraSize()" style="height:44px;white-space:nowrap;">+ Aggiungi</button>
+            <button type="button" class="size-chip" onclick="addExtraSize()" style="height:44px;white-space:nowrap;" data-i18n="cfg.add">+ Aggiungi</button>
           </div>
         </div>
-        <div class="val-error" id="err-2">Inserisci dimensioni valide.</div>
+        <div class="val-error" id="err-2" data-i18n="cfg.err2">Inserisci dimensioni valide.</div>
       </div>
 
       <!-- ── STEP 3: CANALINA CALDA ─────────────────────── -->
@@ -800,8 +835,8 @@
         <div style="display:flex;flex-direction:column;gap:14px;">
           <div class="opening-card" style="justify-content:space-between;border-color:var(--accent);background:#F0FDF4;">
             <div>
-              <div class="opening-card-name" style="color:var(--accent);">Canalina calda (warm edge spacer)</div>
-              <div class="opening-card-desc">Distanziatore non conduttore, riduce ponti termici perimetrali e condensa sui bordi del vetro. Migliora il valore Uw.</div>
+              <div class="opening-card-name" style="color:var(--accent);" data-i18n="cfg.warmTitle">Canalina calda (warm edge spacer)</div>
+              <div class="opening-card-desc" data-i18n="cfg.warmDesc">Distanziatore non conduttore, riduce ponti termici perimetrali e condensa sui bordi del vetro. Migliora il valore Uw.</div>
             </div>
             <label class="toggle-label">
               <input type="checkbox" id="warmEdge-main" onchange="st.warmEdge=this.checked; updatePreviewPanel();">
@@ -816,7 +851,7 @@
         <div class="opening-grid" id="opening-grid">
           <!-- rendered by JS based on type -->
         </div>
-        <div class="val-error" id="err-4">Seleziona un tipo di apertura per continuare.</div>
+        <div class="val-error" id="err-4" data-i18n="cfg.err4">Seleziona un tipo di apertura per continuare.</div>
       </div>
 
       <!-- ── STEP 5: COLORE PROFILO ────────────────────── -->
@@ -824,7 +859,7 @@
         <div class="color-grid" id="color-grid">
           <!-- rendered by JS -->
         </div>
-        <div class="val-error" id="err-5">Seleziona il colore del profilo per continuare.</div>
+        <div class="val-error" id="err-5" data-i18n="cfg.err5">Seleziona il colore del profilo per continuare.</div>
       </div>
 
       <!-- ── STEP 6: VETRO ─────────────────────────────── -->
@@ -832,12 +867,12 @@
         <div class="glass-grid" id="glass-grid">
           <!-- rendered by JS -->
         </div>
-        <div class="val-error" id="err-6">Seleziona il tipo di vetro per continuare.</div>
+        <div class="val-error" id="err-6" data-i18n="cfg.err6">Seleziona il tipo di vetro per continuare.</div>
       </div>
 
       <!-- ── STEP 7: ACCESSORI ─────────────────────────── -->
       <div class="step-content" id="sc-7">
-        <p style="font-size:.85rem;color:var(--text-mid);margin-bottom:18px;">Aggiungi accessori opzionali al tuo ordine. Puoi procedere anche senza selezionarne nessuno.</p>
+        <p style="font-size:.85rem;color:var(--text-mid);margin-bottom:18px;" data-i18n="cfg.accIntro">Aggiungi accessori opzionali al tuo ordine. Puoi procedere anche senza selezionarne nessuno.</p>
         <div class="acc-list" id="acc-list">
           <!-- rendered by JS -->
         </div>
@@ -847,19 +882,19 @@
       <div class="step-content" id="sc-10">
         <div class="dim-grid" style="grid-template-columns:1fr 1fr 1fr;">
           <div class="form-group">
-            <label for="perg-width">Larghezza (mm)</label>
+            <label for="perg-width" data-i18n="cfg.width">Larghezza (mm)</label>
             <input type="number" id="perg-width" min="1" step="10" value="4000" />
           </div>
           <div class="form-group">
-            <label for="perg-height">Altezza (mm)</label>
+            <label for="perg-height" data-i18n="cfg.height">Altezza (mm)</label>
             <input type="number" id="perg-height" min="1" step="10" value="2500" />
           </div>
           <div class="form-group">
-            <label for="perg-depth">Profondità (mm)</label>
+            <label for="perg-depth" data-i18n="cfg.depth">Profondità (mm)</label>
             <input type="number" id="perg-depth" min="1" step="10" value="3000" />
           </div>
         </div>
-        <span class="hint">Misure libere, indica le dimensioni desiderate senza vincoli di gamma.</span>
+        <span class="hint" data-i18n="cfg.pergHint">Misure libere, indica le dimensioni desiderate senza vincoli di gamma.</span>
       </div>
 
       <!-- ── PERGOLA: TIPO DI APPOGGIO ──────────────────── -->
@@ -867,14 +902,14 @@
         <div class="opening-grid" id="perg-appoggio-grid">
           <!-- rendered by JS -->
         </div>
-        <div class="val-error" id="err-11">Seleziona il tipo di appoggio per continuare.</div>
+        <div class="val-error" id="err-11" data-i18n="cfg.err11">Seleziona il tipo di appoggio per continuare.</div>
       </div>
 
       <!-- ── PERGOLA: DOVE APPOGGIA ─────────────────────── -->
       <div class="step-content" id="sc-12">
         <div class="form-group">
-          <label for="perg-dove">Descrizione (opzionale)</label>
-          <textarea id="perg-dove" placeholder="Es: a ridosso della facciata sud, sopra il patio in pietra..."></textarea>
+          <label for="perg-dove" data-i18n="cfg.pergDoveLabel">Descrizione (opzionale)</label>
+          <textarea id="perg-dove" placeholder="Es: a ridosso della facciata sud, sopra il patio in pietra..." data-i18n-placeholder="cfg.pergDovePh"></textarea>
         </div>
       </div>
 
@@ -884,10 +919,10 @@
           <!-- rendered by JS -->
         </div>
         <div id="perg-color-custom-note-block" class="form-group" style="display:none;margin-top:14px;">
-          <label for="perg-color-custom-note">Specifica il codice RAL</label>
-          <input type="text" id="perg-color-custom-note" maxlength="60" placeholder="Es. RAL 8019" />
+          <label for="perg-color-custom-note" data-i18n="cfg.ralLabel">Specifica il codice RAL</label>
+          <input type="text" id="perg-color-custom-note" maxlength="60" placeholder="Es. RAL 8019" data-i18n-placeholder="cfg.ralPh" />
         </div>
-        <div class="val-error" id="err-13">Seleziona un colore per continuare.</div>
+        <div class="val-error" id="err-13" data-i18n="cfg.err13">Seleziona un colore per continuare.</div>
       </div>
 
       <!-- ── PERGOLA: LED ───────────────────────────────── -->
@@ -895,7 +930,7 @@
         <div class="opening-grid" id="perg-led-grid">
           <!-- rendered by JS -->
         </div>
-        <div class="val-error" id="err-14">Indica se vuoi l'illuminazione LED per continuare.</div>
+        <div class="val-error" id="err-14" data-i18n="cfg.err14">Indica se vuoi l'illuminazione LED per continuare.</div>
       </div>
 
       <!-- ── PERGOLA: CHIUSURE ──────────────────────────── -->
@@ -903,7 +938,7 @@
         <div class="opening-grid" id="perg-chiusura-grid">
           <!-- rendered by JS -->
         </div>
-        <div class="val-error" id="err-15">Seleziona un sistema di chiusura per continuare.</div>
+        <div class="val-error" id="err-15" data-i18n="cfg.err15">Seleziona un sistema di chiusura per continuare.</div>
       </div>
 
       <!-- ── PERGOLA: USO ───────────────────────────────── -->
@@ -911,7 +946,7 @@
         <div class="opening-grid" id="perg-uso-grid">
           <!-- rendered by JS -->
         </div>
-        <div class="val-error" id="err-16">Seleziona l'uso prevalente per continuare.</div>
+        <div class="val-error" id="err-16" data-i18n="cfg.err16">Seleziona l'uso prevalente per continuare.</div>
       </div>
 
       <!-- ── PERGOLA: TETTO ─────────────────────────────── -->
@@ -919,7 +954,7 @@
         <div class="opening-grid" id="perg-tetto-grid">
           <!-- rendered by JS -->
         </div>
-        <div class="val-error" id="err-17">Seleziona il tipo di tetto per continuare.</div>
+        <div class="val-error" id="err-17" data-i18n="cfg.err17">Seleziona il tipo di tetto per continuare.</div>
       </div>
 
       <!-- ── PERGOLA: MOTORE ────────────────────────────── -->
@@ -927,7 +962,7 @@
         <div class="opening-grid" id="perg-motore-grid">
           <!-- rendered by JS -->
         </div>
-        <div class="val-error" id="err-18">Seleziona motorizzato o manuale per continuare.</div>
+        <div class="val-error" id="err-18" data-i18n="cfg.err18">Seleziona motorizzato o manuale per continuare.</div>
       </div>
 
       <!-- ── PERGOLA: VENTO ─────────────────────────────── -->
@@ -935,7 +970,7 @@
         <div class="opening-grid" id="perg-vento-grid">
           <!-- rendered by JS -->
         </div>
-        <div class="val-error" id="err-19">Seleziona l'esposizione al vento per continuare.</div>
+        <div class="val-error" id="err-19" data-i18n="cfg.err19">Seleziona l'esposizione al vento per continuare.</div>
       </div>
 
       <!-- ── STEP 8: RIEPILOGO ─────────────────────────── -->
@@ -947,7 +982,7 @@
           <div>
             <div class="summary-specs-list" id="summary-specs"></div>
             <div class="uw-bar-wrap" id="uw-bar-wrap-el">
-              <div class="uw-bar-label">Trasmittanza termica Uw:</div>
+              <div class="uw-bar-label" data-i18n="cfg.uwLabel">Trasmittanza termica Uw:</div>
               <div class="uw-bar-track">
                 <div class="uw-bar-pointer" id="uw-pointer"></div>
               </div>
@@ -958,13 +993,13 @@
           </div>
         </div>
         <div style="background:var(--bg);border-radius:var(--radius-md);padding:20px;margin-top:24px;">
-          <div style="font-size:.85rem;font-weight:700;color:var(--text-dark);margin-bottom:12px;">Come procedere</div>
-          <p style="font-size:.875rem;color:var(--text-mid);line-height:1.7;">Clicca su <strong>Inserisci Contatti</strong> per procedere. Ti risponderemo entro 2 ore lavorative con un preventivo dettagliato e personalizzato.</p>
+          <div style="font-size:.85rem;font-weight:700;color:var(--text-dark);margin-bottom:12px;" data-i18n="cfg.howTitle">Come procedere</div>
+          <p style="font-size:.875rem;color:var(--text-mid);line-height:1.7;" data-i18n-html="cfg.howText">Clicca su <strong>Inserisci Contatti</strong> per procedere. Ti risponderemo entro 2 ore lavorative con un preventivo dettagliato e personalizzato.</p>
         </div>
         <div class="summary-actions">
           <button class="btn-quote" id="btn-quote">
             <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" fill="none"/></svg>
-            Inserisci Contatti
+            <span data-i18n="cfg.btnContacts">Inserisci Contatti</span>
           </button>
         </div>
       </div>
@@ -974,17 +1009,17 @@
 
         <!-- Form -->
         <div id="contact-form-wrap">
-          <div class="contact-note">
+          <div class="contact-note" data-i18n-html="cfg.nearlyThere">
             <strong>Ci siamo quasi!</strong> Inserisci i tuoi dati di contatto e ti invieremo un preventivo personalizzato entro 2 ore lavorative.
           </div>
           <div class="contact-form">
             <div class="cf-row">
               <div class="form-group">
-                <label for="cf-nome">Nome e Cognome <span style="color:#DC2626">*</span></label>
-                <input type="text" id="cf-nome" placeholder="Mario Rossi" autocomplete="name" />
+                <label for="cf-nome" data-i18n-html="cfg.fullName">Nome e Cognome <span style="color:#DC2626">*</span></label>
+                <input type="text" id="cf-nome" placeholder="Mario Rossi" data-i18n-placeholder="cfg.phName" autocomplete="name" />
               </div>
               <div class="form-group">
-                <label for="cf-tel">Telefono</label>
+                <label for="cf-tel" data-i18n="cfg.phone">Telefono</label>
                 <input type="tel" id="cf-tel" placeholder="+39 347 1234567" autocomplete="tel" />
               </div>
             </div>
@@ -993,15 +1028,15 @@
               <input type="email" id="cf-email" placeholder="mario.rossi@email.com" autocomplete="email" />
             </div>
             <div class="form-group">
-              <label for="cf-note">Note aggiuntive</label>
-              <textarea id="cf-note" placeholder="Es: Necessito di sopralluogo, ho un'apertura particolare..."></textarea>
+              <label for="cf-note" data-i18n="common.formNote">Note aggiuntive</label>
+              <textarea id="cf-note" placeholder="Es: Necessito di sopralluogo, ho un'apertura particolare..." data-i18n-placeholder="cfg.notePh"></textarea>
             </div>
-            <div class="val-error" id="err-9">Inserisci nome e almeno un contatto (email o telefono) per procedere.</div>
+            <div class="val-error" id="err-9" data-i18n="cfg.err9">Inserisci nome e almeno un contatto (email o telefono) per procedere.</div>
             <button class="btn-submit" onclick="submitContact()">
               <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-              Invia Richiesta Preventivo
+              <span data-i18n="cfg.submit">Invia Richiesta Preventivo</span>
             </button>
-            <p class="privacy-note">I tuoi dati sono trattati in conformità al GDPR e non vengono condivisi con terzi. Leggi la <a href="privacy.html" target="_blank" style="color:inherit;text-decoration:underline;">Privacy Policy</a>.</p>
+            <p class="privacy-note" data-i18n-html="cfg.privacyNote">I tuoi dati sono trattati in conformità al GDPR e non vengono condivisi con terzi. Leggi la <a href="privacy.html" target="_blank" style="color:inherit;text-decoration:underline;">Privacy Policy</a>.</p>
           </div>
         </div>
 
@@ -1011,14 +1046,14 @@
             <div class="success-icon">
               <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
             </div>
-            <div class="success-title">Richiesta inviata!</div>
-            <div class="success-sub">Ti risponderemo entro 2 ore lavorative con il preventivo completo.</div>
+            <div class="success-title" data-i18n="cfg.successTitle">Richiesta inviata!</div>
+            <div class="success-sub" data-i18n="cfg.successSub">Ti risponderemo entro 2 ore lavorative con il preventivo completo.</div>
             <div class="success-recap" id="success-recap">
               <!-- filled by JS -->
             </div>
             <button class="btn-outline" id="btn-redownload-pdf" type="button" style="display:none;margin-top:4px;">
               <svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:-3px;margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill="none" stroke="currentColor" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
-              Scarica di nuovo il PDF
+              <span data-i18n="cfg.redownload">Scarica di nuovo il PDF</span>
             </button>
           </div>
         </div>
@@ -1031,7 +1066,7 @@
     <div class="step-nav">
       <button class="btn-back" id="btn-back" disabled>
         <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-        Indietro
+        <span data-i18n="cfg.back">Indietro</span>
       </button>
       <span class="step-counter" id="step-counter">Passo 1 di 8</span>
       <button class="btn-next" id="btn-next">
@@ -1045,7 +1080,7 @@
   <aside>
     <div class="preview-panel">
       <div class="preview-header">
-        <span class="preview-header-title">Anteprima</span>
+        <span class="preview-header-title" data-i18n="cfg.preview">Anteprima</span>
         <span class="preview-header-dim" id="prev-dim">-- × -- mm</span>
       </div>
       <div class="preview-svg-area" id="preview-svg-area">
@@ -1070,6 +1105,11 @@
 // ═══════════════════════════════════════════════════
 //  DATA
 // ═══════════════════════════════════════════════════
+
+// ── i18n: tr() traduce un testo italiano usando VC_CFG (js/i18n-config.js);
+//    se la frase non è nel dizionario (o la lingua è l'italiano) restituisce l'originale.
+function tr(s) { const d = (window.VC_CFG || {})[window.vcLang ? vcLang() : 'it']; return (d && d[s]) || s; }
+function trf(s, vars) { let r = tr(s); for (const k in vars) r = r.split('{' + k + '}').join(vars[k]); return r; }
 
 // Two possible step sequences: the full wizard, and the short
 // "solo misure e spessore" path used for il Parapetto.
@@ -1370,8 +1410,8 @@ function buildPreviewSVG(compact) {
   }
 
   if (!type) {
-    parts.push(`<text x="${VW/2}" y="${VH/2-8}" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12" fill="#94A3B8">Seleziona il tipo</text>`);
-    parts.push(`<text x="${VW/2}" y="${VH/2+10}" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" fill="#CBD5E1">di finestra →</text>`);
+    parts.push(`<text x="${VW/2}" y="${VH/2-8}" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12" fill="#94A3B8">${tr('Seleziona il tipo')}</text>`);
+    parts.push(`<text x="${VW/2}" y="${VH/2+10}" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" fill="#CBD5E1">${tr('di finestra →')}</text>`);
     return `<svg viewBox="0 0 ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg">${parts.join('')}</svg>`;
   }
 
@@ -1756,9 +1796,9 @@ function renderProgressBar() {
     const completed = s.id < st.step;
     const active = s.id === st.step;
     const cls = completed ? 'completed' : (active ? 'active' : '');
-    html += `<div class="prog-step ${cls}" onclick="jumpStep(${s.id})" role="button" tabindex="0" aria-label="Passo ${s.id}: ${s.lbl}">`
+    html += `<div class="prog-step ${cls}" onclick="jumpStep(${s.id})" role="button" tabindex="0" aria-label="${trf('Passo {n}: {l}',{n:s.id,l:tr(s.lbl)})}">`
           + `<span class="num">${completed ? '✓' : s.id}</span>`
-          + `<span class="lbl">${s.lbl}</span>`
+          + `<span class="lbl">${tr(s.lbl)}</span>`
           + `</div>`;
     if(i < STEPS.length-1) html += `<span class="prog-sep" aria-hidden="true">›</span>`;
   });
@@ -1767,10 +1807,10 @@ function renderProgressBar() {
 
 function renderStepHeader() {
   const s = STEPS[st.step-1];
-  document.getElementById('sh-label').textContent = `Passo ${st.step} di ${STEPS.length}`;
-  document.getElementById('sh-title').textContent = s.title;
-  document.getElementById('sh-desc').textContent  = s.desc;
-  document.getElementById('step-counter').textContent = `Passo ${st.step} di ${STEPS.length}`;
+  document.getElementById('sh-label').textContent = trf('Passo {n} di {t}',{n:st.step,t:STEPS.length});
+  document.getElementById('sh-title').textContent = tr(s.title);
+  document.getElementById('sh-desc').textContent  = tr(s.desc);
+  document.getElementById('step-counter').textContent = trf('Passo {n} di {t}',{n:st.step,t:STEPS.length});
 }
 
 function renderTypeGrid() {
@@ -1779,10 +1819,10 @@ function renderTypeGrid() {
     <div class="type-card${st.type===t.id?' selected':''}"
          onclick="selectType('${t.id}')"
          role="button" tabindex="0"
-         aria-label="${t.name}" aria-pressed="${st.type===t.id}">
+         aria-label="${tr(t.name)}" aria-pressed="${st.type===t.id}">
       <div class="type-card-svg">${typeCardSVG(t.id)}</div>
-      <div class="type-card-name">${t.name}</div>
-      <div class="type-card-desc">${t.desc}</div>
+      <div class="type-card-name">${tr(t.name)}</div>
+      <div class="type-card-desc">${tr(t.desc)}</div>
     </div>`).join('');
 }
 
@@ -1801,11 +1841,11 @@ function renderSizeChips() {
     const ih = document.getElementById('inp-height');
     iw.min = t.minW; iw.max = t.maxW;
     ih.min = t.minH; ih.max = t.maxH;
-    document.getElementById('hint-width').textContent = `Min ${t.minW} / Max ${t.maxW} mm`;
-    document.getElementById('hint-height').textContent = `Min ${t.minH} / Max ${t.maxH} mm`;
+    document.getElementById('hint-width').textContent = trf('Min {a} / Max {b} mm',{a:t.minW,b:t.maxW});
+    document.getElementById('hint-height').textContent = trf('Min {a} / Max {b} mm',{a:t.minH,b:t.maxH});
   }
-  document.getElementById('label-width').textContent = isParapetto ? 'Lunghezza totale (mm)' : 'Larghezza (mm)';
-  document.getElementById('label-height').textContent = isParapetto ? 'Altezza vetro (mm)' : 'Altezza (mm)';
+  document.getElementById('label-width').textContent = tr(isParapetto ? 'Lunghezza totale (mm)' : 'Larghezza (mm)');
+  document.getElementById('label-height').textContent = tr(isParapetto ? 'Altezza vetro (mm)' : 'Altezza (mm)');
   const shapeBlock = document.getElementById('parapetto-shape-block');
   if(shapeBlock) {
     shapeBlock.style.display = isParapetto ? 'block' : 'none';
@@ -1833,10 +1873,10 @@ function renderParapettoShapeGrid() {
     <div class="type-card${st.parapettoShape===s.id?' selected':''}"
          onclick="selectParapettoShape('${s.id}')"
          role="button" tabindex="0"
-         aria-label="${s.name}" aria-pressed="${st.parapettoShape===s.id}">
+         aria-label="${tr(s.name)}" aria-pressed="${st.parapettoShape===s.id}">
       <div class="type-card-svg">${parapettoShapeSVG(s.id)}</div>
-      <div class="type-card-name">${s.name}</div>
-      <div class="type-card-desc">${s.desc}</div>
+      <div class="type-card-name">${tr(s.name)}</div>
+      <div class="type-card-desc">${tr(s.desc)}</div>
     </div>`).join('');
 }
 
@@ -1872,10 +1912,10 @@ function renderParapettoSegmentFields() {
   widthWrap.style.display = showSegments ? 'none' : '';
   wrap.style.display = showSegments ? 'flex' : 'none';
   if(!showSegments) return;
-  const labels = ['Lato A (mm)','Lato B (mm)','Lato C (mm)'];
+  const labels = ['Lato A (mm)','Lato B (mm)','Lato C (mm)'].map(tr);
   wrap.innerHTML = st.parapettoSegments.map((val,i) => `
     <div class="form-group" style="flex:1;min-width:140px;">
-      <label for="seg-len-${i}">${labels[i]||('Lato '+(i+1)+' (mm)')}</label>
+      <label for="seg-len-${i}">${labels[i]||trf('Lato {n} (mm)',{n:i+1})}</label>
       <input type="number" id="seg-len-${i}" min="200" max="6000" step="10" value="${val}"
              oninput="updateParapettoSegment(${i}, this.value)" />
     </div>`).join('');
@@ -1897,7 +1937,7 @@ function renderExtraSizes() {
   el.innerHTML = st.extraSizes.map((s,i) => `
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;background:#fff;">
       <span style="font-size:.9rem;font-weight:600;color:var(--text-dark);">${s.qty}× ${s.w} × ${s.h} mm</span>
-      <button type="button" onclick="removeExtraSize(${i})" aria-label="Rimuovi misura" style="background:none;border:none;color:#DC2626;cursor:pointer;font-size:1.3rem;line-height:1;padding:0 4px;">&times;</button>
+      <button type="button" onclick="removeExtraSize(${i})" aria-label="${tr('Rimuovi misura')}" style="background:none;border:none;color:#DC2626;cursor:pointer;font-size:1.3rem;line-height:1;padding:0 4px;">&times;</button>
     </div>`).join('');
 }
 
@@ -1923,9 +1963,9 @@ function renderThicknessChips() {
          onclick="selectGlass('${g.id}')"
          role="button" tabindex="0" aria-pressed="${st.glass===g.id}">
       <div class="glass-info">
-        <div class="glass-name">${g.name}${g.badge?`<span class="glass-badge">${g.badge}</span>`:''}</div>
+        <div class="glass-name">${tr(g.name)}${g.badge?`<span class="glass-badge">${tr(g.badge)}</span>`:''}</div>
       </div>
-      <div class="glass-uw" style="background:#DBEAFE;color:#1E40AF;">${g.tag}</div>
+      <div class="glass-uw" style="background:#DBEAFE;color:#1E40AF;">${tr(g.tag)}</div>
     </div>`).join('');
 }
 
@@ -1939,20 +1979,20 @@ function renderOpeningGrid() {
          role="button" tabindex="0" aria-pressed="${st.opening===o.id}">
       <div class="opening-card-icon" aria-hidden="true">${openingIcon(o.id)}</div>
       <div>
-        <div class="opening-card-name">${o.name}</div>
-        <div class="opening-card-desc">${o.desc}</div>
+        <div class="opening-card-name">${tr(o.name)}</div>
+        <div class="opening-card-desc">${tr(o.desc)}</div>
       </div>
       <div class="radio-dot" aria-hidden="true"></div>
     </div>`).join('');
   const vasistasToggle = showVasistas ? `
-    <div class="opening-divider">Opzione aggiuntiva</div>
+    <div class="opening-divider">${tr('Opzione aggiuntiva')}</div>
     <div class="opening-card toggle-card${st.vasistasExtra?' selected':''}"
          onclick="toggleVasistas()"
          role="button" tabindex="0" aria-pressed="${st.vasistasExtra}">
       <div class="opening-card-icon" aria-hidden="true">${openingIcon('vasistas')}</div>
       <div>
-        <div class="opening-card-name">Vasistas</div>
-        <div class="opening-card-desc">Da sola: finestra vasistas pura. Insieme a un'altra apertura: vasistas aggiuntivo.</div>
+        <div class="opening-card-name">${tr('Vasistas')}</div>
+        <div class="opening-card-desc">${tr('Da sola: finestra vasistas pura. Insieme a un\'altra apertura: vasistas aggiuntivo.')}</div>
       </div>
       <div class="radio-dot" aria-hidden="true"></div>
     </div>` : '';
@@ -1977,8 +2017,8 @@ function renderColorGrid() {
          onclick="selectColor('${c.id}')"
          role="button" tabindex="0" aria-pressed="${st.color===c.id}">
       <div class="color-swatch${c.wood?' wood':''}" style="background:${c.color};border-color:${c.stroke};" aria-hidden="true"></div>
-      <div class="color-card-name">${c.name}</div>
-      <div class="color-card-note">${c.code}</div>
+      <div class="color-card-name">${tr(c.name)}</div>
+      <div class="color-card-note">${tr(c.code)}</div>
     </div>`).join('');
 }
 
@@ -1990,7 +2030,7 @@ function renderGlassGrid() {
          onclick="selectGlass('${g.id}')"
          role="button" tabindex="0" aria-pressed="${st.glass===g.id}">
       <div class="glass-info">
-        <div class="glass-name">${g.name}${g.badge?`<span class="glass-badge">${g.badge}</span>`:''}</div>
+        <div class="glass-name">${tr(g.name)}${g.badge?`<span class="glass-badge">${tr(g.badge)}</span>`:''}</div>
       </div>
     </div>`).join('');
   } else {
@@ -2001,7 +2041,7 @@ function renderGlassGrid() {
            role="button" tabindex="0" aria-pressed="${st.glass===g.id}">
         <div class="glass-icon" aria-hidden="true">${glassLayerIcon(g.id)}</div>
         <div class="glass-info">
-          <div class="glass-name">${g.name}${g.badge?`<span class="glass-badge">${g.badge}</span>`:''}</div>
+          <div class="glass-name">${tr(g.name)}${g.badge?`<span class="glass-badge">${tr(g.badge)}</span>`:''}</div>
         </div>
         <div class="glass-uw" style="background:${uw.bg};color:${uw.color};">${g.uw}</div>
       </div>`;
@@ -2039,8 +2079,8 @@ function renderPergOptionGrid(containerId, opts, selectedId, onclickName) {
          role="button" tabindex="0" aria-pressed="${selectedId===o.id}">
       <div class="opening-card-icon" aria-hidden="true">${pergBulletIcon()}</div>
       <div>
-        <div class="opening-card-name">${o.name}</div>
-        ${o.desc ? `<div class="opening-card-desc">${o.desc}</div>` : ''}
+        <div class="opening-card-name">${tr(o.name)}</div>
+        ${o.desc ? `<div class="opening-card-desc">${tr(o.desc)}</div>` : ''}
       </div>
       <div class="radio-dot" aria-hidden="true"></div>
     </div>`).join('');
@@ -2062,8 +2102,8 @@ function renderPergColorGrid() {
          onclick="selectPergColor('${c.id}')"
          role="button" tabindex="0" aria-pressed="${st.pergColore===c.id}">
       <div class="color-swatch${c.wood?' wood':''}" style="background:${c.color};border-color:${c.stroke};" aria-hidden="true"></div>
-      <div class="color-card-name">${c.name}</div>
-      <div class="color-card-note">${c.code}</div>
+      <div class="color-card-name">${tr(c.name)}</div>
+      <div class="color-card-note">${tr(c.code)}</div>
     </div>`).join('');
 }
 function selectPergColor(id) {
@@ -2159,55 +2199,59 @@ function renderAccList() {
       </div>
       <div class="acc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="var(--primary)"><path d="${icons[a.id]||''}"/></svg></div>
       <div class="acc-info">
-        <div class="acc-name">${a.name}</div>
-        <div class="acc-desc">${a.desc}</div>
+        <div class="acc-name">${tr(a.name)}</div>
+        <div class="acc-desc">${tr(a.desc)}</div>
       </div>
     </div>`).join('');
 }
 
-function getConfigSpecs(pieceOverride) {
+function getConfigSpecs(pieceOverride, loc) {
+  // loc=false -> chiavi/valori italiani canonici (usati per l'email al titolare);
+  // loc=true  -> tradotti nella lingua scelta (riepilogo a schermo e PDF per il cliente).
+  const T = loc ? tr : (s => s);
+  const F = loc ? trf : ((s, v) => { let r = s; for (const k in v) r = r.split('{' + k + '}').join(v[k]); return r; });
   if(st.type === 'pergola') {
     const appoggio = PERGOLA_APPOGGIO_OPTS.find(x=>x.id===st.pergAppoggio);
     const colore = PERGOLA_COLOR_OPTS.find(x=>x.id===st.pergColore);
     const coloreLabel = st.pergColore === 'altro'
-      ? `Altro: ${st.pergColoreNote.trim() || 'N/D'}`
-      : (colore ? `${colore.name} (${colore.code})` : 'N/D');
+      ? F('Altro: {x}', {x: st.pergColoreNote.trim() || T('N/D')})
+      : (colore ? `${T(colore.name)} (${T(colore.code)})` : T('N/D'));
     const chiusura = PERGOLA_CHIUSURA_OPTS.find(x=>x.id===st.pergChiusura);
     const uso = PERGOLA_USO_OPTS.find(x=>x.id===st.pergUso);
     const tetto = PERGOLA_TETTO_OPTS.find(x=>x.id===st.pergTetto);
     const motore = PERGOLA_MOTORE_OPTS.find(x=>x.id===st.pergMotore);
     const vento = PERGOLA_VENTO_OPTS.find(x=>x.id===st.pergVento);
     const specs = [
-      ['Prodotto',  'Pergola'],
-      ['Dimensioni', `${st.pergWidth} × ${st.pergHeight} × ${st.pergDepth} mm (L×A×P)`],
-      ['Appoggio',  appoggio?.name || 'N/D'],
+      [T('Prodotto'),  T('Pergola')],
+      [T('Dimensioni'), F('{w} × {h} × {d} mm (L×A×P)', {w:st.pergWidth, h:st.pergHeight, d:st.pergDepth})],
+      [T('Appoggio'),  T(appoggio?.name || 'N/D')],
     ];
-    if(st.pergDoveAppoggia.trim()) specs.push(['Dove appoggia', st.pergDoveAppoggia.trim()]);
-    specs.push(['Colore',        coloreLabel]);
-    specs.push(['Illuminazione LED', st.pergLed === 'si' ? 'Sì' : st.pergLed === 'no' ? 'No' : 'N/D']);
-    specs.push(['Chiusura',      chiusura?.name || 'N/D']);
-    specs.push(['Uso prevalente', uso?.name || 'N/D']);
-    specs.push(['Tetto',         tetto?.name || 'N/D']);
-    specs.push(['Motorizzazione', motore?.name || 'N/D']);
-    specs.push(['Esposizione vento', vento?.name || 'N/D']);
+    if(st.pergDoveAppoggia.trim()) specs.push([T('Dove appoggia'), st.pergDoveAppoggia.trim()]);
+    specs.push([T('Colore'),        coloreLabel]);
+    specs.push([T('Illuminazione LED'), st.pergLed === 'si' ? T('Sì') : st.pergLed === 'no' ? T('No') : T('N/D')]);
+    specs.push([T('Chiusura'),      T(chiusura?.name || 'N/D')]);
+    specs.push([T('Uso prevalente'), T(uso?.name || 'N/D')]);
+    specs.push([T('Tetto'),         T(tetto?.name || 'N/D')]);
+    specs.push([T('Motorizzazione'), T(motore?.name || 'N/D')]);
+    specs.push([T('Esposizione vento'), T(vento?.name || 'N/D')]);
     return specs;
   }
   if(st.type === 'parapetto') {
     const g = PARAPETTO_GLASS_OPTS.find(x=>x.id===st.glass);
     const glassLabel = st.glass === 'altro'
-      ? `Altro: ${st.glassCustomNote.trim() || 'N/D'}`
-      : (g?.name || 'N/D');
+      ? F('Altro: {x}', {x: st.glassCustomNote.trim() || T('N/D')})
+      : T(g?.name || 'N/D');
     const shape = PARAPETTO_SHAPES.find(x=>x.id===st.parapettoShape) || PARAPETTO_SHAPES[0];
     const specs = [
-      ['Prodotto', 'Parapetto in vetro'],
-      ['Forma',    shape.name],
+      [T('Prodotto'), T('Parapetto in vetro')],
+      [T('Forma'),    T(shape.name)],
     ];
     if(shape.segments > 1) {
-      specs.push(['Lati', st.parapettoSegments.map(v=>v+' mm').join(' + ')]);
+      specs.push([T('Lati'), st.parapettoSegments.map(v=>v+' mm').join(' + ')]);
     }
-    specs.push(['Lunghezza totale', `${st.width} mm`]);
-    specs.push(['Altezza vetro',    `${st.height} mm`]);
-    specs.push(['Spessore vetro',   glassLabel]);
+    specs.push([T('Lunghezza totale'), `${st.width} mm`]);
+    specs.push([T('Altezza vetro'),    `${st.height} mm`]);
+    specs.push([T('Spessore vetro'),   glassLabel]);
     return specs;
   }
   const isEntryDoor = st.type === 'porta-ingresso';
@@ -2216,32 +2260,31 @@ function getConfigSpecs(pieceOverride) {
   const gInfo  = panelOrGlassOpts.find(x=>x.id===st.glass);
   const cInfo  = COLOR_OPTS.find(x=>x.id===st.color);
   const opInfo = (OPENING_OPTS[st.type]||[]).find(x=>x.id===st.opening);
-  let openingLabel = 'N/D';
-  if(st.opening && st.vasistasExtra) openingLabel = `${opInfo?.name||'N/D'} + Vasistas`;
-  else if(st.opening) openingLabel = opInfo?.name||'N/D';
-  else if(st.vasistasExtra) openingLabel = 'Vasistas';
-  const matLabel = { pvc:'PVC', legno:'Legno', alluminio:'Alluminio' }[st.material] || 'PVC';
+  let openingLabel = T('N/D');
+  if(st.opening && st.vasistasExtra) openingLabel = `${T(opInfo?.name||'N/D')} + ${T('Vasistas')}`;
+  else if(st.opening) openingLabel = T(opInfo?.name||'N/D');
+  else if(st.vasistasExtra) openingLabel = T('Vasistas');
+  const matLabel = T({ pvc:'PVC', legno:'Legno', alluminio:'Alluminio' }[st.material] || 'PVC');
   const accOpts = isEntryDoor ? ENTRY_ACCESSORY_OPTS : ACCESSORY_OPTS;
-  const accNames = [...st.accessories].map(id=>accOpts.find(x=>x.id===id)?.name).filter(Boolean);
+  const accNames = [...st.accessories].map(id=>accOpts.find(x=>x.id===id)?.name).filter(Boolean).map(T);
   const dimsLabel = pieceOverride
-    ? `${pieceOverride.w} × ${pieceOverride.h} mm${pieceOverride.qty>1?` × ${pieceOverride.qty} pezzi`:''}`
+    ? `${pieceOverride.w} × ${pieceOverride.h} mm${pieceOverride.qty>1?` × ${pieceOverride.qty} ${T('pezzi')}`:''}`
     : `${st.width} × ${st.height} mm`;
   const specs = [
-    ['Materiale',       matLabel],
-    ['Tipo',            tInfo?.name||'N/D'],
-    ['Dimensioni',      dimsLabel],
-    ['Canalina calda',  st.warmEdge ? 'Sì (warm edge spacer)' : 'No'],
-    ['Apertura',        openingLabel],
-    ['Colore profilo',  `${cInfo?.name||'N/D'} (${cInfo?.code||''})`],
-    [isEntryDoor ? 'Pannello' : 'Vetro', gInfo?.name||'N/D'],
-    ['Accessori',       accNames.length ? accNames.join(', ') : 'Nessuno'],
+    [T('Materiale'),       matLabel],
+    [T('Tipo'),            T(tInfo?.name||'N/D')],
+    [T('Dimensioni'),      dimsLabel],
+    [T('Canalina calda'),  st.warmEdge ? T('Sì (warm edge spacer)') : T('No')],
+    [T('Apertura'),        openingLabel],
+    [T('Colore profilo'),  `${T(cInfo?.name||'N/D')} (${T(cInfo?.code||'')})`],
+    [isEntryDoor ? T('Pannello') : T('Vetro'), T(gInfo?.name||'N/D')],
+    [T('Accessori'),       accNames.length ? accNames.join(', ') : T('Nessuno')],
   ];
   if(!pieceOverride && st.extraSizes.length) {
-    specs.push(['Altri pezzi richiesti', st.extraSizes.map(s => `${s.qty}× ${s.w}×${s.h} mm`).join(', ')]);
+    specs.push([T('Altri pezzi richiesti'), st.extraSizes.map(s => `${s.qty}× ${s.w}×${s.h} mm`).join(', ')]);
   }
   return specs;
 }
-
 // Renders buildPreviewSVG for the given width/height (temporarily overriding
 // st.width/height) and rasterizes it to a PNG data URL for use in the PDF,
 // since jsPDF cannot embed raw SVG markup.
@@ -2294,7 +2337,7 @@ function renderSummary() {
     ? buildParapettoPreviewSVG(false)
     : buildPreviewSVG(false);
 
-  const specs = getConfigSpecs();
+  const specs = getConfigSpecs(undefined, true);
   document.getElementById('summary-specs').innerHTML = specs.map(([k,v])=>
     `<div class="summary-spec-row"><span class="spec-key">${k}</span><span class="spec-val">${v}</span></div>`
   ).join('');
@@ -2330,7 +2373,7 @@ function updatePreviewPanel() {
       { k:'Chiusura', v: chiusura?.name||'N/D' },
     ];
     document.getElementById('preview-specs-mini').innerHTML = miniSpecs.map(s=>
-      `<div class="spec-mini-row"><span class="spec-mini-key">${s.k}</span><span class="spec-mini-val">${s.v}</span></div>`
+      `<div class="spec-mini-row"><span class="spec-mini-key">${tr(s.k)}</span><span class="spec-mini-val">${tr(s.v)}</span></div>`
     ).join('');
     return;
   }
@@ -2347,7 +2390,7 @@ function updatePreviewPanel() {
       { k:'Spessore', v: g?.name||'N/D' },
     ];
     document.getElementById('preview-specs-mini').innerHTML = miniSpecs.map(s=>
-      `<div class="spec-mini-row"><span class="spec-mini-key">${s.k}</span><span class="spec-mini-val">${s.v}</span></div>`
+      `<div class="spec-mini-row"><span class="spec-mini-key">${tr(s.k)}</span><span class="spec-mini-val">${tr(s.v)}</span></div>`
     ).join('');
     return;
   }
@@ -2377,10 +2420,10 @@ function updatePreviewPanel() {
     { k:'Tipo',    v: tInfo?.name||'N/D' },
     { k:'Profilo', v: cInfo?.name||'N/D' },
     { k: isEntryDoor?'Pannello':'Vetro', v: gInfo?.name||'N/D' },
-    { k:'Accessori', v: st.accessories.size > 0 ? st.accessories.size+' selezionati' : 'Nessuno' },
+    { k:'Accessori', v: st.accessories.size > 0 ? trf('{n} selezionati',{n:st.accessories.size}) : 'Nessuno' },
   ];
   document.getElementById('preview-specs-mini').innerHTML = miniSpecs.map(s=>
-    `<div class="spec-mini-row"><span class="spec-mini-key">${s.k}</span><span class="spec-mini-val">${s.v}</span></div>`
+    `<div class="spec-mini-row"><span class="spec-mini-key">${tr(s.k)}</span><span class="spec-mini-val">${tr(s.v)}</span></div>`
   ).join('');
 }
 
@@ -2629,7 +2672,7 @@ function updateNavButtons() {
   } else {
     next.style.display = 'flex';
     const nextCid = STEPS[st.step] ? STEPS[st.step].contentId : null;
-    const lbl = nextCid===8 ? 'Vai al Riepilogo' : nextCid===9 ? 'Inserisci Contatti' : 'Avanti';
+    const lbl = tr(nextCid===8 ? 'Vai al Riepilogo' : nextCid===9 ? 'Inserisci Contatti' : 'Avanti');
     next.innerHTML = lbl
       + `<svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:#fff;fill:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>`;
   }
@@ -2786,10 +2829,10 @@ td.v{font-weight:600;color:#1E293B;}
 // ═══════════════════════════════════════════════════
 
 function renderSuccessRecap() {
-  const rows = getConfigSpecs();
+  const rows = getConfigSpecs(undefined, true);
 
   document.getElementById('success-recap').innerHTML =
-    '<div class="success-recap-title">Riepilogo configurazione</div>' +
+    '<div class="success-recap-title">' + tr('Riepilogo configurazione') + '</div>' +
     rows.map(([k,v]) =>
       `<div class="success-recap-row"><span class="success-recap-k">${k}</span><span class="success-recap-v">${v}</span></div>`
     ).join('');
@@ -2799,7 +2842,7 @@ async function buildPDFDoc() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
 
-  const date     = new Date().toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric'});
+  const date     = new Date().toLocaleDateString({it:'it-IT',en:'en-GB',es:'es-ES',pt:'pt-PT'}[vcLang()] || 'it-IT',{day:'2-digit',month:'long',year:'numeric'});
   const refNum   = 'VC-' + Date.now().toString().slice(-6);
   const nome     = st.contact.nome;
 
@@ -2815,14 +2858,14 @@ async function buildPDFDoc() {
   doc.setFont('helvetica','normal');
   doc.setFontSize(8);
   doc.text('Via Levada 34, 31050 Povegliano (TV)', M, 22);
-  doc.text('vetroconnections@gmail.com  |  +39 345 5086065  |  P.IVA 05516400263', M, 27);
+  doc.text('vetroconnections@gmail.com  |  +39 345 5086065  |  ' + tr('P.IVA') + ' 05516400263', M, 27);
   doc.setFont('helvetica','bold');
   doc.setFontSize(9);
-  doc.text(`Preventivo ${refNum}`, W - M, 14, {align:'right'});
+  doc.text(`${tr('Preventivo')} ${refNum}`, W - M, 14, {align:'right'});
   doc.setFont('helvetica','normal');
   doc.setFontSize(8);
-  doc.text(`Data: ${date}`, W - M, 20, {align:'right'});
-  doc.text('Valido 30 giorni · Senza impegno', W - M, 26, {align:'right'});
+  doc.text(`${tr('Data:')} ${date}`, W - M, 20, {align:'right'});
+  doc.text(tr('Valido 30 giorni · Senza impegno'), W - M, 26, {align:'right'});
 
   let y = 48;
 
@@ -2832,7 +2875,7 @@ async function buildPDFDoc() {
   doc.setFont('helvetica','bold');
   doc.setFontSize(7);
   doc.setTextColor(100,116,139);
-  doc.text('DATI CLIENTE', M+4, y+7);
+  doc.text(tr('DATI CLIENTE'), M+4, y+7);
   doc.setFont('helvetica','bold');
   doc.setFontSize(11);
   doc.setTextColor(30,41,59);
@@ -2844,7 +2887,7 @@ async function buildPDFDoc() {
   if(contactLine) doc.text(contactLine, M+4, y+22);
   if(st.contact.note) {
     doc.setFontSize(8);
-    doc.text('Note: '+st.contact.note, M+4, y+28, {maxWidth: CW-8});
+    doc.text(tr('Note:')+' '+st.contact.note, M+4, y+28, {maxWidth: CW-8});
     y += 8;
   }
 
@@ -2854,7 +2897,7 @@ async function buildPDFDoc() {
   doc.setFont('helvetica','bold');
   doc.setFontSize(7);
   doc.setTextColor(100,116,139);
-  doc.text(st.type === 'parapetto' ? 'CONFIGURAZIONE PARAPETTO' : st.type === 'pergola' ? 'CONFIGURAZIONE PERGOLA' : 'CONFIGURAZIONE SERRAMENTO', M, y);
+  doc.text(tr(st.type === 'parapetto' ? 'CONFIGURAZIONE PARAPETTO' : st.type === 'pergola' ? 'CONFIGURAZIONE PERGOLA' : 'CONFIGURAZIONE SERRAMENTO'), M, y);
   y += 3;
   doc.setDrawColor(191,219,254);
   doc.setLineWidth(0.4);
@@ -2886,7 +2929,7 @@ async function buildPDFDoc() {
       }
     } catch(e) { console.warn('PDF preview image failed', e); }
 
-    const specs = getConfigSpecs((st.type === 'parapetto' || st.type === 'pergola') ? undefined : piece);
+    const specs = getConfigSpecs((st.type === 'parapetto' || st.type === 'pergola') ? undefined : piece, true);
     const blockInnerH = Math.max(imgH, specs.length * rowH);
     const blockH = blockInnerH + padTB * 2;
 
@@ -2896,7 +2939,7 @@ async function buildPDFDoc() {
       doc.setFont('helvetica','bold');
       doc.setFontSize(7.5);
       doc.setTextColor(30,64,175);
-      doc.text(`PEZZO ${pi+1}${piece.qty>1?` (×${piece.qty})`:''}`, M, y);
+      doc.text(`${trf('PEZZO {n}',{n:pi+1})}${piece.qty>1?` (×${piece.qty})`:''}`, M, y);
       y += 4;
       if (y + blockH > 270) { doc.addPage(); y = 20; }
     }
@@ -2936,16 +2979,16 @@ async function buildPDFDoc() {
   doc.setFont('helvetica','bold');
   doc.setFontSize(8);
   doc.setTextColor(21,128,61);
-  doc.text('Prossimi passi', M+4, y+7);
+  doc.text(tr('Prossimi passi'), M+4, y+7);
   doc.setFont('helvetica','normal');
   doc.setFontSize(8);
   doc.setTextColor(22,101,52);
-  doc.text('Ti risponderemo entro 2 ore lavorative. Il prezzo definitivo verrà confermato dopo sopralluogo gratuito.', M+4, y+13, {maxWidth: CW-8});
+  doc.text(tr('Ti risponderemo entro 2 ore lavorative. Il prezzo definitivo verrà confermato dopo sopralluogo gratuito.'), M+4, y+13, {maxWidth: CW-8});
 
   // ── Footer ──
   doc.setFontSize(7);
   doc.setTextColor(148,163,184);
-  doc.text('Vetro Connections · P.IVA 05516400263 · Via Levada 34, 31050 Povegliano (TV)', W/2, 285, {align:'center'});
+  doc.text('Vetro Connections · ' + tr('P.IVA') + ' 05516400263 · Via Levada 34, 31050 Povegliano (TV)', W/2, 285, {align:'center'});
   doc.text(`${refNum} · ${date}`, W/2, 289, {align:'center'});
 
   doc.refNum = refNum;
@@ -2967,7 +3010,7 @@ async function submitContact() {
 
   const btn = document.querySelector('#sc-9 .btn-submit');
   btn.disabled = true;
-  btn.innerHTML = 'Invio in corso...';
+  btn.innerHTML = tr('Invio in corso...');
 
   let pdfDoc = null, pdfBase64 = '';
   try {
@@ -2977,12 +3020,14 @@ async function submitContact() {
 
   const specs = getConfigSpecs();
   const specVal = k => specs.find(([sk]) => sk === k)?.[1] || 'N/D';
+  // L'email arriva al titolare: resta in italiano, ma segnaliamo la lingua scelta dal cliente.
+  const langTag = vcLang() === 'it' ? '' : ' [Lingua cliente: ' + ({en:'English', es:'Español', pt:'Português'}[vcLang()]) + ']';
 
   const params = st.type === 'parapetto' ? {
     client_nome:      nome,
     client_email:     email || 'Non inserita',
     client_tel:       tel   || 'Non inserito',
-    client_note:      note  || 'Nessuna',
+    client_note:      (note  || 'Nessuna') + langTag,
     config_materiale: 'Vetro',
     config_tipo:      'Parapetto in vetro',
     config_dimensioni:`${specVal('Forma')}${specVal('Lati')!=='N/D' ? ' ('+specVal('Lati')+')' : ''}: ${specVal('Lunghezza totale')} lunghezza totale × ${specVal('Altezza vetro')} altezza`,
@@ -2997,7 +3042,7 @@ async function submitContact() {
     client_nome:      nome,
     client_email:     email || 'Non inserita',
     client_tel:       tel   || 'Non inserito',
-    client_note:      note  || 'Nessuna',
+    client_note:      (note  || 'Nessuna') + langTag,
     config_materiale: 'Pergola',
     config_tipo:      'Pergola bioclimatica',
     config_dimensioni:specVal('Dimensioni'),
@@ -3012,7 +3057,7 @@ async function submitContact() {
     client_nome:      nome,
     client_email:     email || 'Non inserita',
     client_tel:       tel   || 'Non inserito',
-    client_note:      note  || 'Nessuna',
+    client_note:      (note  || 'Nessuna') + langTag,
     config_materiale: specVal('Materiale'),
     config_tipo:      specVal('Tipo'),
     config_dimensioni:specVal('Dimensioni') + (st.extraSizes.length ? ` | Altri pezzi: ${specVal('Altri pezzi richiesti')}` : ''),
@@ -3064,12 +3109,36 @@ async function submitContact() {
     .catch(err => {
       console.error('EmailJS send failed', err);
       btn.disabled = false;
-      btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>Invia Richiesta Preventivo`;
+      btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>${tr('Invia Richiesta Preventivo')}`;
       const errEl = document.getElementById('err-9');
-      errEl.textContent = 'Errore nell\'invio. Riprova o contattaci su WhatsApp.';
+      errEl.textContent = vcT('common.errorSend');
       errEl.classList.add('show');
     });
 }
+
+// Cambio lingua: ridisegna tutto ciò che è generato dal JavaScript
+function retranslateAll() {
+  applyTypeUI();
+  renderTypeGrid();
+  const cid = STEPS[st.step-1].contentId;
+  if(st.type) renderSizeChips();
+  if(cid===4) renderOpeningGrid();
+  if(cid===5) renderColorGrid();
+  if(cid===6) renderGlassGrid();
+  if(cid===7) renderAccList();
+  if(cid===8) renderSummary();
+  if(cid===11) renderPergAppoggioGrid();
+  if(cid===13) renderPergColorGrid();
+  if(cid===14) renderPergLedGrid();
+  if(cid===15) renderPergChiusuraGrid();
+  if(cid===16) renderPergUsoGrid();
+  if(cid===17) renderPergTettoGrid();
+  if(cid===18) renderPergMotoreGrid();
+  if(cid===19) renderPergVentoGrid();
+  if(submitted) renderSuccessRecap();
+  updatePreviewPanel();
+}
+document.addEventListener('vc:langchange', retranslateAll);
 
 // Keyboard support for cards
 document.addEventListener('keydown', e => {
@@ -3122,7 +3191,7 @@ function toggleWa() {
   document.getElementById('waPopup').classList.toggle('open');
 }
 function sendWa() {
-  const msg = document.getElementById('waText').value.trim() || 'Ciao, vorrei informazioni sulle vostre finestre!';
+  const msg = document.getElementById('waText').value.trim() || vcT('wa.defaultMsg');
   window.open('https://api.whatsapp.com/send?phone=393455086065&text='+encodeURIComponent(msg), '_blank');
 }
 </script>
@@ -3134,17 +3203,17 @@ function sendWa() {
       <div class="wa-avatar">VC</div>
       <div>
         <div class="wa-popup-name">Vetro Connections</div>
-        <div class="wa-popup-status">Di solito risponde in pochi minuti</div>
+        <div class="wa-popup-status" data-i18n="wa.status">Di solito risponde in pochi minuti</div>
       </div>
-      <button class="wa-close" onclick="toggleWa()" aria-label="Chiudi">×</button>
+      <button class="wa-close" onclick="toggleWa()" aria-label="Chiudi" data-i18n-aria="common.close">×</button>
     </div>
-    <div class="wa-bubble">Ciao! 👋 Come possiamo aiutarti? Scrivi qui il tuo messaggio e ti risponderemo su WhatsApp.</div>
+    <div class="wa-bubble" data-i18n="wa.bubble">Ciao! 👋 Come possiamo aiutarti? Scrivi qui il tuo messaggio e ti risponderemo su WhatsApp.</div>
     <div class="wa-input-area">
-      <textarea class="wa-input" id="waText" placeholder="Es: Vorrei un preventivo per finestre in PVC..."></textarea>
-      <button class="wa-send" onclick="sendWa()">Invia su WhatsApp →</button>
+      <textarea class="wa-input" id="waText" placeholder="Es: Vorrei un preventivo per finestre in PVC..." data-i18n-placeholder="wa.placeholder"></textarea>
+      <button class="wa-send" onclick="sendWa()" data-i18n="wa.sendBtn">Invia su WhatsApp →</button>
     </div>
   </div>
-  <button class="wa-btn" onclick="toggleWa()" aria-label="Chatta su WhatsApp">
+  <button class="wa-btn" onclick="toggleWa()" aria-label="Chatta su WhatsApp" data-i18n-aria="wa.chatAria">
     <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
   </button>
 </div>

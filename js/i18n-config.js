@@ -11,7 +11,7 @@
   /* ---------- 1) Testi statici ---------- */
   const stat = {
     it: {
-      'cfg.title': 'Configuratore Finestre | Vetro Connections',
+      'cfg.title': 'Configuratore Finestre e Porte su Misura a Treviso | Vetro Connections',
       'cfg.h1': 'Configuratore Finestre, Porte e Parapetti',
       'cfg.sub': 'Personalizza il tuo prodotto passo per passo e ricevi un preventivo gratuito',
       'cfg.badge': 'Preventivo gratuito in 5 minuti',

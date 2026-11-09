@@ -16,7 +16,7 @@ window.VC_I18N = {
 
     'hero.badge': 'Diretto dal Produttore · Qualità CE',
     'hero.title': 'Finestre e porte in <em>PVC, legno e alluminio</em> su misura',
-    'hero.sub': 'Configura online in 5 minuti, ricevi il preventivo in breve tempo. Produzione europea certificata, consegna in tutta Italia. Rilievi in situ su richiesta.',
+    'hero.sub': 'Configura online in 5 minuti, ricevi il preventivo in breve tempo. Produzione europea certificata, consegna in tutta Italia. Rilievi in situ a Treviso e provincia.',
     'hero.ctaPrimary': 'Configura Ora, Gratis',
     'hero.ctaSecondary': 'Scopri i Prodotti',
     'hero.stat1Label': 'Finestre installate',
@@ -312,7 +312,7 @@ window.VC_I18N = {
 
     'hero.badge': 'Direct from the Manufacturer · CE Quality',
     'hero.title': 'Custom <em>PVC, wood and aluminium</em> windows and doors',
-    'hero.sub': 'Configure online in 5 minutes and get your quote shortly after. Certified European production, delivery across Italy. On-site surveys available on request.',
+    'hero.sub': 'Configure online in 5 minutes and get your quote shortly after. Certified European production, delivery across Italy. On-site surveys in Treviso and the surrounding province.',
     'hero.ctaPrimary': 'Configure Now, Free',
     'hero.ctaSecondary': 'Discover Our Products',
     'hero.stat1Label': 'Windows installed',
@@ -608,7 +608,7 @@ window.VC_I18N = {
 
     'hero.badge': 'Directo del Fabricante · Calidad CE',
     'hero.title': 'Ventanas y puertas a medida en <em>PVC, madera y aluminio</em>',
-    'hero.sub': 'Configura online en 5 minutos y recibe tu presupuesto en poco tiempo. Producción europea certificada, entrega en toda Italia. Toma de medidas a domicilio bajo petición.',
+    'hero.sub': 'Configura online en 5 minutos y recibe tu presupuesto en poco tiempo. Producción europea certificada, entrega en toda Italia. Toma de medidas a domicilio en Treviso y provincia.',
     'hero.ctaPrimary': 'Configura Ahora, Gratis',
     'hero.ctaSecondary': 'Descubre los Productos',
     'hero.stat1Label': 'Ventanas instaladas',
@@ -904,7 +904,7 @@ window.VC_I18N = {
 
     'hero.badge': 'Direto do Fabricante · Qualidade CE',
     'hero.title': 'Janelas e portas em <em>PVC, madeira e alumínio</em> à medida',
-    'hero.sub': 'Configure online em 5 minutos e receba o seu orçamento pouco depois. Produção europeia certificada, entrega em toda a Itália. Levantamento de medidas ao domicílio mediante pedido.',
+    'hero.sub': 'Configure online em 5 minutos e receba o seu orçamento pouco depois. Produção europeia certificada, entrega em toda a Itália. Levantamento de medidas ao domicílio em Treviso e província.',
     'hero.ctaPrimary': 'Configurar Agora, Grátis',
     'hero.ctaSecondary': 'Descobrir os Produtos',
     'hero.stat1Label': 'Janelas instaladas',

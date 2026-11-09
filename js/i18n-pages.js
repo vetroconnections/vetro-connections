@@ -6,7 +6,7 @@
 (function () {
   const extra = {
     it: {
-      'pg.title': 'Progetti Realizzati | Vetro Connections',
+      'pg.title': 'Progetti Realizzati a Treviso e Provincia | Vetro Connections',
       'pg.langAria': 'Cambia lingua',
       'pg.heroBadge': 'Installazioni Reali · Portfolio',
       'pg.heroTitle': `I nostri <em>progetti realizzati</em> in tutto il Trevigiano`,

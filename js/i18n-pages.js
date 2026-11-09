@@ -57,7 +57,7 @@
 
       'priv.sub': 'Informativa sul trattamento dei dati personali ai sensi degli artt. 13-14 del Regolamento (UE) 2016/679 (GDPR)',
       'priv.updated': 'Ultimo aggiornamento: 5 settembre 2026',
-      'priv.intro': `La presente informativa descrive le modalità di trattamento dei dati personali degli utenti che visitano il sito <strong>vetroconnections.it</strong> (di seguito, il "Sito") e di coloro che utilizzano il configuratore online o i moduli di contatto, in conformità al Regolamento (UE) 2016/679 ("GDPR") e al D.Lgs. 196/2003 come modificato dal D.Lgs. 101/2018 ("Codice Privacy").`,
+      'priv.intro': `La presente informativa descrive le modalità di trattamento dei dati personali degli utenti che visitano il sito <strong>vetroconnections.com</strong> (di seguito, il "Sito") e di coloro che utilizzano il configuratore online o i moduli di contatto, in conformità al Regolamento (UE) 2016/679 ("GDPR") e al D.Lgs. 196/2003 come modificato dal D.Lgs. 101/2018 ("Codice Privacy").`,
       'priv.h1': '1. Titolare del trattamento',
       'priv.ownerIntro': 'Il Titolare del trattamento dei dati è:',
       'priv.owner': `<strong>Vetro Connections</strong><br>Via Levada 34, 31050 Povegliano (TV), Italia<br>P.IVA: 05516400263<br>Email: <a class="inline-link" href="mailto:vetroconnections@gmail.com">vetroconnections@gmail.com</a><br>Telefono: <a class="inline-link" href="tel:+393455086065">+39 345 5086065</a>`,
@@ -99,7 +99,6 @@
       'priv.p7': 'Adottiamo misure tecniche e organizzative adeguate a proteggere i dati personali da accessi non autorizzati, perdita, distruzione o divulgazione, in linea con i principi di integrità e riservatezza del GDPR. Le comunicazioni tra il browser dell\'utente e il Sito avvengono tramite protocollo sicuro HTTPS.',
       'priv.h8': '8. Modifiche alla presente informativa',
       'priv.p8': 'Questa informativa può essere aggiornata periodicamente per riflettere modifiche normative o cambiamenti nelle modalità di trattamento dei dati. La data di ultimo aggiornamento è indicata in cima alla pagina. Ti invitiamo a consultarla periodicamente.',
-      'priv.note': `<strong>Nota:</strong> questo documento fornisce un'informativa privacy di base costruita sulle effettive modalità di raccolta dati di questo sito. Per una piena conformità normativa alla tua specifica situazione aziendale, ti consigliamo di farla rivedere da un consulente legale o dal tuo commercialista prima della pubblicazione definitiva.`
     },
 
     en: {
@@ -154,7 +153,7 @@
 
       'priv.sub': 'Information on the processing of personal data pursuant to Articles 13-14 of Regulation (EU) 2016/679 (GDPR)',
       'priv.updated': 'Last updated: 5 September 2026',
-      'priv.intro': `This notice describes how personal data of users who visit the website <strong>vetroconnections.it</strong> (the "Website") and of those who use the online configurator or the contact forms is processed, in accordance with Regulation (EU) 2016/679 ("GDPR") and Italian Legislative Decree 196/2003 as amended by Legislative Decree 101/2018 ("Privacy Code").`,
+      'priv.intro': `This notice describes how personal data of users who visit the website <strong>vetroconnections.com</strong> (the "Website") and of those who use the online configurator or the contact forms is processed, in accordance with Regulation (EU) 2016/679 ("GDPR") and Italian Legislative Decree 196/2003 as amended by Legislative Decree 101/2018 ("Privacy Code").`,
       'priv.h1': '1. Data controller',
       'priv.ownerIntro': 'The Data Controller is:',
       'priv.owner': `<strong>Vetro Connections</strong><br>Via Levada 34, 31050 Povegliano (TV), Italy<br>VAT no.: 05516400263<br>Email: <a class="inline-link" href="mailto:vetroconnections@gmail.com">vetroconnections@gmail.com</a><br>Phone: <a class="inline-link" href="tel:+393455086065">+39 345 5086065</a>`,
@@ -196,7 +195,6 @@
       'priv.p7': 'We adopt appropriate technical and organisational measures to protect personal data from unauthorised access, loss, destruction or disclosure, in line with the GDPR principles of integrity and confidentiality. Communications between the user\'s browser and the Website take place over the secure HTTPS protocol.',
       'priv.h8': '8. Changes to this notice',
       'priv.p8': 'This notice may be updated periodically to reflect regulatory changes or changes in how data is processed. The date of the last update is shown at the top of the page. We invite you to check it periodically.',
-      'priv.note': `<strong>Note:</strong> this document provides a basic privacy notice built on this website's actual data collection practices. For full legal compliance with your specific business situation, we recommend having it reviewed by a legal advisor or your accountant before final publication.`
     },
 
     es: {
@@ -251,7 +249,7 @@
 
       'priv.sub': 'Información sobre el tratamiento de datos personales conforme a los arts. 13-14 del Reglamento (UE) 2016/679 (RGPD)',
       'priv.updated': 'Última actualización: 5 de septiembre de 2026',
-      'priv.intro': `Esta información describe cómo se tratan los datos personales de los usuarios que visitan el sitio <strong>vetroconnections.it</strong> (en adelante, el "Sitio") y de quienes utilizan el configurador online o los formularios de contacto, de conformidad con el Reglamento (UE) 2016/679 ("RGPD") y el Decreto Legislativo italiano 196/2003, modificado por el Decreto Legislativo 101/2018 ("Código de Privacidad").`,
+      'priv.intro': `Esta información describe cómo se tratan los datos personales de los usuarios que visitan el sitio <strong>vetroconnections.com</strong> (en adelante, el "Sitio") y de quienes utilizan el configurador online o los formularios de contacto, de conformidad con el Reglamento (UE) 2016/679 ("RGPD") y el Decreto Legislativo italiano 196/2003, modificado por el Decreto Legislativo 101/2018 ("Código de Privacidad").`,
       'priv.h1': '1. Responsable del tratamiento',
       'priv.ownerIntro': 'El Responsable del tratamiento de los datos es:',
       'priv.owner': `<strong>Vetro Connections</strong><br>Via Levada 34, 31050 Povegliano (TV), Italia<br>NIF/IVA: 05516400263<br>Email: <a class="inline-link" href="mailto:vetroconnections@gmail.com">vetroconnections@gmail.com</a><br>Teléfono: <a class="inline-link" href="tel:+393455086065">+39 345 5086065</a>`,
@@ -293,7 +291,6 @@
       'priv.p7': 'Adoptamos medidas técnicas y organizativas adecuadas para proteger los datos personales frente al acceso no autorizado, la pérdida, la destrucción o la divulgación, conforme a los principios de integridad y confidencialidad del RGPD. Las comunicaciones entre el navegador del usuario y el Sitio se realizan mediante el protocolo seguro HTTPS.',
       'priv.h8': '8. Modificaciones de esta información',
       'priv.p8': 'Esta información puede actualizarse periódicamente para reflejar cambios normativos o cambios en las modalidades de tratamiento de los datos. La fecha de la última actualización figura al inicio de la página. Te invitamos a consultarla periódicamente.',
-      'priv.note': `<strong>Nota:</strong> este documento ofrece una información de privacidad básica elaborada a partir de las modalidades reales de recogida de datos de este sitio. Para un cumplimiento normativo pleno adaptado a tu situación empresarial concreta, te recomendamos que la revise un asesor jurídico o tu gestor antes de la publicación definitiva.`
     },
 
     pt: {
@@ -348,7 +345,7 @@
 
       'priv.sub': 'Informação sobre o tratamento de dados pessoais nos termos dos arts. 13.º-14.º do Regulamento (UE) 2016/679 (RGPD)',
       'priv.updated': 'Última atualização: 5 de setembro de 2026',
-      'priv.intro': `A presente informação descreve o modo como são tratados os dados pessoais dos utilizadores que visitam o site <strong>vetroconnections.it</strong> (doravante, o "Site") e daqueles que utilizam o configurador online ou os formulários de contacto, em conformidade com o Regulamento (UE) 2016/679 ("RGPD") e com o Decreto Legislativo italiano 196/2003, alterado pelo Decreto Legislativo 101/2018 ("Código da Privacidade").`,
+      'priv.intro': `A presente informação descreve o modo como são tratados os dados pessoais dos utilizadores que visitam o site <strong>vetroconnections.com</strong> (doravante, o "Site") e daqueles que utilizam o configurador online ou os formulários de contacto, em conformidade com o Regulamento (UE) 2016/679 ("RGPD") e com o Decreto Legislativo italiano 196/2003, alterado pelo Decreto Legislativo 101/2018 ("Código da Privacidade").`,
       'priv.h1': '1. Responsável pelo tratamento',
       'priv.ownerIntro': 'O Responsável pelo tratamento dos dados é:',
       'priv.owner': `<strong>Vetro Connections</strong><br>Via Levada 34, 31050 Povegliano (TV), Itália<br>NIF: 05516400263<br>Email: <a class="inline-link" href="mailto:vetroconnections@gmail.com">vetroconnections@gmail.com</a><br>Telefone: <a class="inline-link" href="tel:+393455086065">+39 345 5086065</a>`,
@@ -390,7 +387,6 @@
       'priv.p7': 'Adotamos medidas técnicas e organizativas adequadas para proteger os dados pessoais contra acessos não autorizados, perda, destruição ou divulgação, em conformidade com os princípios de integridade e confidencialidade do RGPD. As comunicações entre o navegador do utilizador e o Site são efetuadas através do protocolo seguro HTTPS.',
       'priv.h8': '8. Alterações à presente informação',
       'priv.p8': 'Esta informação pode ser atualizada periodicamente para refletir alterações legislativas ou mudanças no modo de tratamento dos dados. A data da última atualização é indicada no topo da página. Convidamo-lo a consultá-la periodicamente.',
-      'priv.note': `<strong>Nota:</strong> este documento fornece uma informação de privacidade básica construída com base nas modalidades reais de recolha de dados deste site. Para uma plena conformidade legal com a sua situação empresarial específica, recomendamos que seja revista por um consultor jurídico ou pelo seu contabilista antes da publicação definitiva.`
     }
   };
 
